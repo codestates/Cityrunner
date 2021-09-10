@@ -1,0 +1,1 @@
+// posts, filterPage, getPost, updatePost, deletePost
