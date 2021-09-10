@@ -1,7 +1,7 @@
 ---
 name: todo list
 about: Describe this issue template's purpose here.
-title: "[server:clinet] 기능"
+title: "[server:client] 기능"
 labels: ''
 assignees: ''
 
