@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.chattingRoom.belongsTo(model.user);
-      models.chattingRoom.belongsTo(model.post);
-      models.chattingRoom.hasMany(model.chattingLog);
+      models.chattingRoom.belongsTo(models.user);
+      models.chattingRoom.belongsTo(models.post);
+      models.chattingRoom.hasMany(models.chattingLog);
     }
   };
   chattingRoom.init({
