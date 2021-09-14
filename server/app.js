@@ -4,16 +4,18 @@ const cors = require('cors');
 const cookieParser = require("cookie-parser");
 const port = 4000;
 
-const userRouter = require('./Router/userRouter')
-const chatRouter = require('./Router/chatRouter')
-const mypageRouter = require('./Router/mypageRouter')
-const mycrewRouter = require('./Router/mycrewRouter')
-const postsRouter = require('./Router/postsRouter')
+const userRouter = require('./Router/userRouter');
+const chatRouter = require('./Router/chatRouter');
+const mypageRouter = require('./Router/mypageRouter');
+const mycrewRouter = require('./Router/mycrewRouter');
+const postsRouter = require('./Router/postsRouter');
 
 app.use(cors({
   origin : ['http://localhost:3000'],
   credentials : true
 }));
+app.use(express.json())
+app.use(express.urlencoded({extended:false}));
 app.use(cookieParser());
 
 app.get('/', (req, res) => {
