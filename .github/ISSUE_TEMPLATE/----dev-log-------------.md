@@ -3,7 +3,9 @@ name: "[✍️ Dev Log][이름] / [년월일]"
 about: Describe this issue template's purpose here.
 title: "[✍️ Dev Log][이름] / [년월일]"
 labels: Dev-log
+
 assignees: ''
+
 
 ---
 
