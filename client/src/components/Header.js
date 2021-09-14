@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { theme } from "../themes/theme";
-import Signup from "./Signup";
+import { Signup } from "./Modal/Signup";
 import { LoginModal } from "./Modal/LoginModal";
 
 const Container = styled.header`
@@ -59,14 +59,13 @@ export const Header = () => {
           <h4 className="logout-btn" onClick={handleSignupModal}>
             회원가입
           </h4>
-          <Signup
-            isOpen={showSignupModal}
-            setShowSignupModal={setShowSignupModal}
-          />
         </RightSide>
       </Container>
       <div onClick={handleCloseModal}>
         {isModal ? <LoginModal></LoginModal> : null}
+      </div>
+      <div onClick={handleSignupModal}>
+        {showSignupModal ? <Signup></Signup> : null}
       </div>
     </>
   );
