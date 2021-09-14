@@ -12,6 +12,7 @@ module.exports = {
       password : password
       }
     })
+    
     return  !data ? res.status(409).json({message:"잘못된 정보입니다"}) :
                       res.status(200).json({data:data,message:"로그인 성공"})
     
@@ -20,6 +21,7 @@ module.exports = {
   logout : async (req, res) => {
     //Get
     // 헤더에 토큰이 있어야함
+    
     return res.status(200).json({message:"로그아웃 성공"}) 
   },
 
@@ -34,9 +36,6 @@ module.exports = {
 
     let checkEmail = await models.user.findOne({where:{email:email}})
     let checkUsername = await models.user.findOne({where:{username:username}})
-    let data = await models.user.findAll({where:{email:email,username:username}})
-    
-    console.log(data)
 
     if(checkEmail || checkUsername) return res.status(409).json({message:"이미 존재하는 이메일,닉네임 입니다"})
 
@@ -45,8 +44,10 @@ module.exports = {
       password:password,
       username:username
     })
+    
     return res.status(200).json({message:"회원 가입 성공"})
   },
+  
   check : async (req, res) => {
     //Post
 
@@ -59,6 +60,7 @@ module.exports = {
     return data ? res.status(409).json({message:"중복된 닉네임입니다"})
                  : res.status(200).json({message:"사용할 수 있는 닉네입니다"})
   },
+  
   signout : async (req, res) => {
     //Delete
     // 쿠키에 token을 받아서 유저 정보 받아야 함
