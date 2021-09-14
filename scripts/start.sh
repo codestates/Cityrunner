@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /home/ubuntu/im-sprint-practice-deploy/server
+cd /home/ubuntu/Cityrunner/server
 pm2 start app.js
