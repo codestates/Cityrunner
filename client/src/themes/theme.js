@@ -7,10 +7,10 @@ const color = {
 };
 
 const line = {
-	gray: "#e9ecef",
+  gray: "#e9ecef",
 };
 
 export const theme = {
-	color,
-	line,
+  color,
+  line,
 };

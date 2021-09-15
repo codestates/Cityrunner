@@ -2,7 +2,7 @@
 name: "[Guide] Error Handling Card 마크다운 템플릿"
 about: Describe this issue template's purpose here.
 title: "[Guide] Error Handling Card 마크다운 템플릿"
-labels: ''
+labels: Error
 assignees: ''
 
 ---
