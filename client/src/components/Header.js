@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { theme } from "../themes/theme";
@@ -16,16 +16,16 @@ const Container = styled.header`
 `;
 
 const RightSide = styled.div`
-  display: flex;
-  margin-right: 4rem;
-  .login-btn {
-    cursor: pointer;
-    margin-right: 2rem;
-    :hover {
-      color: #ced4da;
-      transition: 0.1s;
-    }
-  }
+	display: flex;
+	margin-right: 4rem;
+	.login-btn {
+		cursor: pointer;
+		margin-right: 2rem;
+		:hover {
+			color: ${theme.color.hovergray};
+			transition: 0.1s;
+		}
+	}
 `;
 
 const LeftSide = styled.div`
@@ -46,6 +46,16 @@ export const Header = () => {
     setisModal(false);
   };
 
+	useEffect(() => {
+		const close = (e) => {
+			if (e.keyCode === 27) {
+				handleCloseModal();
+			}
+		};
+		window.addEventListener("keydown", close);
+		return () => window.removeEventListener("keydown", close);
+	}, []);
+  
   return (
     <>
       <Container>
