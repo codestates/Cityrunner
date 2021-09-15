@@ -21,7 +21,6 @@ const Contanier = styled.div`
 		margin-right: 7rem;
 		color: ${theme.color.gray};
 	}
-
 `;
 
 export const MainSecond = () => {
