@@ -13,8 +13,3 @@ export const GlobalStyles = createGlobalStyle`
   }
 `;
 
-export const CloesModal = styled.div`
-	float: right;
-	cursor: pointer;
-	font-size: 200px;
-`;

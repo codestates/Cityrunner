@@ -7,17 +7,18 @@ const Contanier = styled.div`
 	padding-top: 7rem;
 	margin-bottom: 60vh;
 	img {
+		object-fit: cover;
 		float: right;
 		width: 60%;
 	}
 	h1 {
 		margin-top: 8rem;
-		margin-left: 7rem;
+		margin-left: 5rem;
 		margin-right: 7rem;
 	}
 	h3 {
-		margin-left: 7rem;
-		margin-right: 4rem;
+		margin-left: 8rem;
+		margin-right: 7rem;
 		color: ${theme.color.gray};
 	}
 `;

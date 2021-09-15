@@ -1,24 +1,24 @@
 import React from "react";
 import styled from "styled-components";
+import { flexCenter } from "../../themes/flex";
 import { theme } from "../../themes/theme";
 
 const Contanier = styled.div`
-	width: 100%;
-	padding-top: 2rem;
+	width: 100vw;
+	padding-top: 4rem;
+	img {
+		width: 100%;
+	}
 `;
 
 const Title = styled.h1`
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	${flexCenter}
 	margin-top: 5rem;
 	margin-bottom: 3rem;
 `;
 
 const StartBtn = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	${flexCenter}
 	margin-bottom: 25vh;
 	.btn {
 		color: #f5f5f3;
