@@ -11,7 +11,7 @@ export const LoginModal = () => {
 		password: "",
 	});
 	const history = useHistory();
-	const onClickLogin = (key) => (e) => {
+	const onChangeLogin = (key) => (e) => {
 		setLoginInfo({ ...loginInfo, [key]: e.target.value });
 	};
 
@@ -29,9 +29,6 @@ export const LoginModal = () => {
 					return;
 				}
 			});
-		// .then(() => {
-		// 	return history.pushState("/Matching");
-		// });
 	};
 
 	return (
@@ -44,13 +41,13 @@ export const LoginModal = () => {
 						<input
 							type="email"
 							placeholder="email"
-							onChange={onClickLogin("email")}
+							onChange={onChangeLogin("email")}
 						></input>
 						<h5>비밀번호</h5>
 						<input
 							type="password"
 							placeholder="password"
-							onChange={onClickLogin("password")}
+							onChange={onChangeLogin("password")}
 						></input>
 					</LoginInput>
 					<LoginBtn>
