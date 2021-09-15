@@ -12,3 +12,4 @@ export const GlobalStyles = createGlobalStyle`
     cursor: pointer;
   }
 `;
+

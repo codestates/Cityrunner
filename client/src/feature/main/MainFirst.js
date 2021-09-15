@@ -3,8 +3,11 @@ import styled from "styled-components";
 import { theme } from "../../themes/theme";
 
 const Contanier = styled.div`
-	width: 100%;
-	padding-top: 2rem;
+	width: 100vw;
+	padding-top: 4rem;
+	img {
+		width: 100%;
+	}
 `;
 
 const Title = styled.h1`
