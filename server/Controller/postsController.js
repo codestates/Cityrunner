@@ -1,16 +1,24 @@
 const { user, post } = require('../models');
+const { verifyAccessToken } = require('./Functions/tokenFunction');
 
 module.exports = {
   post: async (req, res) => {
     // router.post('/', posts);
     // 글쓰기
-    // const { level, distance, time, max, title, comment, location } = req.body;
-    // 쿠키에 담겨있는 토큰을 해독해서 userId를 얻는다 -> postManager
-    // post 테이블에 레코드를 추가한다.
-
-    // 200
-    // 400 -> 유효하지 않은 토큰?
-    // 500
+    try {
+      const { level, distance, time, max, title, comment, location } = req.body;
+      const result = verifyAccessToken(req);
+      if (!result) {
+        res.status(400).send({ message : '잘못된 요청입니다' });
+        return;
+      }
+      const postInfo = { level, distance, time, max, title, comment, location, postManager : result.id };
+      await post.create(postInfo);
+      res.status(200).send({ message : '글이 생성되었습니다' });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send(err);
+    }
   },
   filterPage: async (req, res) => {
     // router.get('/:page?time=&level=&location=', filterPage);
@@ -22,7 +30,23 @@ module.exports = {
   getPost: async (req, res) => {
     // router.get('/:postId', getPost);
     // 글 하나 가져오기
-    // const postId = req.params.postId;
+    try {
+      const postId = req.params.postId;
+      // console.log(postId)
+      const result = verifyAccessToken(req);
+      console.log(result)
+      if (!postId || !result) {
+        res.status(400).send({ message : '잘못된 요청입니다'});
+        return;
+      }
+      const postInfo = await post.findOne({
+      }); // , data : postInfo
+      console.log(postInfo)
+      res.status(200).send({ message : '성공적으로 글을 가져왔습니다.' });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send(err);
+    }
     // token 제대로인지 먼저 판별
     // params에 제대로 담겨있는지 판별
     // posts 테이블에서 postId 일치하는 항목 전체 가져와서 전달하기 -> findOne

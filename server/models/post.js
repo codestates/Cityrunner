@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.post.belongsTo(models.user);
-      models.post.hasOne(models.chattingRoom);
+      models.post.belongsTo(models.user, {foreignKey : 'postManager'});
+      models.post.hasOne(models.chattingRoom, {foreignKey : 'postId'});
     }
   };
   post.init({
