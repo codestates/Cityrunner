@@ -10,6 +10,8 @@ const mypageRouter = require('./Router/mypageRouter');
 const mycrewRouter = require('./Router/mycrewRouter');
 const postsRouter = require('./Router/postsRouter');
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cors({
   origin : ['http://localhost:3000'],
   credentials : true
@@ -26,5 +28,5 @@ app.use('/mycrew', mycrewRouter);
 app.use('/posts', postsRouter);
 
 app.listen(port, () => {
-  console.log(`listening at => http://localhost.com/${port}`)
+  console.log(`listening at => http://localhost.com:${port}`)
 })
