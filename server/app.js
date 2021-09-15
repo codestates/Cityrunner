@@ -6,6 +6,10 @@ const cookieParser = require("cookie-parser");
 const multer =require("multer")
 const upload = multer({ dest: 'upload/'})
 const {uploadFile,getFileStream} = require('./s3')
+const fs = require('fs')
+const util = require('util')
+// 비동기로 돌리려는 함수를 promise로 감싸주지 않고 사용할 수 있다 util.promisify
+const unlinkFile = util.promisify(fs.unlink)
 const port = 4000;
 
 const userRouter = require('./Router/userRouter');
@@ -24,19 +28,18 @@ app.use(cors({
 
 
 app.get('/images/:key',(req,res)=>{
+
   const key = req.params.key
   const readStream = getFileStream(key)
-  console.log('testsetsetset')
-  console.log(readStream,'시작함 readStream')
+  
   readStream.pipe(res)
 })
 
 app.post('/images', upload.single('image'), async (req,res) =>{
   const file = req.file
-  //console.log(file)
   const result = await uploadFile(file)
-  //console.log(result)
-  const description = req.body.description 
+  await unlinkFile(file.path)
+  
   res.send({imagePath:`images/${result.Key}`})
 })
 
