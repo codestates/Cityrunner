@@ -1,5 +1,7 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { flexCenter } from "../../themes/flex";
 import { theme } from "../../themes/theme";
 
 const Contanier = styled.div`
@@ -11,17 +13,13 @@ const Contanier = styled.div`
 `;
 
 const Title = styled.h1`
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	${flexCenter}
 	margin-top: 5rem;
 	margin-bottom: 3rem;
 `;
 
 const StartBtn = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	${flexCenter}
 	margin-bottom: 25vh;
 	.btn {
 		color: #f5f5f3;
@@ -44,12 +42,15 @@ const StartBtn = styled.div`
 `;
 
 export const MainFirst = () => {
+	const history = useHistory();
 	return (
 		<Contanier>
 			<img src="img/Runner.png"></img>
 			<Title>오늘하루 같이 함께할 런닝크루를 만들어보세요!</Title>
 			<StartBtn>
-				<button className="btn">시작하기</button>
+				<button className="btn" onClick={() => history.push("/Matching")}>
+					시작하기
+				</button>
 			</StartBtn>
 		</Contanier>
 	);

@@ -11,10 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.user.hasMany(models.post);
-      models.user.hasMany(models.chattingLog);
-      models.user.hasMany(models.userMedal);
-      models.user.hasMany(models.chattingRoom);
+      models.user.hasMany(models.post, {foreignKey : 'postManager'});
+      models.user.hasMany(models.chattingLog, {foreignKey : 'memberId'});
+      models.user.hasMany(models.userMedal, {foreignKey : 'userId'});
+      models.user.hasMany(models.chattingRoom, {foreignKey : 'memberId'});
     }
   };
   user.init({
@@ -29,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     username: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    refreshToken: {
+      type: DataTypes.STRING
     }
   }, {
     sequelize,

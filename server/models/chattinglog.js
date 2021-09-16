@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.chattingLog.belongsTo(models.user);
-      models.chattingLog.belongsTo(models.chattingRoom);
+      models.chattingLog.belongsTo(models.user, {foreignKey : 'memberId'});
+      models.chattingLog.belongsTo(models.chattingRoom, {foreignKey : 'chattingRoomId'});
     }
   };
   chattingLog.init({

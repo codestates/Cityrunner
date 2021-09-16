@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.medal.hasMany(models.userMedal);
+      models.medal.hasMany(models.userMedal, {foreignKey : 'medalId'});
     }
   };
   medal.init({

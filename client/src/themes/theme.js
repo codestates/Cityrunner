@@ -1,8 +1,9 @@
 const color = {
-  withe: "#e9ecef",
-  black: "#343a40",
-  gray: "#495057",
-  green: "#21c897",
+	withe: "#e9ecef",
+	black: "#343a40",
+	gray: "#495057",
+	hovergray: "#ced4da",
+	green: "#21c897",
 };
 
 const line = {
