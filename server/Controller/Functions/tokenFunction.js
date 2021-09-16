@@ -7,13 +7,13 @@ module.exports = {
   generateAccessToken : (data) => {
     // accessToken을 생성합니다.
     // data : users 테이블의 id(index)
-    return jwt.sign({id : data}, process.env.ACCESS_SECRET, { expiresIn : '1m' }); // 30 -> 30초
+    return jwt.sign({id : data}, process.env.ACCESS_SECRET, { expiresIn : '1d' }); // 30 -> 30초
   },
 
   generateRefreshToken : (data) => {
     // refreshToken을 생성합니다.
     // data : users 테이블의 id(index)
-    return jwt.sign({id: data}, process.env.REFRESH_SECRET, { expiresIn : '5m' }); // 숫자만 적으면 초 단위
+    return jwt.sign({id: data}, process.env.REFRESH_SECRET, { expiresIn : '7d' }); // 숫자만 적으면 초 단위
   },
 
   sendAccessToken : (res, accessToken) => {
