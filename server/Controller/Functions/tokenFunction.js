@@ -7,13 +7,13 @@ module.exports = {
   generateAccessToken : (data) => {
     // accessToken을 생성합니다.
     // data : users 테이블의 id(index)
-    return jwt.sign({id : data}, process.env.ACCESS_SECRET, { expiresIn : '1d' }); // 30 -> 30초
+    return jwt.sign({id : data}, process.env.ACCESS_SECRET, { expiresIn : '1m' }); // 30 -> 30초
   },
 
   generateRefreshToken : (data) => {
     // refreshToken을 생성합니다.
     // data : users 테이블의 id(index)
-    return jwt.sign({id: data}, process.env.REFRESH_SECRET, { expiresIn : '7d' }); // 숫자만 적으면 초 단위
+    return jwt.sign({id: data}, process.env.REFRESH_SECRET, { expiresIn : '5m' }); // 숫자만 적으면 초 단위
   },
 
   sendAccessToken : (res, accessToken) => {
@@ -84,5 +84,47 @@ module.exports = {
         id : data
       }
     });
+  },
+
+  autoManageAccessToken : async (req, res) => {
+    // 생산과 삭제를 제외한 모든 과정을 진행합니다.
+    // verify AccessToken
+      //-> 유효한 토큰 -> verify의 결과를 리턴
+      //-> 유효하지 않은 토큰 -> decode Token 실행으로 id값 취득 -> DB에서 Refresh Token 찾은 뒤 verify
+          // refresh Token 유효 -> access Token 재생산 및 cookie로 전송 (업데이트) -> refresh의 verify 결과값 리턴
+          // refresh Token 유효 X -> null 리턴
+    //! 요약
+    // 어찌저찌 유효한 상태 -> verify의 결과 리턴
+    // err || 모든게 유효하지 않은 상태 -> null 리턴
+    try {
+      const accessToken = req.cookies.accessToken;
+      const accessData = jwt.verify(accessToken, process.env.ACCESS_SECRET, (err, decode) => {
+        if (err) return err.message;
+        return decode;
+      });
+      if (typeof accessData === 'string') {
+        const decode = jwt.decode(accessToken, { complete: true });
+        const userInfo = await user.findOne({
+          where : {
+            id : decode.payload.id
+          }
+        });
+        const refreshData = jwt.verify(userInfo.refreshToken, process.env.REFRESH_SECRET);
+        if (!refreshData) {
+          return null;
+        } else {
+          const newAccessToken = jwt.sign(decode.payload.id, process.env.ACCESS_SECRET);
+          res.cookie('accessToken', newAccessToken, {
+            httpOnly : true,
+            maxAge : 60 * 60 * 24 * 1000
+          });
+          return refreshData;
+        }
+      } else {
+        return accessData;
+      }
+    } catch (err) {
+      return null;
+    }
   }
 }
