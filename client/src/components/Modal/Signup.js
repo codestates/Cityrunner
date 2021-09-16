@@ -65,23 +65,39 @@ const LoginBtn = styled.div`
   }
 `;
 
-export const Signup = () => {
+export const Signup = (props) => {
   const [SignupInfo, setSignupInfo] = useState({
     email: "",
     password: "",
     username: "",
   });
+  const CloseSignup = () => {
+    props.setShowSignupModal(false);
+  };
   const OnClick = (key) => (e) => {
     setSignupInfo({ ...SignupInfo, [key]: e.target.value });
   };
   const SignupButton = () => {
-    console.log(SignupInfo);
+    if (!SignupInfo.email && !SignupInfo.password && !SignupInfo.username) {
+      alert("모든 값을 입력해주세요.");
+    }
     axios
       .post(`http://localhost:4000/user/signup`, SignupInfo, {
         withCredentials: true,
       })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          CloseSignup();
+          alert("회원가입에 성공하였습니다.");
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 409) {
+          alert("이미 존재하는 이메일,닉네임 입니다");
+          return;
+        }
+      });
   };
   return (
     <>

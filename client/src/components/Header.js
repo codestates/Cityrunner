@@ -35,7 +35,6 @@ export const Header = () => {
   const [showSignupModal, setShowSignupModal] = useState(false);
   const handleSignupModal = () => {
     setShowSignupModal(!showSignupModal);
-    console.log("click");
   };
   const [isModal, setisModal] = useState(false);
   const handleModal = () => {
@@ -74,7 +73,9 @@ export const Header = () => {
         {isModal ? <LoginModal></LoginModal> : null}
       </div>
       <div onClick={handleSignupModal}>
-        {showSignupModal ? <Signup></Signup> : null}
+        {showSignupModal ? (
+          <Signup setShowSignupModal={setShowSignupModal}></Signup>
+        ) : null}
       </div>
     </>
   );
