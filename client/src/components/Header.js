@@ -56,7 +56,7 @@ export const Header = () => {
           <h4 className="login-btn" onClick={handleModal}>
             로그인
           </h4>
-          <h4 className="logout-btn" onClick={handleSignupModal}>
+          <h4 className="login-btn" onClick={handleSignupModal}>
             회원가입
           </h4>
         </RightSide>
