@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { flexCenter } from "../themes/flex";
 import { theme } from "../themes/theme";
 
 const Contanier = styled.div`
@@ -30,8 +31,7 @@ const About = styled.ul`
 	}
 `;
 const Since = styled.div`
-	display: flex;
-	justify-content: center;
+	${flexCenter}
 	margin-top: 17rem;
 	font-size: 0.7rem;
 `;
