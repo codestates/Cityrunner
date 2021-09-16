@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
 import { theme } from "../themes/theme";
 import { Signup } from "./Modal/Signup";
 import { LoginModal } from "./Modal/LoginModal";
@@ -22,7 +21,7 @@ const RightSide = styled.div`
     cursor: pointer;
     margin-right: 2rem;
     :hover {
-      color: #ced4da;
+      color: ${theme.color.hovergray};
       transition: 0.1s;
     }
   }
@@ -36,7 +35,6 @@ export const Header = () => {
   const [showSignupModal, setShowSignupModal] = useState(false);
   const handleSignupModal = () => {
     setShowSignupModal(!showSignupModal);
-    console.log("click");
   };
   const [isModal, setisModal] = useState(false);
   const handleModal = () => {
@@ -45,6 +43,16 @@ export const Header = () => {
   const handleCloseModal = () => {
     setisModal(false);
   };
+
+  useEffect(() => {
+    const close = (e) => {
+      if (e.keyCode === 27) {
+        handleCloseModal();
+      }
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, []);
 
   return (
     <>
@@ -56,7 +64,7 @@ export const Header = () => {
           <h4 className="login-btn" onClick={handleModal}>
             로그인
           </h4>
-          <h4 className="logout-btn" onClick={handleSignupModal}>
+          <h4 className="login-btn" onClick={handleSignupModal}>
             회원가입
           </h4>
         </RightSide>
@@ -65,7 +73,9 @@ export const Header = () => {
         {isModal ? <LoginModal></LoginModal> : null}
       </div>
       <div onClick={handleSignupModal}>
-        {showSignupModal ? <Signup></Signup> : null}
+        {showSignupModal ? (
+          <Signup setShowSignupModal={setShowSignupModal}></Signup>
+        ) : null}
       </div>
     </>
   );
