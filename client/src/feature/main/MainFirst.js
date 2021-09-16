@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { flexCenter } from "../../themes/flex";
 import { theme } from "../../themes/theme";
@@ -41,12 +42,15 @@ const StartBtn = styled.div`
 `;
 
 export const MainFirst = () => {
+	const history = useHistory();
 	return (
 		<Contanier>
 			<img src="img/Runner.png"></img>
 			<Title>오늘하루 같이 함께할 런닝크루를 만들어보세요!</Title>
 			<StartBtn>
-				<button className="btn">시작하기</button>
+				<button className="btn" onClick={() => history.push("/Matching")}>
+					시작하기
+				</button>
 			</StartBtn>
 		</Contanier>
 	);

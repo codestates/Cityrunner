@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
 import { theme } from "../themes/theme";
 import { Signup } from "./Modal/Signup";
 import { LoginModal } from "./Modal/LoginModal";
@@ -22,7 +21,7 @@ const RightSide = styled.div`
     cursor: pointer;
     margin-right: 2rem;
     :hover {
-      color: #ced4da;
+      color: ${theme.color.hovergray};
       transition: 0.1s;
     }
   }
@@ -45,6 +44,16 @@ export const Header = () => {
   const handleCloseModal = () => {
     setisModal(false);
   };
+
+  useEffect(() => {
+    const close = (e) => {
+      if (e.keyCode === 27) {
+        handleCloseModal();
+      }
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, []);
 
   return (
     <>

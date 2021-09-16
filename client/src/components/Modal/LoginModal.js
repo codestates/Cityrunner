@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { flexCenter, flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
@@ -9,15 +10,25 @@ export const LoginModal = () => {
 		email: "",
 		password: "",
 	});
-
-	const onClickLogin = (key) => (e) => {
+	const history = useHistory();
+	const onChangeLogin = (key) => (e) => {
 		setLoginInfo({ ...loginInfo, [key]: e.target.value });
 	};
 
 	const onSignIn = () => {
-		axios.post(`http://localhost:3000/user/login`, loginInfo, {
-			withCredentials: true,
-		});
+		axios
+			.post(`http://localhost:4000/user/login`, loginInfo, {
+				withCredentials: true,
+			})
+			.then(() => {
+				return history.push("/Matching");
+			})
+			.catch((err) => {
+				if (err.response.status === 409) {
+					alert("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
+					return;
+				}
+			});
 	};
 
 	return (
@@ -30,13 +41,13 @@ export const LoginModal = () => {
 						<input
 							type="email"
 							placeholder="email"
-							onChange={onClickLogin("email")}
+							onChange={onChangeLogin("email")}
 						></input>
 						<h5>비밀번호</h5>
 						<input
 							type="password"
 							placeholder="password"
-							onChange={onClickLogin("password")}
+							onChange={onChangeLogin("password")}
 						></input>
 					</LoginInput>
 					<LoginBtn>

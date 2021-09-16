@@ -4,7 +4,7 @@ const{ posts, filterPage, getPost, updatePost, deletePost } = require('../Contro
 
 // router.post('/', posts);
 // router.get('/:page?time=&level=&location=', filterPage);
-// router.get('/:postId', getPost);
+router.get('/:postId', getPost);
 // router.patch('/:postId', updatePost);
 // router.delete('/:postId', deletePost);
 
