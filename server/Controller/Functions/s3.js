@@ -39,7 +39,7 @@ function getFileStream(fileKey){
         Key: fileKey,
         Bucket: bucketName
     }
-    console.log(s3.getObject(downloadParams).createReadStream(),'s3에서 console.log')
+    
     return s3.getObject(downloadParams).createReadStream()
 }
 exports.getFileStream = getFileStream
