@@ -15,6 +15,7 @@ const {
 module.exports = {
   login: async (req, res) => {
     //POST
+
     try{
       let email = req.body.email
       let password = req.body.password
@@ -23,6 +24,7 @@ module.exports = {
         where : {
         email : email,
         password : password
+
           }
     })
     
@@ -58,16 +60,16 @@ module.exports = {
   logout: async (req, res) => {
     //Get
 
+
     let data = verifyAccessToken(req)
     if(!data) return  res.status(409).json({message:"로그아웃 실패"})
     
     return res.status(200).clearCookie('accessToken').json({message:"로그아웃 성공"}) 
-
-
   },
 
   signup: async (req, res) => {
     //Post
+
 
     let email = req.body.email;
     let password = req.body.password;
@@ -80,23 +82,31 @@ module.exports = {
     let checkUsername = await models.user.findOne({
       where: { username: username },
     });
-
+    
     if (checkEmail || checkUsername)
       return res
         .status(409)
         .json({ message: "이미 존재하는 이메일,닉네임 입니다" });
 
     await models.user.create({
+
       email: email,
       password: password,
       username: username,
+      
     });
-
+    
     return res.status(200).json({ message: "회원 가입 성공" });
+    
   },
 
   check: async (req, res) => {
     //Post
+    try{
+      let username = req.body.username
+      let data = await models.user.findOne({where:{
+          username:username
+        }})
 
     let username = req.body.username;
 
@@ -113,6 +123,7 @@ module.exports = {
   signout: async (req, res) => {
     //Delete
     // 쿠키에 token을 받아서 유저 정보 받아야 함
+
     try{
       let data =await verifyAccessToken(req)
       if(!data) return res.status(409).json({message:"토큰 없어요"})
@@ -131,6 +142,7 @@ module.exports = {
     } catch(error) {
       console.log(error)
       return res.end("test")
+
     }
     
   },
