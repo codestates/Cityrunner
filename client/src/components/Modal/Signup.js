@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { theme } from "../../themes/theme";
 import { flexCenter, flexColum } from "../../themes/flex";
 import axios from "axios";
+import { flexCenter, flexColum } from "../../themes/flex";
 
 const ModalContainer = styled.div`
+
   position: fixed;
   left: 0;
   top: 0;
