@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.chattingRoom.belongsTo(models.user, {foreignKey : 'memberId'});
       models.chattingRoom.belongsTo(models.post, {foreignKey : 'postId'});
-      models.chattingRoom.hasMany(models.chattingLog, {foreignKey : 'chattingRoomId'});
     }
   };
   chattingRoom.init({

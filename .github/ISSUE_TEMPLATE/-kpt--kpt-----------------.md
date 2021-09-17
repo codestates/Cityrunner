@@ -1,5 +1,5 @@
 ---
-name: "[Guide] KPT 회고 이슈카드 마크다운 템플릿"
+name: "[KPT] KPT 회고 이슈카드 마크다운 템플릿"
 about: Describe this issue template's purpose here.
 title: "[Guide] KPT 회고 이슈카드 마크다운 템플릿"
 labels: KPT
