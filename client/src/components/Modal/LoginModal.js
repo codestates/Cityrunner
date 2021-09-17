@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { loginUser } from "../../redux/modules/user";
 import { flexCenter, flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
 
@@ -10,7 +12,9 @@ export const LoginModal = () => {
 		email: "",
 		password: "",
 	});
+	const dispatch = useDispatch();
 	const history = useHistory();
+
 	const onChangeLogin = (key) => (e) => {
 		setLoginInfo({ ...loginInfo, [key]: e.target.value });
 	};
@@ -29,6 +33,19 @@ export const LoginModal = () => {
 					return;
 				}
 			});
+
+		// dispatch(loginUser(loginInfo))
+		// 	.then((res) => {
+		// 		console.log(res);
+		// 		if (res.payload.loginSuccess) {
+		// 			history.push("/Matching");
+		// 		} else {
+		// 			console.log(res.payload.message);
+		// 		}
+		// 	})
+		// 	.catch((err) => {
+		// 		console.log(err);
+		// 	});
 	};
 
 	return (
@@ -75,7 +92,7 @@ const DialogBlock = styled.div`
 	height: 400px;
 	padding: 1rem;
 	background: white;
-	border-radius: 2px;
+	border-radius: 15px;
 	h3 {
 		${flexCenter}
 	}

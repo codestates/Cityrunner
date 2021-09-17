@@ -13,7 +13,7 @@ export const Matching = () => {
 		<>
 			<Header />
 			<Contanier>
-				<h1>어서오세요 매칭페이지 입니다!</h1>
+				<h1>매칭페이지 입니다 어서오세요</h1>
 			</Contanier>
 		</>
 	);

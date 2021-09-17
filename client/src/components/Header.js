@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { theme } from "../themes/theme";
 import { Signup } from "./Modal/Signup";
 import { LoginModal } from "./Modal/LoginModal";
+import { Link } from "react-router-dom";
 
 const Container = styled.header`
 	position: fixed;
@@ -59,7 +60,9 @@ export const Header = () => {
 		<>
 			<Container>
 				<LeftSide>
-					<h3>CityRunner</h3>
+					<Link to="/">
+						<h3>CityRunner</h3>
+					</Link>
 				</LeftSide>
 				<RightSide>
 					<h4 className="login-btn" onClick={handleModal}>
