@@ -1,4 +1,4 @@
-const { user, post, Sequelize } = require('../models');
+const { user, post, chattingRoom, Sequelize } = require('../models');
 const Op = Sequelize.Op;
 const {
   verifyAccessToken,
@@ -144,4 +144,62 @@ module.exports = {
       res.status(500).send(err);
     }
   },
+  joinCrew : async (req, res) => {
+    // router.put('/join/:postId', joinCrew);
+    // 크루 참여하기
+    try {
+      const postId = req.params.postId;
+      if (!postId) {
+        return res.status(400).json({message: '잘못된 요청입니다'})
+      }
+      const decode = await autoManageAccessToken(req, res);
+      if (!decode) {
+        return res.status(401).json({message : '권한이 없는 유저입니다'})
+      }
+      const checkPost = await post.findOne({
+        where : {
+          id : postId
+        }
+      });
+      if (!checkPost) {
+        return res.status(404).json({message : '해당하는 글을 찾을 수 없습니다'});
+      }
+      const [result, created] = await chattingRoom.findOrCreate({
+        where : {
+          memberId : decode.id,
+          postId : postId
+        }
+      });
+      if (!created) {
+        return res.status(409).json({message : '이미 참여한 크루입니다'});
+      } else {
+        return res.status(200).json({message : '크루에 참여하였습니다'});
+      }
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  },
+  exitCrew : async (req, res) => {
+    // router.delete('/exit/:postId', exitCrew);
+    // 크루 나가기
+    try {
+      const postId = req.params.postId;
+      if (!postId) {
+        return res.status(400).json({message: '잘못된 요청입니다'})
+      }
+      const decode = await autoManageAccessToken(req, res);
+      if (!decode) {
+        return res.status(401).json({message : '권한이 없는 유저입니다'})
+      }
+      await chattingRoom.destroy({
+        where : {
+          memberId: decode.id,
+          postId : postId
+        }
+      });
+      res.status(200).json({message : '크루에서 나갔습니다'});
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  }
 }
