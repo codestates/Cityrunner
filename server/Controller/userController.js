@@ -103,10 +103,6 @@ module.exports = {
   check: async (req, res) => {
     //Post
     try{
-      let username = req.body.username
-      let data = await models.user.findOne({where:{
-          username:username
-        }})
 
     let username = req.body.username;
 
