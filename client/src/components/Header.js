@@ -13,7 +13,6 @@ const Container = styled.header`
   display: flex;
   justify-content: space-between;
 `;
-
 const RightSide = styled.div`
   display: flex;
   margin-right: 4rem;
