@@ -51,7 +51,29 @@ module.exports = {
           postManager: 2,
           createdAt : new Date(),
           updatedAt : new Date()
-        },
+        },{
+          level: '상',
+          distance: 5,
+          time: 18,
+          max: 5,
+          title: '같이 달려요',
+          comment: '반포한강공원 어디서 만나나요',
+          location: '반포',
+          postManager: 2,
+          createdAt : new Date(),
+          updatedAt : new Date()
+        },{
+          level: '상',
+          distance: 12,
+          time: 20,
+          max: 5,
+          title: '같이 달려요',
+          comment: '반포한강공원 어디서 만나나요',
+          location: '반포',
+          postManager: 2,
+          createdAt : new Date(),
+          updatedAt : new Date()
+        }
       ])
   },
 
