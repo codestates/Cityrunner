@@ -108,13 +108,13 @@ module.exports = {
           username:username
         }})
 
-    let username = req.body.username;
+    // let username = req.body.username;
 
-    let data = await models.user.findOne({
-      where: {
-        username: username,
-      },
-    });
+    // let data = await models.user.findOne({
+    //   where: {
+    //     username: username,
+    //   },
+    // });
 
     return data ? res.status(409).json({message:"중복된 닉네임입니다"}) : res.status(200).json({message:"사용할 수 있는 닉네입니다"})
 
