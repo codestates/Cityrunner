@@ -41,7 +41,7 @@ module.exports = {
       if (!decode) {
         return res.status(401).json('권한이 없는 유저입니다');
       }
-      let offset = (page > 1) ? 10 * (page - 1): 0;
+      let offset = (page > 1) ? 10 * (page - 1): 1;
       const postList = await post.findAll({
         offset: offset,
         limit : 10
