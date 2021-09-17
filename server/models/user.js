@@ -32,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     refreshToken: {
       type: DataTypes.STRING
+    },
+    image: {
+      type: DataTypes.STRING,
+      defaultValue: 'default'
     }
   }, {
     sequelize,
