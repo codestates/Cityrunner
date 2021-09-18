@@ -20,32 +20,32 @@ export const LoginModal = () => {
 	};
 
 	const onSignIn = () => {
-		axios
-			.post(`http://localhost:4000/user/login`, loginInfo, {
-				withCredentials: true,
-			})
-			.then(() => {
-				return history.push("/Matching");
-			})
-			.catch((err) => {
-				if (err.response.status === 409) {
-					alert("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
-					return;
-				}
-			});
-
-		// dispatch(loginUser(loginInfo))
-		// 	.then((res) => {
-		// 		console.log(res);
-		// 		if (res.payload.loginSuccess) {
-		// 			history.push("/Matching");
-		// 		} else {
-		// 			console.log(res.payload.message);
-		// 		}
+		// axios
+		// 	.post(`http://localhost:4000/user/login`, loginInfo, {
+		// 		withCredentials: true,
+		// 	})
+		// 	.then(() => {
+		// 		return history.push("/Matching");
 		// 	})
 		// 	.catch((err) => {
-		// 		console.log(err);
+		// 		if (err.response.status === 409) {
+		// 			alert("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
+		// 			return;
+		// 		}
 		// 	});
+
+		dispatch(loginUser(loginInfo))
+			.then((res) => {
+				console.log(res);
+				if (res.payload.loginSuccess) {
+					history.push("/Matching");
+				} else {
+					console.log(res.payload.message);
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	return (
