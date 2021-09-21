@@ -10,7 +10,10 @@ export const GlobalStyles = createGlobalStyle`
   }
   button{
     cursor: pointer;
-  }
+	}
+	img{
+		width:100vw;
+	}
   a {
 		:visited {
 			text-decoration: none;
