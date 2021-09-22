@@ -28,7 +28,7 @@ export const loginUser = (dataToSubmit) => {
 };
 
 // 리듀서 함수
-export default function user(state, action) {
+export default function user(state = {}, action) {
 	switch (action.type) {
 		case REGISTER_USER:
 			return {
