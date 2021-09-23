@@ -10,6 +10,7 @@ const Contanier = styled.div`
 	display: flex;
 	justify-content: space-evenly;
 
+
 	@media ${theme.mobileS} {
 		${flexColum}
 		img {
@@ -20,6 +21,10 @@ const Contanier = styled.div`
 
 const InfoText = styled.ul`
 	margin-top: 1rem;
+
+
+
+
 	padding-right: 2rem;
 	li {
 		margin-top: 2rem;
@@ -38,6 +43,7 @@ const InfoText = styled.ul`
 const Iamge = styled.img`
 	width: 57%;
 `;
+
 export const MainSecond = () => {
 	return (
 		<Contanier>
@@ -51,5 +57,6 @@ export const MainSecond = () => {
 			</InfoText>
 			<Iamge src="img/crews.jpeg"></Iamge>
 		</Contanier>
+
 	);
 };

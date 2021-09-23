@@ -27,6 +27,7 @@ const RightSide = styled.div`
 			color: ${theme.color.hovergray};
 			transition: 0.1s;
 		}
+
 		@media ${theme.mobileS} {
 			display: none;
 		}
@@ -40,6 +41,10 @@ const Burgerbar = styled.div`
 		margin-top: 1.28rem;
 		margin-left: 11.5rem;
 	}
+`;
+const LeftSide = styled.div`
+	margin-left: 3rem;
+
 `;
 
 const LeftSide = styled.div`
@@ -77,6 +82,7 @@ export const Header = () => {
 					</Link>
 				</LeftSide>
 				<RightSide>
+
 					<h4 className="login-btn" onClick={handleModal}>
 						로그인
 					</h4>
