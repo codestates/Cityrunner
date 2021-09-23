@@ -7,9 +7,6 @@ import { theme } from "../../themes/theme";
 const Contanier = styled.div`
 	width: 100vw;
 	padding-top: 4rem;
-	img {
-		width: 100%;
-	}
 `;
 
 const Title = styled.h1`
