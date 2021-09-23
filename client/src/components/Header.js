@@ -4,6 +4,8 @@ import { theme } from "../themes/theme";
 import { Signup } from "./Modal/Signup";
 import { LoginModal } from "./Modal/LoginModal";
 import { Link } from "react-router-dom";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Container = styled.header`
 	position: fixed;
@@ -26,6 +28,24 @@ const RightSide = styled.div`
 			transition: 0.1s;
 		}
 	}
+	.logout-btn {
+		cursor: pointer;
+		margin-right: 2rem;
+		:hover {
+			color: ${theme.color.hovergray};
+			transition: 0.1s;
+		}
+	}
+	.icons {
+		cursor: pointer;
+		margin-right: 2rem;
+		margin-top: 0.8rem;
+		:hover {
+			color: ${theme.color.hovergray};
+			transition: 0.1s;
+		}
+	}
+
 `;
 
 const LeftSide = styled.div`
@@ -34,6 +54,9 @@ const LeftSide = styled.div`
 
 export const Header = () => {
 	const [showSignupModal, setShowSignupModal] = useState(false);
+	//임시 로그인시 상태 useState
+	const [Exlogin, setExlogin] = useState(false);
+
 	const handleSignupModal = () => {
 		setShowSignupModal(!showSignupModal);
 	};
@@ -64,12 +87,21 @@ export const Header = () => {
 					</Link>
 				</LeftSide>
 				<RightSide>
-					<h4 className="login-btn" onClick={handleModal}>
-						로그인
-					</h4>
-					<h4 className="login-btn" onClick={handleSignupModal}>
-						회원가입
-					</h4>
+					{!Exlogin ? (
+						<>
+							{/* <h4 className="login-btn">매칭페이지</h4>
+							<h4 className="login-btn">마이페이지</h4> */}
+							<h4 className="login-btn" onClick={handleModal}>
+								로그인
+							</h4>
+							<h4 className="login-btn" onClick={handleSignupModal}>
+								회원가입
+							</h4>
+						</>
+					) : (
+						<h4 className="login-btn">로그아웃</h4>
+						//<FontAwesomeIcon className="icons" icon={faBars} size="2x" />
+					)}
 				</RightSide>
 			</Container>
 			<div onClick={handleCloseModal}>
