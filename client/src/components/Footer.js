@@ -31,11 +31,17 @@ const About = styled.ul`
 		margin-top: 1rem;
 		font-weight: 450;
 	}
+	@media ${theme.mobileS} {
+		margin-left: 1rem;
+	}
 `;
-const Since = styled.div`
+const Since = styled.li`
 	${flexCenter}
 	margin-top: 17rem;
 	font-size: 0.7rem;
+	@media ${theme.mobileS} {
+		margin-left: 1rem;
+	}
 `;
 export const Footer = () => {
 	return (
@@ -46,6 +52,7 @@ export const Footer = () => {
 					<a
 						href="https://github.com/codestates/Cityrunner/wiki"
 						target="_blank"
+						rel="noopener noreferrer"
 					>
 						CityRuner Wiki
 					</a>
@@ -56,22 +63,38 @@ export const Footer = () => {
 			<Title>
 				<h3>Contact</h3>
 				<li>
-					<a href="https://github.com/wjswls456" target="_blank">
+					<a
+						href="https://github.com/wjswls456"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
 						Jaewon@Github
 					</a>
 				</li>
 				<li>
-					<a href="https://github.com/seyoonkim48" target="_blank">
+					<a
+						href="https://github.com/seyoonkim48"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
 						Seyun@Github
 					</a>
 				</li>
 				<li>
-					<a href="https://github.com/jmean12" target="_blank">
+					<a
+						href="https://github.com/jmean12"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
 						Jaemin@Github
 					</a>
 				</li>
 				<li>
-					<a href="https://github.com/Alamarama" target="_blank">
+					<a
+						href="https://github.com/Alamarama"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
 						Hojin@Github
 					</a>
 				</li>

@@ -8,14 +8,18 @@ import { applyMiddleware, createStore } from "redux";
 import rootReducer from "./redux/combine";
 import reduxThunk from "redux-thunk";
 import promiseMiddlerware from "redux-promise";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./themes/theme";
 
 const store = applyMiddleware(promiseMiddlerware, reduxThunk)(createStore);
 
 ReactDOM.render(
 	<React.StrictMode>
-		<Provider store={store(rootReducer)}>
-			<App />
-		</Provider>
+		<ThemeProvider theme={theme}>
+			<Provider store={store(rootReducer)}>
+				<App />
+			</Provider>
+		</ThemeProvider>
 	</React.StrictMode>,
 	document.getElementById("root")
 );

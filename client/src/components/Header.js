@@ -27,36 +27,31 @@ const RightSide = styled.div`
 			color: ${theme.color.hovergray};
 			transition: 0.1s;
 		}
-	}
-	.logout-btn {
-		cursor: pointer;
-		margin-right: 2rem;
-		:hover {
-			color: ${theme.color.hovergray};
-			transition: 0.1s;
+
+		@media ${theme.mobileS} {
+			display: none;
 		}
 	}
-	.icons {
-		cursor: pointer;
-		margin-right: 2rem;
-		margin-top: 0.8rem;
-		:hover {
-			color: ${theme.color.hovergray};
-			transition: 0.1s;
-		}
+`;
+
+const Burgerbar = styled.div`
+	display: none;
+	@media ${theme.mobileS} {
+		display: flex;
+		margin-top: 1.28rem;
+		margin-left: 11.5rem;
 	}
+`;
+const LeftSide = styled.div`
+	margin-left: 3rem;
 
 `;
 
 const LeftSide = styled.div`
 	margin-left: 3rem;
 `;
-
 export const Header = () => {
 	const [showSignupModal, setShowSignupModal] = useState(false);
-	//임시 로그인시 상태 useState
-	const [Exlogin, setExlogin] = useState(false);
-
 	const handleSignupModal = () => {
 		setShowSignupModal(!showSignupModal);
 	};
@@ -87,21 +82,16 @@ export const Header = () => {
 					</Link>
 				</LeftSide>
 				<RightSide>
-					{!Exlogin ? (
-						<>
-							{/* <h4 className="login-btn">매칭페이지</h4>
-							<h4 className="login-btn">마이페이지</h4> */}
-							<h4 className="login-btn" onClick={handleModal}>
-								로그인
-							</h4>
-							<h4 className="login-btn" onClick={handleSignupModal}>
-								회원가입
-							</h4>
-						</>
-					) : (
-						<h4 className="login-btn">로그아웃</h4>
-						//<FontAwesomeIcon className="icons" icon={faBars} size="2x" />
-					)}
+
+					<h4 className="login-btn" onClick={handleModal}>
+						로그인
+					</h4>
+					<h4 className="login-btn" onClick={handleSignupModal}>
+						회원가입
+					</h4>
+					<Burgerbar>
+						<FontAwesomeIcon icon={faBars} size="lg" />
+					</Burgerbar>
 				</RightSide>
 			</Container>
 			<div onClick={handleCloseModal}>

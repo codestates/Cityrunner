@@ -1,18 +1,27 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { flexCenter } from "../../themes/flex";
+import { flexCenter, flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
 
 const Contanier = styled.div`
 	width: 100vw;
 	padding-top: 4rem;
+	img {
+		width: 100vw;
+	}
 `;
 
 const Title = styled.h1`
 	${flexCenter}
 	margin-top: 5rem;
 	margin-bottom: 3rem;
+
+	@media ${theme.mobileS} {
+		${flexColum};
+		margin-top: 7rem;
+		margin-bottom: 5rem;
+	}
 `;
 
 const StartBtn = styled.div`
@@ -36,14 +45,20 @@ const StartBtn = styled.div`
 		border-radius: none;
 		border: none;
 	}
+	@media ${theme.mobileS} {
+		margin-bottom: 17vh;
+	}
 `;
 
 export const MainFirst = () => {
 	const history = useHistory();
 	return (
 		<Contanier>
-			<img src="img/Runner.png"></img>
-			<Title>오늘하루 같이 함께할 런닝크루를 만들어보세요!</Title>
+			<img src="img/Runner.png" alt=""></img>
+			<Title>
+				<li>오늘하루 함께할</li>
+				<li>런닝크루를 만들어보세요!</li>
+			</Title>
 			<StartBtn>
 				<button className="btn" onClick={() => history.push("/Matching")}>
 					시작하기
