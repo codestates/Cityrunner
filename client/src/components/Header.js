@@ -44,12 +44,8 @@ const Burgerbar = styled.div`
 `;
 const LeftSide = styled.div`
 	margin-left: 3rem;
-
 `;
 
-const LeftSide = styled.div`
-	margin-left: 3rem;
-`;
 export const Header = () => {
 	const [showSignupModal, setShowSignupModal] = useState(false);
 	const handleSignupModal = () => {
@@ -82,7 +78,6 @@ export const Header = () => {
 					</Link>
 				</LeftSide>
 				<RightSide>
-
 					<h4 className="login-btn" onClick={handleModal}>
 						로그인
 					</h4>
