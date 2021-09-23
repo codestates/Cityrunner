@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Container = styled.header`
 	position: fixed;
-	width: 100%;
+	width: 100vw;
 	color: white;
 	background-color: ${theme.color.black};
 	border-bottom: 1px solid ${theme.line.gray};
@@ -45,6 +45,7 @@ const RightSide = styled.div`
 			transition: 0.1s;
 		}
 	}
+
 `;
 
 const LeftSide = styled.div`

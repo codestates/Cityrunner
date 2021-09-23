@@ -4,7 +4,7 @@ import { flexCenter } from "../themes/flex";
 import { theme } from "../themes/theme";
 
 const Contanier = styled.div`
-	width: 100%;
+	width: 100vw;
 	height: 300px;
 	background-color: ${theme.color.gray};
 	color: white;
