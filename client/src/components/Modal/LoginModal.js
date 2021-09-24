@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { loginUser } from "../../redux/modules/user";
 import { flexCenter, flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
 
@@ -10,24 +12,39 @@ export const LoginModal = () => {
 		email: "",
 		password: "",
 	});
+	const dispatch = useDispatch();
 	const history = useHistory();
+
 	const onChangeLogin = (key) => (e) => {
 		setLoginInfo({ ...loginInfo, [key]: e.target.value });
 	};
 
 	const onSignIn = () => {
-		axios
-			.post(`http://localhost:4000/user/login`, loginInfo, {
-				withCredentials: true,
-			})
-			.then(() => {
-				return history.push("/Matching");
+		// axios
+		// 	.post(`http://localhost:4000/user/login`, loginInfo, {
+		// 		withCredentials: true,
+		// 	})
+		// 	.then(() => {
+		// 		return history.push("/Matching");
+		// 	})
+		// 	.catch((err) => {
+		// 		if (err.response.status === 409) {
+		// 			alert("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
+		// 			return;
+		// 		}
+		// 	});
+
+		dispatch(loginUser(loginInfo))
+			.then((res) => {
+				console.log(res);
+				if (res.payload.loginSuccess) {
+					history.push("/Matching");
+				} else {
+					console.log(res.payload.message);
+				}
 			})
 			.catch((err) => {
-				if (err.response.status === 409) {
-					alert("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
-					return;
-				}
+				console.log(err);
 			});
 	};
 
@@ -75,7 +92,7 @@ const DialogBlock = styled.div`
 	height: 400px;
 	padding: 1rem;
 	background: white;
-	border-radius: 2px;
+	border-radius: 15px;
 	h3 {
 		${flexCenter}
 	}

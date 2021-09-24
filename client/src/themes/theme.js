@@ -7,10 +7,27 @@ const color = {
 };
 
 const line = {
-  gray: "#e9ecef",
+	gray: "#e9ecef",
+};
+
+const size = {
+	mobileS: "700px",
+	tabletS: "1023px",
+	tabletM: "1023px",
+	tabletL: "1023px",
+	laptop: "1023px",
+	desktop: "1023px",
 };
 
 export const theme = {
-  color,
-  line,
+	color,
+	line,
+	mobileS: `(max-width: ${size.mobileS})`,
+	mobileM: `(max-width: ${size.mobileM})`,
+	mobileL: `(max-width: ${size.mobileL})`,
+	tablet: `(max-width: ${size.tablet})`,
+	laptop: `(max-width: ${size.laptop})`,
+	laptopL: `(max-width: ${size.laptopL})`,
+	desktop: `(min-width: ${size.desktop})`,
+	desktopL: `(min-width: ${size.desktop})`,
 };
