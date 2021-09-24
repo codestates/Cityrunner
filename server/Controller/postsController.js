@@ -1,5 +1,12 @@
-const { user, post } = require('../models');
-const { verifyAccessToken, decodeToken, verifyRefreshToken, generateAccessToken, sendAccessToken, autoManageAccessToken } = require('./Functions/tokenFunction');
+const { user, post, chattingRoom, Sequelize } = require('../models');
+const Op = Sequelize.Op;
+const {
+  verifyAccessToken,
+  decodeToken,
+  verifyRefreshToken,
+  generateAccessToken,
+  sendAccessToken,
+  autoManageAccessToken } = require('./Functions/tokenFunction');
 
 module.exports = {
   posts: async (req, res) => {
@@ -29,22 +36,29 @@ module.exports = {
     }
   },
   filterPage: async (req, res) => {
-    // router.get('/:page?time=&level=&location=', filterPage);
+    // router.get('/', filterPage);
     // 글 목록 가져오기
     try {
-      const page = req.params.page;
+      const { page } = req.query;
       if (!page) {
         return res.status(400).json('잘못된 요청입니다');
       }
       const decode = await autoManageAccessToken(req, res);
-      console.log(decode)
       if (!decode) {
         return res.status(401).json('권한이 없는 유저입니다');
       }
-      let offset = (page > 1) ? 10 * (page - 1): 1;
+      let offset = (page > 1) ? 3 * (page - 1): 0;
+      const filter = {}
+      for (let key in req.query) {
+        if (!!req.query[key]) {
+          filter[key] = req.query[key];
+        }
+      }
+      delete filter.page;
       const postList = await post.findAll({
+        where : filter, //! 조건과 일치하는 경우만 출력. 범위를 지정하려면 [Op.gte] 작성필요
         offset: offset,
-        limit : 10
+        limit : 3
       });
       res.status(200).json({
         data : postList,
@@ -53,23 +67,17 @@ module.exports = {
     } catch (err) {
       res.status(500).send(err);
     }
-    //필터는 일단 나중에...
-
-    // ! 페이지네이션
-    // 쿼리문이 비어있으면 필터 없이 전체 글(하나의 페이지)목록을 보내준다.
-    // 조건이 비어있을 때 빈 조건으로 검색하면 전체가 나오는지 확인 필요!
-
   },
   getPost: async (req, res) => {
     // router.get('/:postId', getPost);
     // 글 하나 가져오기
     try {
+      console.log('getPost')
       const postId = req.params.postId;
       if (!postId) {
         return res.status(400).json('잘못된 요청입니다');
       }
       const decode = await autoManageAccessToken(req, res);
-      console.log(decode)
       if (!decode) {
         return res.status(401).json('권한이 없는 유저입니다');
       }
@@ -92,10 +100,6 @@ module.exports = {
   updatePost: async (req, res) => {
     // router.put('/:postId', updatePost);
     // 글 내용 수정하기
-    // const postId = req.params.postId;
-    // token 제대로인지 먼저 판별
-    // params에 제대로 담겨있는지 판별
-    // 일치하는거 찾아서 내용 수정하기 
     try {
       const postId = req.params.postId;
       if (!postId) {
@@ -121,10 +125,6 @@ module.exports = {
   deletePost: async (req, res) => {
     // router.delete('/:postId', deletePost);
     // 글 삭제하기
-    // const postId = req.params.postId;
-    // token 제대로인지 먼저 판별
-    // params에 제대로 담겨있는지 판별
-    // 하나 찾아서 지우기
     try {
       const postId = req.params.postId;
       if (!postId) {
@@ -144,4 +144,62 @@ module.exports = {
       res.status(500).send(err);
     }
   },
+  joinCrew : async (req, res) => {
+    // router.put('/join/:postId', joinCrew);
+    // 크루 참여하기
+    try {
+      const postId = req.params.postId;
+      if (!postId) {
+        return res.status(400).json({message: '잘못된 요청입니다'})
+      }
+      const decode = await autoManageAccessToken(req, res);
+      if (!decode) {
+        return res.status(401).json({message : '권한이 없는 유저입니다'})
+      }
+      const checkPost = await post.findOne({
+        where : {
+          id : postId
+        }
+      });
+      if (!checkPost) {
+        return res.status(404).json({message : '해당하는 글을 찾을 수 없습니다'});
+      }
+      const [result, created] = await chattingRoom.findOrCreate({
+        where : {
+          memberId : decode.id,
+          postId : postId
+        }
+      });
+      if (!created) {
+        return res.status(409).json({message : '이미 참여한 크루입니다'});
+      } else {
+        return res.status(200).json({message : '크루에 참여하였습니다'});
+      }
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  },
+  exitCrew : async (req, res) => {
+    // router.delete('/exit/:postId', exitCrew);
+    // 크루 나가기
+    try {
+      const postId = req.params.postId;
+      if (!postId) {
+        return res.status(400).json({message: '잘못된 요청입니다'})
+      }
+      const decode = await autoManageAccessToken(req, res);
+      if (!decode) {
+        return res.status(401).json({message : '권한이 없는 유저입니다'})
+      }
+      await chattingRoom.destroy({
+        where : {
+          memberId: decode.id,
+          postId : postId
+        }
+      });
+      res.status(200).json({message : '크루에서 나갔습니다'});
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  }
 }
