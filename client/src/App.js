@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Main } from "./pages/Main";
 import { GlobalStyles } from "./themes/GlobalStyles";
 import { Matching } from "./pages/Matching";
-import { Mypage } from "./components/mypage/Mypage";
+import Mypage from "./pages/Mypage";
 
 function App() {
 	return (
