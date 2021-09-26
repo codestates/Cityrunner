@@ -1,9 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
-const Contanier = styled.div`
-	width: 100vw;
-`;
+import { theme } from "../../themes/theme";
 
 export const MainFourth = () => {
 	return (
@@ -13,3 +10,10 @@ export const MainFourth = () => {
 		</Contanier>
 	);
 };
+
+const Contanier = styled.div`
+	width: 100vw;
+	@media ${theme.mobileS} {
+		width: 100vw;
+	}
+`;
