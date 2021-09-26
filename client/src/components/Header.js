@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { theme } from "../themes/theme";
 import { Signup } from "./modal/Signup";
-import { LoginModal } from "./modal/LoginModal";
+
 import { Link, useHistory } from "react-router-dom";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { LoginModal } from "./modal/LoginModal";
 
 export const Header = () => {
 	const [showSignupModal, setShowSignupModal] = useState(false);
