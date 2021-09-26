@@ -1,27 +1,16 @@
 import { useState } from "react";
-import axios from "axios";
-import "./Mypage.css";
+import styled from "styled-components";
+import { flexColum } from "../../themes/flex";
+import PostImage from "./PostImage";
 
-async function postImage({ image, description }) {
-	const formData = new FormData();
-	formData.append("image", image);
-	formData.append("description", description);
-
-	const result = await axios.post("http://localhost:4000/images", formData, {
-		headers: { "Content-Type": "multipart/form-data" },
-	});
-	console.log(result.data);
-	return result.data;
-}
-
-export const Mypage = () => {
+export const Profiles = () => {
 	const [file, setFile] = useState();
 	const [description, setDescription] = useState("");
 	const [images, setImages] = useState([]);
 
 	const submit = async (event) => {
 		event.preventDefault();
-		const result = await postImage({ image: file, description });
+		const result = await PostImage({ image: file, description });
 
 		setImages([result.image, ...images]);
 	};
@@ -33,8 +22,8 @@ export const Mypage = () => {
 
 	return (
 		<>
-			<div className="App">
-				<form onSubmit={submit}>
+			<Container>
+				<SubmitContainer onSubmit={submit}>
 					<input onChange={fileSelected} type="file" accept="image/*"></input>
 					<input
 						value={description}
@@ -42,7 +31,7 @@ export const Mypage = () => {
 						type="text"
 					></input>
 					<button type="submit">Submit</button>
-				</form>
+				</SubmitContainer>
 
 				{/* { images.map( image => (
         <div key={image}>
@@ -51,7 +40,33 @@ export const Mypage = () => {
     ))} */}
 
 				<img src="http://localhost:4000/images/38f550d87d82bbd67f3a236aabf31e9a"></img>
-			</div>
+			</Container>
 		</>
 	);
 };
+
+const Container = styled.div`
+	text-align: center;
+`;
+
+const SubmitContainer = styled.form`
+	${flexColum}
+	max-width: 400px;
+	margin: auto;
+`;
+
+const Images = styled.div`
+	position: relative;
+	width: 200px;
+	img {
+		width: 100vw;
+	}
+	button {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	form > * {
+		margin: 10px 0;
+	}
+`;
