@@ -6,48 +6,7 @@ import { Signup } from "./modal/Signup";
 import { Link, useHistory } from "react-router-dom";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-<<<<<<< HEAD
-
-const Container = styled.header`
-	position: fixed;
-	width: 100vw;
-	color: white;
-	background-color: ${theme.color.black};
-	border-bottom: 1px solid ${theme.line.gray};
-	display: flex;
-	justify-content: space-between;
-`;
-const RightSide = styled.div`
-	display: flex;
-	margin-right: 4rem;
-	.login-btn {
-		cursor: pointer;
-		margin-right: 2rem;
-		:hover {
-			color: ${theme.color.hovergray};
-			transition: 0.1s;
-		}
-
-		@media ${theme.mobileS} {
-			display: none;
-		}
-	}
-`;
-
-const Burgerbar = styled.div`
-	display: none;
-	@media ${theme.mobileS} {
-		display: flex;
-		margin-top: 1.28rem;
-		margin-left: 11.5rem;
-	}
-`;
-const LeftSide = styled.div`
-	margin-left: 3rem;
-`;
-=======
 import { LoginModal } from "./modal/LoginModal";
->>>>>>> 32eda9f8a07de37e836b4b17d14e6cf219dff295
 
 export const Header = () => {
 	const [showSignupModal, setShowSignupModal] = useState(false);
