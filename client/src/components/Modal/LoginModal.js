@@ -28,6 +28,18 @@ export const LoginModal = () => {
 		},
 	});
 
+	const clientID = '545489609690-8herb2edjhvhhsmmm8oh5tnhb88d4bop.apps.googleusercontent.com';
+  const scope = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
+  const uri = 'http://localhost:3000';
+
+  const GoogleOAuthURL =
+  `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientID}&
+response_type=token&redirect_uri=${uri}&scope=${scope}`;//! 줄 바꿈 수정하면 에러나요ㅠㅠ 들여쓰기 없이 딱 붙어있어야 정상작동!
+	
+	const oauthHandler = () => {
+		window.location.assign(GoogleOAuthURL);
+	}
+
 	return (
 		<>
 			<MakeModal>
@@ -62,7 +74,7 @@ export const LoginModal = () => {
 					</LoginInput>
 					<LoginBtn>
 						<button type="submit">로그인</button>
-						<button>Google</button>
+						<button onClick={oauthHandler}>Google</button>
 					</LoginBtn>
 				</DialogBlock>
 			</MakeModal>

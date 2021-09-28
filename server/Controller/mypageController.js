@@ -38,13 +38,14 @@ module.exports = {
           id : decode.id
         },
         attributes: {
-          exclude: ['createdAt', 'updatedAt', 'refreshToken', 'password']
+          exclude: ['createdAt', 'updatedAt', 'refreshToken']
         }
       });
       const userData = {
         email : userInfo.email,
         username : userInfo.username,
         image : userInfo.image,
+        oauth: (userInfo.password === 'oauth'? true : false),
         medal : userInfo.userMedals.map((el) => {
           return {
             id : el.medal.id,

@@ -1,3 +1,4 @@
+const { default: axios } = require('axios');
 
 const models = require("../models")
 const {
@@ -147,4 +148,43 @@ module.exports = {
     }
     
   },
+
+  oauth : async (req, res) => {
+    // POST /user/oauth
+    // 구글에 정보를 요청한다
+    try {
+      const { authorizationCode } = req.body
+      await axios
+      .get('https://www.googleapis.com/oauth2/v2/userinfo?access_token=' + authorizationCode, {
+        headers: {
+          authorization: `token ${authorizationCode}`,
+          Accept: 'application/json',
+        }
+      })
+      .then(async (resq) => {
+        const {email, name, picture} = resq.data;
+        const [result, created] = await models.user.findOrCreate({
+          where : {
+            email : email,
+            password : "oauth"
+          },
+          defaults : {
+            image : picture,
+            username : name
+          }
+        });
+        return res.status(200).json({
+          message : 'ok',
+          data : {
+            email : result.email,
+            password : result.password,
+          }
+        })
+      }).catch(e => {
+        res.status(400).json('잘못된 요청입니다');
+      });
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  }
 }

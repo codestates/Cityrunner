@@ -43,11 +43,7 @@ module.exports = {
       if (!page) {
         return res.status(400).json('잘못된 요청입니다');
       }
-      const decode = await autoManageAccessToken(req, res);
-      if (!decode) {
-        return res.status(401).json('권한이 없는 유저입니다');
-      }
-      let offset = (page > 1) ? 3 * (page - 1): 0;
+      let offset = (page > 1) ? 12 * (page - 1): 0;
       const filter = {}
       for (let key in req.query) {
         if (!!req.query[key]) {
@@ -58,7 +54,7 @@ module.exports = {
       const postList = await post.findAll({
         where : filter, //! 조건과 일치하는 경우만 출력. 범위를 지정하려면 [Op.gte] 작성필요
         offset: offset,
-        limit : 3
+        limit : 12
       });
       res.status(200).json({
         data : postList,
@@ -76,10 +72,6 @@ module.exports = {
       const postId = req.params.postId;
       if (!postId) {
         return res.status(400).json('잘못된 요청입니다');
-      }
-      const decode = await autoManageAccessToken(req, res);
-      if (!decode) {
-        return res.status(401).json('권한이 없는 유저입니다');
       }
       const postData = await post.findOne({
         where : {
