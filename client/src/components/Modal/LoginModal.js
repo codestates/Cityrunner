@@ -28,16 +28,26 @@ export const LoginModal = () => {
 		},
 	});
 
-	const clientID = '545489609690-8herb2edjhvhhsmmm8oh5tnhb88d4bop.apps.googleusercontent.com';
-  const scope = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
-  const uri = 'http://localhost:3000';
+	const oauth = {
+		google : {
+			client_id : '545489609690-8herb2edjhvhhsmmm8oh5tnhb88d4bop.apps.googleusercontent.com',
+			uri : 'http://localhost:3000',
+			scope : 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+		},
+		kakao : {
+			client_id :'63d21bbf51229a38085d23a58ecf2b9e',
+			uri : 'http://localhost:3000',
+		}
+	}
 
-  const GoogleOAuthURL =
-  `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientID}&
-response_type=token&redirect_uri=${uri}&scope=${scope}`;//! 줄 바꿈 수정하면 에러나요ㅠㅠ 들여쓰기 없이 딱 붙어있어야 정상작동!
-	
-	const oauthHandler = () => {
-		window.location.assign(GoogleOAuthURL);
+	const oauthHandler = (category) => {
+		if (category === 'google') {
+			window.location.assign(`https://accounts.google.com/o/oauth2/v2/auth?client_id=${oauth.google.client_id}&
+response_type=token&redirect_uri=${oauth.google.uri}&scope=${oauth.google.scope}`);//! 줄 바꿈 수정하면 에러나요ㅠㅠ 들여쓰기 없이 딱 붙어있어야 정상작동!
+		} else if (category === 'kakao') {
+			window.location.assign(`https://kauth.kakao.com/oauth/authorize?client_id=${oauth.kakao.client_id}&
+redirect_uri=${oauth.kakao.uri}&response_type=code`)
+		}
 	}
 
 	return (
@@ -74,7 +84,8 @@ response_type=token&redirect_uri=${uri}&scope=${scope}`;//! 줄 바꿈 수정하
 					</LoginInput>
 					<LoginBtn>
 						<button type="submit">로그인</button>
-						<button onClick={oauthHandler}>Google</button>
+						<button onClick={() => {oauthHandler('google')}}>Google</button>
+						<button onClick={() => {oauthHandler('kakao')}}>Kakao</button>
 					</LoginBtn>
 				</DialogBlock>
 			</MakeModal>

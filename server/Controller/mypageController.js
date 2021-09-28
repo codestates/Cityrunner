@@ -45,7 +45,7 @@ module.exports = {
         email : userInfo.email,
         username : userInfo.username,
         image : userInfo.image,
-        oauth: (userInfo.password === 'oauth'? true : false),
+        oauth: (((userInfo.password === 'google') || (userInfo.password === 'kakao'))? true : false),
         medal : userInfo.userMedals.map((el) => {
           return {
             id : el.medal.id,

@@ -151,38 +151,89 @@ module.exports = {
 
   oauth : async (req, res) => {
     // POST /user/oauth
-    // 구글에 정보를 요청한다
+    // Google, Kakao에 정보 요청하기
     try {
-      const { authorizationCode } = req.body
-      await axios
-      .get('https://www.googleapis.com/oauth2/v2/userinfo?access_token=' + authorizationCode, {
-        headers: {
-          authorization: `token ${authorizationCode}`,
-          Accept: 'application/json',
-        }
-      })
-      .then(async (resq) => {
-        const {email, name, picture} = resq.data;
-        const [result, created] = await models.user.findOrCreate({
-          where : {
-            email : email,
-            password : "oauth"
-          },
-          defaults : {
-            image : picture,
-            username : name
+      const { authorizationCode, category } = req.body;
+      const data = {};
+      if (category === 'google') {
+        // Google
+        await axios
+          .get('https://www.googleapis.com/oauth2/v2/userinfo?access_token=' + authorizationCode, {
+            headers: {
+              authorization: `token ${authorizationCode}`,
+              Accept: 'application/json',
+            }
+          }).then((res) => {
+            const {email, name, picture} = res.data;
+            data.email = email;
+            data.username = name;
+            data.image = picture;
+          }).catch((err) => {
+            res.status(400).send('잘못된 요청입니다.')
+          });
+      } else if (category === 'kakao') {
+        //Kakao
+        await axios.get('https://kapi.kakao.com/v2/user/me', {
+          headers: {
+            'authorization': `Bearer ${authorizationCode}`
           }
+        }).then((res) => {
+          data.email = res.data.kakao_account.email;
+          data.username = res.data.properties.nickname;
+          data.image = res.data.kakao_account.profile.profile_image_url;
+        }).catch((err) => {
+          res.status(400).send('잘못된 요청입니다.')
         });
-        return res.status(200).json({
-          message : 'ok',
-          data : {
-            email : result.email,
-            password : result.password,
-          }
-        })
-      }).catch(e => {
-        res.status(400).json('잘못된 요청입니다');
+      }
+
+      const [result, created] = await models.user.findOrCreate({
+        where : {
+          email : data.email,
+          password : (category === 'google'? 'google' : 'kakao')
+        },
+        defaults : {
+          username : data.username,
+          image : data.image
+        }
       });
+
+      res.status(200).json({
+        message : '소셜 로그인 성공',
+        data : {
+          email : result.email,
+          password : result.password
+        }
+      });
+      
+      // await axios
+      // .get('https://www.googleapis.com/oauth2/v2/userinfo?access_token=' + authorizationCode, {
+      //   headers: {
+      //     authorization: `token ${authorizationCode}`,
+      //     Accept: 'application/json',
+      //   }
+      // })
+      // .then(async (resq) => {
+      //   const {email, name, picture} = resq.data;
+      //   const [result, created] = await models.user.findOrCreate({
+      //     where : {
+      //       email : email,
+      //       password : "oauth"
+      //     },
+      //     defaults : {
+      //       image : picture,
+      //       username : name
+      //     }
+      //   });
+      //   return res.status(200).json({
+      //     message : 'ok',
+      //     data : {
+      //       email : result.email,
+      //       password : result.password,
+      //     }
+      //   })
+      // }).catch(e => {
+      //   res.status(400).json('잘못된 요청입니다');
+      // });
     } catch (err) {
       res.status(500).send(err);
     }
