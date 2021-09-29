@@ -5,8 +5,10 @@ import { Socketio } from "./components/Socketio/Socketio";
 import { Mypage } from "./components/Mypage/Mypage";
 import { Matching } from "./pages/Matching";
 import Mypage from "./pages/Mypage";
+import { MyRoom } from "./components/modal/MyRoom";
 
 function App() {
+
   return (
     <Router>
       <GlobalStyles />
@@ -23,9 +25,13 @@ function App() {
         <Route exact path="/Chating">
           <Socketio />
         </Route>
+        <Route exact path="/MyRoom">  
+					<MyRoom />
+				</Route>
       </Switch>
     </Router>
   );
+
 }
 
 export default App;

@@ -9,7 +9,7 @@ import { theme } from "../../themes/theme";
 
 export const LoginModal = () => {
 	const history = useHistory();
-	const dispatch = useDispatch();
+	//const dispatch = useDispatch();
 
 	const formik = useFormik({
 		initialValues: {
@@ -23,7 +23,6 @@ export const LoginModal = () => {
 		}),
 
 		onSubmit: (values) => {
-			dispatch(loginUser(values));
 			console.log(values);
 		},
 	});

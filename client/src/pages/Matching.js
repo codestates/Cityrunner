@@ -1,21 +1,20 @@
 import React from "react";
-import styled from "styled-components";
+import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
-import { Socketio } from "../components/Socketio/Socketio";
-import { flexCenter } from "../themes/flex";
 
-const Contanier = styled.div`
-  ${flexCenter}
-  padding-top: 4rem;
-`;
+import { FilterList } from "../components/room/FilterList";
+import FirstInfo from "../components/room/FirstInfo";
+import RoomCard from "../components/room/RoomCard";
 
 export const Matching = () => {
-  return (
-    <>
-      <Header />
-      <Contanier>
-        <h1>매칭페이지 입니다 어서오세요</h1>
-      </Contanier>
-    </>
-  );
+	return (
+		<>
+			<Header />
+			<FirstInfo />
+			<FilterList />
+			<RoomCard />
+			<Footer />
+		</>
+	);
+
 };
