@@ -5,7 +5,14 @@ const url = "http://localhost:4000";
 
 //액션타입
 const REGISTER_USER = "user/REGISTER_USER";
-const LOGIN_USER = "user/LOGIN_USER";
+const LOGIN = "user/LOGIN";
+const LOGIN_CHECK = "user/LOGIN_CHECK";
+
+// userInfo를 받아와서 dispatch로 실행을 시켜줘야한다.
+// login 구현
+// login 유지 구현
+// 로그아웃 구현
+// 비밀번호 바꾸기 구현
 
 //액션생성함수
 export const registerUser = (dataToSubmit) => {
@@ -16,15 +23,15 @@ export const registerUser = (dataToSubmit) => {
 	};
 };
 
-export const loginUser = (dataToSubmit) => {
-	const data = axios.post(`${url}/user/login`, dataToSubmit, {
-		withCredentials: true,
-	});
-	return {
-		type: LOGIN_USER,
-		payload: data,
-	};
-};
+// export const loginUser = (userInfo) => {
+// 	const data = axios.post(`${url}/user/login`, userInfo, {
+// 		withCredentials: true,
+// 	});
+// 	return {
+// 		type: LOGIN_USER,
+// 		payload: data,
+// 	};
+// };
 
 // 리듀서 함수
 export default function user(state = {}, action) {
@@ -34,12 +41,14 @@ export default function user(state = {}, action) {
 				...state,
 				success: action.payload,
 			};
-		case LOGIN_USER:
-			return {
-				...state,
-				loginSuccess: action.payload,
-			};
+		// case LOGIN_USER:
+		// 	return {
+		// 		...state,
+		// 		loginSuccess: action.payload,
+		// 	};
 		default:
 			return state;
 	}
 }
+
+//npm i moment로 수정가능
