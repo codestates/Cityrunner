@@ -117,7 +117,7 @@ export const Profiles = () => {
                 <ImgContainer>
                   <MedalImg src="img/medal3.jpeg" />
                   <MedalName>make5</MedalName>
-                  <TooltipText>5개의 크루를 만들었습니다</TooltipText>
+                  <TooltipText>5개의 크루를 만들었습니다.</TooltipText>
                 </ImgContainer>
               </oneMedal>
             </Medal>
