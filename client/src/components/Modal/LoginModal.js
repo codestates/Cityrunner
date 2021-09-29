@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -8,67 +8,60 @@ import { flexCenter, flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
 
 export const LoginModal = () => {
-	const [loginInfo, setLoginInfo] = useState({
-		email: "",
-		password: "",
-	});
-	const dispatch = useDispatch();
 	const history = useHistory();
+	const dispatch = useDispatch();
 
-	const onChangeLogin = (key) => (e) => {
-		setLoginInfo({ ...loginInfo, [key]: e.target.value });
-	};
+	const formik = useFormik({
+		initialValues: {
+			email: "",
+			password: "",
+		},
 
-	const onSignIn = () => {
-		// axios
-		// 	.post(`http://localhost:4000/user/login`, loginInfo, {
-		// 		withCredentials: true,
-		// 	})
-		// 	.then(() => {
-		// 		return history.push("/Matching");
-		// 	})
-		// 	.catch((err) => {
-		// 		if (err.response.status === 409) {
-		// 			alert("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
-		// 			return;
-		// 		}
-		// 	});
+		validationSchema: Yup.object({
+			email: Yup.string().required("이메일을 입력해주세요."),
+			password: Yup.string().required("패스워드를 입력해주세요."),
+		}),
 
-		dispatch(loginUser(loginInfo))
-			.then((res) => {
-				console.log(res);
-				if (res.payload.loginSuccess) {
-					history.push("/Matching");
-				} else {
-					console.log(res.payload.message);
-				}
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
+		onSubmit: (values) => {
+			dispatch(loginUser(values));
+			console.log(values);
+		},
+	});
 
 	return (
 		<>
 			<MakeModal>
-				<DialogBlock onClick={(e) => e.stopPropagation()}>
+				<DialogBlock
+					onSubmit={formik.handleSubmit}
+					onClick={(e) => e.stopPropagation()}
+				>
 					<Title>로그인</Title>
 					<LoginInput>
 						<h5>E-mail</h5>
 						<input
+							name="email"
 							type="email"
 							placeholder="email"
-							onChange={onChangeLogin("email")}
-						></input>
+							onChange={formik.handleChange}
+							value={formik.values.email}
+						/>
+						{formik.touched.email && formik.errors.email ? (
+							<div className="errorMassge">{formik.errors.email}</div>
+						) : null}
 						<h5>비밀번호</h5>
 						<input
+							name="password"
 							type="password"
 							placeholder="password"
-							onChange={onChangeLogin("password")}
-						></input>
+							onChange={formik.handleChange}
+							value={formik.values.password}
+						/>
+						{formik.touched.password && formik.errors.password ? (
+							<div className="errorMassge">{formik.errors.password}</div>
+						) : null}
 					</LoginInput>
 					<LoginBtn>
-						<button onClick={onSignIn}>로그인</button>
+						<button type="submit">로그인</button>
 						<button>Google</button>
 					</LoginBtn>
 				</DialogBlock>
@@ -87,7 +80,7 @@ const MakeModal = styled.div`
 	background: rgba(0, 0, 0, 0.6);
 `;
 
-const DialogBlock = styled.div`
+const DialogBlock = styled.form`
 	width: 320px;
 	height: 400px;
 	padding: 1rem;
@@ -106,10 +99,16 @@ const LoginInput = styled.div`
 		margin-top: -1rem;
 		border: solid 1px;
 		padding-left: 1rem;
-		//border-color: red;
 	}
 	h5 {
 		padding-right: 11rem;
+	}
+	.errorMassge {
+		color: red;
+		padding-top: 0.2rem;
+		padding-right: 5.3rem;
+		font-size: 13px;
+		font-weight: bold;
 	}
 `;
 
@@ -120,7 +119,7 @@ const Title = styled.h2`
 
 const LoginBtn = styled.div`
 	${flexColum}
-	margin-top: 1.5rem;
+	margin-top: 0.8rem;
 	button {
 		height: 1.5rem;
 		width: 200px;

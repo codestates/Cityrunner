@@ -4,6 +4,7 @@ import { GlobalStyles } from "./themes/GlobalStyles";
 import { Socketio } from "./components/Socketio/Socketio";
 import { Mypage } from "./components/Mypage/Mypage";
 import { Matching } from "./pages/Matching";
+import Mypage from "./pages/Mypage";
 
 function App() {
   return (
