@@ -1,11 +1,13 @@
-const { Profiles } = require("../components/mypage/Profiles");
+import { Header } from "../components/Header";
+const { Profiles } = require("../components/Mypage/Profiles");
 
 const Mypage = () => {
-	return (
-		<>
-			<Profiles />
-		</>
-	);
+  return (
+    <>
+      <Header />
+      <Profiles />
+    </>
+  );
 };
 
 export default Mypage;

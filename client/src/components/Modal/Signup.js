@@ -74,7 +74,10 @@ export const Signup = (props) => {
   const CloseSignup = () => {
     props.setShowSignupModal(false);
   };
+<<<<<<< HEAD
+=======
   console.log(SignupInfo);
+>>>>>>> 92e9197cb7d7ee9d4f2f3d219f11214765ad062e
   const OnClick = (key) => (e) => {
     setSignupInfo({ ...SignupInfo, [key]: e.target.value });
   };
@@ -100,7 +103,10 @@ export const Signup = (props) => {
         }
       });
   };
+<<<<<<< HEAD
+=======
   console.log("test");
+>>>>>>> 92e9197cb7d7ee9d4f2f3d219f11214765ad062e
   return (
     <>
       <ModalContainer>

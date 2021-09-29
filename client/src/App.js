@@ -8,7 +8,10 @@ import Mypage from "./pages/Mypage";
 import { MyRoom } from "./components/modal/MyRoom";
 
 function App() {
+<<<<<<< HEAD
+=======
 
+>>>>>>> 92e9197cb7d7ee9d4f2f3d219f11214765ad062e
   return (
     <Router>
       <GlobalStyles />
@@ -22,6 +25,11 @@ function App() {
         <Route exact path="/Matching">
           <Matching />
         </Route>
+<<<<<<< HEAD
+      </Switch>
+    </Router>
+  );
+=======
         <Route exact path="/Chating">
           <Socketio />
         </Route>
@@ -32,6 +40,7 @@ function App() {
     </Router>
   );
 
+>>>>>>> 92e9197cb7d7ee9d4f2f3d219f11214765ad062e
 }
 
 export default App;
