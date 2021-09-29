@@ -17,16 +17,6 @@ const createStoreWidthMiddleware = applyMiddleware(
 )(createStore);
 
 ReactDOM.render(
-<<<<<<< HEAD
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <Provider store={store(rootReducer)}>
-        <App />
-      </Provider>
-    </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
-=======
 	<React.StrictMode>
 		<Provider store={createStoreWidthMiddleware(rootReducer)}>
 			<ThemeProvider theme={theme}>
@@ -35,7 +25,6 @@ ReactDOM.render(
 		</Provider>
 	</React.StrictMode>,
 	document.getElementById("root")
->>>>>>> 92e9197cb7d7ee9d4f2f3d219f11214765ad062e
 );
 
 // If you want to start measuring performance in your app, pass a function
