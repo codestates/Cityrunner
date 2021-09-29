@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
+
 import { MainFirst } from "../components/main/MainFirst";
 import { MainFourth } from "../components/main/MainFourth";
 import { MainSecond } from "../components/main/MainSecond";
@@ -61,4 +62,5 @@ export const Main = () => {
 			<Footer />
 		</>
 	);
+
 };

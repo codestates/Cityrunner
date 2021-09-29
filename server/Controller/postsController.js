@@ -1,14 +1,17 @@
-const { user, post, chattingRoom, Sequelize } = require('../models');
+const { user, post, chattingRoom, Sequelize } = require("../models");
 const Op = Sequelize.Op;
 const {
-  verifyAccessToken,
-  decodeToken,
-  verifyRefreshToken,
-  generateAccessToken,
-  sendAccessToken,
-  autoManageAccessToken } = require('./Functions/tokenFunction');
+
+	verifyAccessToken,
+	decodeToken,
+	verifyRefreshToken,
+	generateAccessToken,
+	sendAccessToken,
+	autoManageAccessToken,
+} = require("./Functions/tokenFunction");
 
 module.exports = {
+
   posts: async (req, res) => {
     // router.post('/', posts);
     // 글쓰기
@@ -195,3 +198,4 @@ module.exports = {
     }
   }
 }
+
