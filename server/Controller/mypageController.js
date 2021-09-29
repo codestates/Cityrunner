@@ -1,4 +1,5 @@
 const { user, post, userMedal, medal, chattingRoom } = require('../models');
+const { getParsedDate } = require('./Functions/dataFormat');
 const { autoManageAccessToken } = require('./Functions/tokenFunction');
 
 module.exports = {
@@ -55,7 +56,7 @@ module.exports = {
         }),
         runningDays : userInfo.chattingRooms.map((el) => {
           return {
-            createdAt : el.createdAt,
+            createdAt : getParsedDate(el.createdAt),
             distance : el.post.distance
           }
         }),

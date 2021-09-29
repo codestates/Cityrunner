@@ -1,4 +1,5 @@
 const { user, post, chattingRoom, Sequelize } = require('../models');
+const { getParsedDate } = require('./Functions/dataFormat');
 const Op = Sequelize.Op;
 const {
   verifyAccessToken,
@@ -56,6 +57,7 @@ module.exports = {
         offset: offset,
         limit : 12
       });
+      postList.createdAt = getParsedDate(postList.createdAt);
       res.status(200).json({
         data : postList,
         message : '성공적으로 글목록을 가져왔습니다'
@@ -81,6 +83,7 @@ module.exports = {
       if (!postData) {
         return res.status(404).json('해당하는 글을 찾을 수 없습니다')
       }
+      postData.dataValues.createdAt = getParsedDate(postData.dataValues.createdAt);
       res.status(200).json({
         data : postData.dataValues,
         message : '성공적으로 글을 가져왔습니다'
