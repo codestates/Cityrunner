@@ -4,6 +4,24 @@ import styled from "styled-components";
 import { flexCenter, flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
 
+export const MainFirst = () => {
+	const history = useHistory();
+	return (
+		<Contanier>
+			<img src="img/Runner.png" alt=""></img>
+			<Title>
+				<li>오늘하루 함께할 </li>
+				<li>런닝크루를 만들어보세요!</li>
+			</Title>
+			<StartBtn>
+				<button className="btn" onClick={() => history.push("/Matching")}>
+					시작하기
+				</button>
+			</StartBtn>
+		</Contanier>
+	);
+};
+
 const Contanier = styled.div`
 	width: 100vw;
 	padding-top: 4rem;
@@ -49,21 +67,3 @@ const StartBtn = styled.div`
 		margin-bottom: 17vh;
 	}
 `;
-
-export const MainFirst = () => {
-	const history = useHistory();
-	return (
-		<Contanier>
-			<img src="img/Runner.png" alt=""></img>
-			<Title>
-				<li>오늘하루 함께할</li>
-				<li>런닝크루를 만들어보세요!</li>
-			</Title>
-			<StartBtn>
-				<button className="btn" onClick={() => history.push("/Matching")}>
-					시작하기
-				</button>
-			</StartBtn>
-		</Contanier>
-	);
-};

@@ -1,3 +1,4 @@
+const { default: axios } = require('axios');
 
 const models = require("../models")
 const {
@@ -104,13 +105,13 @@ module.exports = {
     //Post
     try{
 
-    let username = req.body.username;
+    // let username = req.body.username;
 
-    let data = await models.user.findOne({
-      where: {
-        username: username,
-      },
-    });
+    // let data = await models.user.findOne({
+    //   where: {
+    //     username: username,
+    //   },
+    // });
 
     return data ? res.status(409).json({message:"중복된 닉네임입니다"}) : res.status(200).json({message:"사용할 수 있는 닉네입니다"})
 
@@ -147,4 +148,64 @@ module.exports = {
     }
     
   },
+
+  oauth : async (req, res) => {
+    // POST /user/oauth
+    // Google, Kakao에 정보 요청하기
+    try {
+      const { authorizationCode, category } = req.body;
+      const data = {};
+      if (category === 'google') {
+        // Google
+        await axios
+          .get('https://www.googleapis.com/oauth2/v2/userinfo?access_token=' + authorizationCode, {
+            headers: {
+              authorization: `token ${authorizationCode}`,
+              Accept: 'application/json',
+            }
+          }).then((res) => {
+            const {email, name, picture} = res.data;
+            data.email = email;
+            data.username = name;
+            data.image = picture;
+          }).catch((err) => {
+            res.status(400).send('잘못된 요청입니다.')
+          });
+      } else if (category === 'kakao') {
+        //Kakao
+        await axios.get('https://kapi.kakao.com/v2/user/me', {
+          headers: {
+            'authorization': `Bearer ${authorizationCode}`
+          }
+        }).then((res) => {
+          data.email = res.data.kakao_account.email || res.data.id;
+          data.username = res.data.properties.nickname;
+          data.image = res.data.kakao_account.profile.profile_image_url;
+        }).catch((err) => {
+          res.status(400).send('잘못된 요청입니다.')
+        });
+      }
+
+      const [result, created] = await models.user.findOrCreate({
+        where : {
+          email : data.email,
+          password : (category === 'google'? 'google' : 'kakao')
+        },
+        defaults : {
+          username : data.username,
+          image : data.image
+        }
+      });
+
+      res.status(200).json({
+        message : '소셜 로그인 성공',
+        data : {
+          email : result.email,
+          password : result.password
+        }
+      });
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  }
 }
