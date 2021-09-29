@@ -1,4 +1,5 @@
 const { user, post, userMedal, medal, chattingRoom } = require('../models');
+const { getParsedDate } = require('./Functions/dataFormat');
 const { autoManageAccessToken } = require('./Functions/tokenFunction');
 
 module.exports = {
@@ -38,13 +39,14 @@ module.exports = {
           id : decode.id
         },
         attributes: {
-          exclude: ['createdAt', 'updatedAt', 'refreshToken', 'password']
+          exclude: ['createdAt', 'updatedAt', 'refreshToken']
         }
       });
       const userData = {
         email : userInfo.email,
         username : userInfo.username,
         image : userInfo.image,
+        oauth: (((userInfo.password === 'google') || (userInfo.password === 'kakao'))? true : false),
         medal : userInfo.userMedals.map((el) => {
           return {
             id : el.medal.id,
@@ -54,7 +56,7 @@ module.exports = {
         }),
         runningDays : userInfo.chattingRooms.map((el) => {
           return {
-            createdAt : el.createdAt,
+            createdAt : getParsedDate(el.createdAt),
             distance : el.post.distance
           }
         }),

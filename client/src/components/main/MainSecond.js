@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import useScrollFadeIn from "../../hooks/useScrollFadeIn";
 import { flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
 
 export const MainSecond = () => {
+	const aniTest = useScrollFadeIn();
 	return (
 		<Contanier>
 			<InfoText>
