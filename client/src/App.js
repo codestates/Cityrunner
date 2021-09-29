@@ -3,6 +3,7 @@ import { Main } from "./pages/Main";
 import { GlobalStyles } from "./themes/GlobalStyles";
 import { Matching } from "./pages/Matching";
 import Mypage from "./pages/Mypage";
+import { MyRoom } from "./components/modal/MyRoom";
 
 function App() {
 	return (
@@ -17,6 +18,9 @@ function App() {
 				</Route>
 				<Route exact path="/Matching">
 					<Matching />
+				</Route>
+				<Route exact path="/MyRoom">
+					<MyRoom />
 				</Route>
 			</Switch>
 		</Router>

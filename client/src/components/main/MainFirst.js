@@ -10,7 +10,7 @@ export const MainFirst = () => {
 		<Contanier>
 			<img src="img/Runner.png" alt=""></img>
 			<Title>
-				<li>오늘하루 함께할</li>
+				<li>오늘하루 함께할 </li>
 				<li>런닝크루를 만들어보세요!</li>
 			</Title>
 			<StartBtn>

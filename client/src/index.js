@@ -3,23 +3,26 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { Provider } from "react-redux";
-import { applyMiddleware, createStore } from "redux";
-import rootReducer from "./redux/combine";
-import reduxThunk from "redux-thunk";
-import promiseMiddlerware from "redux-promise";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./themes/theme";
+import { Provider } from "react-redux";
+import { applyMiddleware, createStore } from "redux";
+import rootReducer from "./redux";
+import promiseMiddlerware from "redux-promise";
+import reduxThunk from "redux-thunk";
 
-const store = applyMiddleware(promiseMiddlerware, reduxThunk)(createStore);
+const createStoreWidthMiddleware = applyMiddleware(
+	promiseMiddlerware,
+	reduxThunk
+)(createStore);
 
 ReactDOM.render(
 	<React.StrictMode>
-		<ThemeProvider theme={theme}>
-			<Provider store={store(rootReducer)}>
+		<Provider store={createStoreWidthMiddleware(rootReducer)}>
+			<ThemeProvider theme={theme}>
 				<App />
-			</Provider>
-		</ThemeProvider>
+			</ThemeProvider>
+		</Provider>
 	</React.StrictMode>,
 	document.getElementById("root")
 );
