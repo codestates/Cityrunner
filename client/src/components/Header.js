@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { theme } from "../themes/theme";
-import { Signup } from "./Modal/Signup";
-
 import { Link, useHistory } from "react-router-dom";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LoginModal } from "./Modal/LoginModal";
+import { Signup } from "./Modal/Signup";
 
 export const Header = () => {
   const [showSignupModal, setShowSignupModal] = useState(false);
@@ -84,22 +83,21 @@ export const Header = () => {
         {isModal ? <LoginModal></LoginModal> : null}
       </div>
       <div onClick={handleSignupModal}>
-        {showSignupModal ? (
-          <Signup setShowSignupModal={setShowSignupModal}></Signup>
-        ) : null}
+        {showSignupModal ? <Signup></Signup> : null}
       </div>
     </>
   );
 };
 
 const Container = styled.header`
-  position: fixed;
-  width: 100vw;
-  color: white;
-  background-color: ${theme.color.black};
-  border-bottom: 1px solid ${theme.line.gray};
-  display: flex;
-  justify-content: space-between;
+	position: fixed;
+	width: 100vw;
+	color: white;
+	background-color: ${theme.color.black};
+	border-bottom: 1px solid ${theme.line.gray};
+	display: flex;
+	justify-content: space-between;
+	z-index: 999;
 `;
 
 const RightSide = styled.div`

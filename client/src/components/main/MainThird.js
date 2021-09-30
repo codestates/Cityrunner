@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import useScrollFadeIn from "../../hooks/useScrollFadeIn";
 import { theme } from "../../themes/theme";
 
 const Contaniner = styled.div`
@@ -16,9 +17,10 @@ const Contaniner = styled.div`
 `;
 
 export const MainThird = () => {
+	const fadeIn = useScrollFadeIn();
 	return (
 		<Contaniner>
-			<img src="img/Running2.jpg"></img>
+			<img src="img/Running2.jpg" {...fadeIn}></img>
 			<h3>세번째 내용이 들어갈 곳 입니다.</h3>
 		</Contaniner>
 	);
