@@ -18,11 +18,11 @@ jobs:
       
       - name: npm install
         run: npm install
-        working-directory: ${{ env.working-directory }}
+        working-directory: ${{ secrets.working_directory }}
         
       - name: npm install
         run: npm run build
-        working-directory: ${{ env.working-directory }}
+        working-directory: ${{ secrets.working_directory }}
         
       - uses: jakejarvis/s3-sync-action@master
         with:
