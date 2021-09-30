@@ -4,8 +4,8 @@ import { theme } from "../themes/theme";
 import { Link, useHistory } from "react-router-dom";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { LoginModal } from "./Modal/LoginModal";
-import { Signup } from "./Modal/Signup";
+import { LoginModal } from "./modal/LoginModal";
+import { Signup } from "./modal/Signup";
 
 export const Header = () => {
   const [showSignupModal, setShowSignupModal] = useState(false);
