@@ -97,6 +97,7 @@ const Container = styled.header`
 	border-bottom: 1px solid ${theme.line.gray};
 	display: flex;
 	justify-content: space-between;
+	z-index: 999;
 `;
 
 const RightSide = styled.div`
