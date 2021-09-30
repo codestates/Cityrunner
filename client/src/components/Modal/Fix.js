@@ -71,7 +71,7 @@ export const Fix = (props) => {
   const [FixInfo, setFixInfo] = useState({
     email: "",
     password: "",
-    username: "",
+    username: " ",
   });
   const CloseFix = () => {
     props.setShowFixModal(false);
