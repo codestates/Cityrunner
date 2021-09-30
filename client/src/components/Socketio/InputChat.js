@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { theme } from "../../themes/theme";
+import styled from "styled-components";
 
 export const InputChat = ({ onClick }) => {
   const [curChat, setCurChat] = useState("");
@@ -11,16 +13,28 @@ export const InputChat = ({ onClick }) => {
     setCurChat("");
   };
   return (
-    <div>
-      <input
-        name="chat"
-        placeholder="글적어"
-        onChange={(event) => {
-          onChange(event);
-        }}
-        value={curChat}
-      />
+    <>
+      <Test>
+        <input
+          type="text"
+          name="chat"
+          placeholder=""
+          onChange={(event) => {
+            onChange(event);
+          }}
+          value={curChat}
+        />
+      </Test>
       <button onClick={Click}>채팅</button>
-    </div>
+    </>
   );
 };
+
+const Test = styled.div`
+  width: 100px;
+  border: solid 2px black;
+`;
+
+// 마이페이지 --> 반응형
+// 마이페이지 --> css 이대로 인지? 통일감 있게
+// 마이페이지 --> 컴포넌트로 나누기
