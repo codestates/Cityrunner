@@ -15,7 +15,7 @@ export const Socketio = () => {
   };
 
   const onClick = (data) => {
-    return socket.send(makeMessage(1, 2, data));
+    return socket.send(makeMessage(1, 1, data));
     //return socket.send(makeMessage(리덕스변수(roomId), 리덕스변수(userId), data));
   };
 
