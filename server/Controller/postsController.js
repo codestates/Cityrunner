@@ -57,6 +57,9 @@ module.exports = {
       delete filter.page;
       const postList = await post.findAll({
         where : filter, //! 조건과 일치하는 경우만 출력. 범위를 지정하려면 [Op.gte] 작성필요
+        order : [
+          ['id', 'DESC']
+        ],
         offset: offset,
         limit : 12
       });
