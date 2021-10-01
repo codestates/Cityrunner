@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { InputChat } from "./InputChat";
 import { PreviousChat } from "./PreviousChat";
 import { Inmsg } from "./Inmsg";
+
 let socket = new WebSocket(`ws://localhost:4000/chat`);
 
 export const Socketio = () => {
@@ -14,7 +15,7 @@ export const Socketio = () => {
   };
 
   const onClick = (data) => {
-    return socket.send(makeMessage(1, 2, data));
+    return socket.send(makeMessage(1, 1, data));
     //return socket.send(makeMessage(리덕스변수(roomId), 리덕스변수(userId), data));
   };
 

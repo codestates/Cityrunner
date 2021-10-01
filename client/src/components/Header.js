@@ -16,15 +16,16 @@ export const Header = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 
-	const handleModal = () => {
-		setisModal(!false);
-	};
-	const handleCloseModal = () => {
-		setisModal(false);
-	};
-	const handleSignupModal = () => {
-		setShowSignupModal(!showSignupModal);
-	};
+  const handleModal = () => {
+    setisModal(!false);
+  };
+  const handleCloseModal = () => {
+    setisModal(false);
+  };
+  const handleSignupModal = () => {
+    setShowSignupModal(!showSignupModal);
+  };
+
 
 	const onLogout = () => {
 		dispatch(setIsLogin(false));
@@ -105,45 +106,46 @@ export const Header = () => {
 };
 
 const Container = styled.header`
-	position: fixed;
-	width: 100vw;
-	color: white;
-	background-color: ${theme.color.black};
-	border-bottom: 1px solid ${theme.line.gray};
-	display: flex;
-	justify-content: space-between;
+  position: fixed;
+  width: 100vw;
+  color: white;
+  background-color: ${theme.color.black};
+  border-bottom: 1px solid ${theme.line.gray};
+  display: flex;
+  justify-content: space-between;
+  z-index: 999;
 `;
 
 const RightSide = styled.div`
-	display: flex;
-	margin-right: 4rem;
-	.login-pages {
-		cursor: pointer;
-		margin-right: 2rem;
-		:hover {
-			color: ${theme.color.hovergray};
-			transition: 0.1s;
-		}
+  display: flex;
+  margin-right: 4rem;
+  .login-pages {
+    cursor: pointer;
+    margin-right: 2rem;
+    :hover {
+      color: ${theme.color.hovergray};
+      transition: 0.1s;
+    }
 
-		@media ${theme.mobileS} {
-			display: none;
-		}
-	}
+    @media ${theme.mobileS} {
+      display: none;
+    }
+  }
 `;
 
 const Burgerbar = styled.div`
-	display: none;
-	@media ${theme.mobileS} {
-		display: flex;
-		margin-top: 1.28rem;
-		margin-left: 11.5rem;
-		cursor: pointer;
-		:hover {
-			color: ${theme.color.hovergray};
-		}
-	}
+  display: none;
+  @media ${theme.mobileS} {
+    display: flex;
+    margin-top: 1.28rem;
+    margin-left: 11.5rem;
+    cursor: pointer;
+    :hover {
+      color: ${theme.color.hovergray};
+    }
+  }
 `;
 
 const LeftSide = styled.div`
-	margin-left: 3rem;
+  margin-left: 3rem;
 `;

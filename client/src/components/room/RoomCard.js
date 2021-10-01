@@ -10,6 +10,7 @@ import Pagination from "react-js-pagination";
 // 쿼리 빈스트링으로 보내야함.
 
 const RoomCard = () => {
+
 	const dispatch = useDispatch();
 
 	const [savedata, setsavedata] = useState([]);
@@ -65,59 +66,59 @@ const RoomCard = () => {
 };
 
 const Container = styled.div`
-	display: flex;
-	border-top: 0.8px solid #ced4da;
-	margin-bottom: 10rem;
-	width: 100vw;
-	height: 100vh;
-	flex-wrap: wrap;
-	flex-direction: row;
+  display: flex;
+  border-top: 0.8px solid #ced4da;
+  margin-bottom: 10rem;
+  width: 100vw;
+  height: 100vh;
+  flex-wrap: wrap;
+  flex-direction: row;
 `;
 
 const CardContainer = styled.div`
-	margin-top: 1rem;
-	margin-left: 2rem;
-	border: 0.8px solid #ced4da;
-	width: 320px;
-	height: 380px;
-	${flexColum};
+  margin-top: 1rem;
+  margin-left: 2rem;
+  border: 0.8px solid #ced4da;
+  width: 320px;
+  height: 380px;
+  ${flexColum};
 `;
 const ImageContainer = styled.div`
-	overflow: hidden;
-	img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 const Title = styled.h3``;
 
 const Content = styled.h4`
-	font-size: 1rem;
+  font-size: 1rem;
 `;
 
 const CardFooter = styled.div`
-	${flexColum}
+  ${flexColum}
 `;
 
 const TimeDiv = styled.div`
-	margin-bottom: 1rem;
-	font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
 `;
 
 const Level = styled.div`
-	margin-bottom: 1rem;
+  margin-bottom: 1rem;
 `;
 
 const DaysFooter = styled.div`
-	display: flex;
+  display: flex;
 `;
 const Days = styled.h4`
-	padding-top: 1rem;
-	//padding-left: 11rem;
-	font-size: 0.9rem;
-	color: gray;
+  padding-top: 1rem;
+  //padding-left: 11rem;
+  font-size: 0.9rem;
+  color: gray;
 `;
 
 const PageNav = styled.div`
