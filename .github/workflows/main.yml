@@ -22,11 +22,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
         
       - name: npm install
-        run: npm install
+        run: npm version
         working-directory: ${{ secrets.working_directory }}
         
       - name: npm run build
-        run: npm run build
+        run: node version
         working-directory: ${{ secrets.working_directory }}
         
       - uses: jakejarvis/s3-sync-action@master
