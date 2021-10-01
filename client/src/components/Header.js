@@ -4,8 +4,8 @@ import { theme } from "../themes/theme";
 import { Link, useHistory } from "react-router-dom";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { LoginModal } from "./modal/LoginModal";
-import { Signup } from "./modal/Signup";
+import { LoginModal } from "./Modal/LoginModal";
+import { Signup } from "./Modal/Signup";
 
 export const Header = () => {
   const [showSignupModal, setShowSignupModal] = useState(false);
@@ -90,14 +90,14 @@ export const Header = () => {
 };
 
 const Container = styled.header`
-	position: fixed;
-	width: 100vw;
-	color: white;
-	background-color: ${theme.color.black};
-	border-bottom: 1px solid ${theme.line.gray};
-	display: flex;
-	justify-content: space-between;
-	z-index: 999;
+  position: fixed;
+  width: 100vw;
+  color: white;
+  background-color: ${theme.color.black};
+  border-bottom: 1px solid ${theme.line.gray};
+  display: flex;
+  justify-content: space-between;
+  z-index: 999;
 `;
 
 const RightSide = styled.div`

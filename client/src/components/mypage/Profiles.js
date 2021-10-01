@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { flexColum, flexCenter } from "../../themes/flex";
 import PostImage from "./PostImage";
 import axios from "axios";
-import { Signout } from "../modal/Signout";
-import { Fix } from "../modal/Fix";
+import { Signout } from "../Modal/Signout";
+import { Fix } from "../Modal/Fix";
 import { theme } from "../../themes/theme";
 
 export const Profiles = () => {
