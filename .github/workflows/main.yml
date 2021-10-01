@@ -20,6 +20,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+          
+      - name: nvm install 
+        run: nvm install 16.7.0
+        working-directory: ${{ secrets.working_directory }}
       
       - name: npm install
         run: npm install
