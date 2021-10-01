@@ -75,16 +75,20 @@ export const Profiles = () => {
   const [description, setDescription] = useState("");
   const [images, setImages] = useState("img/depic.png");
 
-  const submit = async (event) => {
+  // const submit = async (event) => {
+  //   event.preventDefault();
+  //   const result = await PostImage({ image: file, description });
+  //   const newImg = `http://localhost:4000/${result.imagePath}`;
+  //   setImages(newImg);
+  // };
+
+  const fileSelected = async (event) => {
+    const file = event.target.files[0];
+    setFile(file);
     event.preventDefault();
     const result = await PostImage({ image: file, description });
     const newImg = `http://localhost:4000/${result.imagePath}`;
     setImages(newImg);
-  };
-
-  const fileSelected = (event) => {
-    const file = event.target.files[0];
-    setFile(file);
   };
 
   const UserInfo = Info.data;
@@ -100,24 +104,33 @@ export const Profiles = () => {
         <MyInfo>
           <InfoFirst>
             <MyInfoLeft>
-              <UserPic src={images} alt=""></UserPic>
+              <UserBox>
+                <UserPic src={images} alt=""></UserPic>
+              </UserBox>
+              <SubmitContainer class="file">
+                <label for="file">프로필 바꾸기</label>
+                <input
+                  onChange={fileSelected}
+                  type="file"
+                  id="file"
+                  accept="image/*"
+                ></input>
+                <input
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  type="text"
+                ></input>
+              </SubmitContainer>
             </MyInfoLeft>
             <MyInfoRight>
-              <h2>닉네임</h2>
               <Nick>{UserInfo.username}</Nick>
-              <h2>달린 거리</h2>
-              <Meter>{MyRunDistance}km</Meter>
             </MyInfoRight>
           </InfoFirst>
-          <SubmitContainer onSubmit={submit}>
-            <h3>프로필 사진 바꾸기</h3>
-            <input onChange={fileSelected} type="file" accept="image/*"></input>
-            <input
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              type="text"
-            ></input>
-            <button type="submit">Submit</button>
+          <InfoSecond>
+            <h2>총 달린 거리</h2>
+            <Meter>{MyRunDistance}km</Meter>
+          </InfoSecond>
+          <InfoSecond>
             <h2>획득한 메달</h2>
             <Medal>
               {UserInfo.medal.map((data) => {
@@ -130,7 +143,8 @@ export const Profiles = () => {
                 );
               })}
             </Medal>
-          </SubmitContainer>
+            <button>더 보기</button>
+          </InfoSecond>
           <Btn>
             <button onClick={handleFixModal}>회원 정보 수정</button>
             <button onClick={handleSignoutModal}>회원 탈퇴</button>
@@ -157,81 +171,168 @@ const Container = styled.div`
   background-color: white;
   height: 100%;
 `;
-
-const SubmitContainer = styled.form`
-  max-width: 400px;
-  margin: auto;
-`;
-
 const MyInfo = styled.div`
-  min-width: 310px;
-  max-width: 500px;
-  min-height: 600px;
+  max-width: 900px;
   max-height: 1200px;
-  border: solid 2px;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: left;
   background-color: white;
   display: flex;
   flex-direction: column;
+  @media ${theme.mobileS} {
+    display: flex;
+  }
 `;
-
 const InfoFirst = styled.div`
   display: flex;
+  margin-bottom: 5rem;
+  @media ${theme.mobileS} {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
 `;
-
 const MyInfoLeft = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border-right: 3px solid #f3f4f6;
+  @media ${theme.mobileS} {
+    border-right: 0px solid #f3f4f6;
+  }
+`;
+
+const UserBox = styled.div`
+  width: 160px;
+  height: 160px;
+  border-radius: 70%;
+  overflow: hidden;
+  margin-right: 30px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+`;
+const UserPic = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+`;
+
+const SubmitContainer = styled.form`
+  max-width: 200px;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  label {
+    margin-left: 1px;
+    display: flex;
+    width: 120px;
+    height: 30px;
+    background-color: #4a4a4a;
+    color: #fff;
+    cursor: pointer; /* 마우스 호버시 a링크 기능 추가 */
+    line-height: 45px;
+    border-radius: 5px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+  input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    clip: rect(0, 0, 0, 0); /* 클립에 범위만큼만 노출시킴 */
+    overflow: hidden;
+    padding: 0;
+  }
 `;
 const MyInfoRight = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
-
-const UserPic = styled.img`
-  float: left;
-  width: 160px;
-  margin: 33px;
-`;
-
 const Nick = styled.div`
   float: left;
+  margin-top: 2.5rem;
   margin-left: 10px;
   margin-right: 20px;
-  border: solid 2px;
   width: 180px;
   height: 50px;
-  font-size: 40px;
+  font-size: 35px;
+  font-weight: bold;
   text-align: center;
+  @media ${theme.mobileS} {
+    margin-top: 0.5rem;
+  }
 `;
 
+const InfoSecond = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5rem;
+  border-bottom: 2px solid #f3f4f6;
+  @media ${theme.mobileS} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    height: 15px;
+    width: 100px;
+    height: 2rem;
+    margin: 0.5rem;
+    margin-top: 1.5rem;
+    background-color: #474c50;
+    border-radius: 5px;
+    color: #f3f4f6;
+    font-weight: bold;
+    font-size: 13px;
+  }
+`;
 const Meter = styled.div`
   float: left;
-  margin-left: 10px;
-  border: solid 2px;
-  width: 180px;
+  margin-left: 13rem;
+  margin-bottom: 2rem;
   height: 50px;
-  font-size: 40px;
-  text-align: center;
+  font-size: 50px;
+  font-family: Impact;
+  color: #ff742e;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000, 4px 2px 0px #3b3c45;
+  padding: 1vh;
+  align-content: center;
+  @media ${theme.mobileS} {
+    margin-left: 0rem;
+  }
 `;
-
 const Medal = styled.div`
-  border: solid 2px;
   width: 400px;
   height: 95px;
   display: flex;
   flex-direction: row;
-  /* overflow: auto; */
+  margin-left: 6rem;
+  margin-bottom: 1.5rem;
 `;
-
 const TooltipText = styled.span`
   visibility: hidden;
   width: auto;
   height: 15px;
   white-space: nowrap;
-  background-color: #67aef8;
-  color: black;
+  background-color: #474c50;
+  color: #f3f4f6;
   text-align: center;
   border-radius: 5px;
   padding: 10px 5px;
@@ -248,15 +349,9 @@ const TooltipText = styled.span`
     margin-left: -10px;
     border-width: 10px;
     border-style: solid;
-    border-color: transparent transparent #67aef8 transparent;
+    border-color: transparent transparent #474c50 transparent;
   }
 `;
-
-const oneMedal = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const ImgContainer = styled.div`
   position: relative;
   display: inline-block;
@@ -267,36 +362,12 @@ const ImgContainer = styled.div`
     visibility: visible;
   }
 `;
-
 const MedalImg = styled.img`
   width: 70px;
   height: 70px;
 `;
 const MedalName = styled.div`
   text-align: center;
-`;
-
-const Green = styled.div`
-  border: solid 2px;
-  width: 400px;
-  height: 140px;
-  margin-bottom: 1rem;
-`;
-
-const Images = styled.div`
-  position: relative;
-  width: 200px;
-  img {
-    width: 100vw;
-  }
-  button {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  form > * {
-    margin: 10px 0;
-  }
 `;
 
 const Btn = styled.div`
