@@ -22,7 +22,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       
       - name: npm install
-        run: npm install
+        run: npm install --global npm
         working-directory: ${{ secrets.working_directory }}
         
       - name: npm run build
