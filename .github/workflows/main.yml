@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.16.x]
+        node-version: [15.x]
     
     steps:
       - uses: actions/checkout@v2
@@ -21,9 +21,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           
-      - name: nvm install 
-        run: nvm install 16.7.0
-        working-directory: ${{ secrets.working_directory }}
+
       
       - name: npm install
         run: npm install
