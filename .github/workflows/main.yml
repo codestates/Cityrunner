@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.16.x]
+        node-version: [14.16.0]
     
     steps:
       - uses: actions/checkout@v2
@@ -29,8 +29,8 @@ jobs:
         run: npm install
         working-directory: ${{ secrets.working_directory }}
         
-      - name: npm build
-        run: npm build
+      - name: npm run build
+        run: npm run build
         working-directory: ${{ secrets.working_directory }}
         
       - uses: jakejarvis/s3-sync-action@master
