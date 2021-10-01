@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { flexColum } from "../../themes/flex";
+import { flexColum, flexCenter } from "../../themes/flex";
 import PostImage from "./PostImage";
 import axios from "axios";
+import { Signout } from "../modal/Signout";
+import { Fix } from "../modal/Fix";
+import { theme } from "../../themes/theme";
 
 export const Profiles = () => {
   const mockData = {
     data: {
       email: "hello@gmail.com",
-      username: "홍길동",
+      username: "nickname",
       image: "default",
       oauth: false,
       medal: [
@@ -30,7 +33,7 @@ export const Profiles = () => {
       ],
       runningDays: [
         { createdAt: "09-09", distance: 4 },
-        { createdAt: "09-10", distance: 2 },
+        { createdAt: "09-10", distance: 3 },
       ],
       participation: [
         {
@@ -47,23 +50,36 @@ export const Profiles = () => {
     },
     message: "성공적으로 유저정보를 가져왔습니다",
   };
-  const [file, setFile] = useState();
-  const [description, setDescription] = useState("");
-  const [images, setImages] = useState([]);
   const [Info, setInfo] = useState(mockData);
 
-  const getInfo = async () => {
-    const result = await axios.get("http://localhost:4000/mypage", {
-      headers: {},
-    });
-    setInfo(result);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/mypage", {
+        withCredentials: true,
+      })
+      .then((data) => {
+        console.log(data);
+        setInfo(data.data);
+      });
+  }, []);
+  const [showSignoutModal, setShowSignoutModal] = useState(false);
+  const handleSignoutModal = () => {
+    setShowSignoutModal(!showSignoutModal);
   };
+  const [showFixModal, setShowFixModal] = useState(false);
+  const handleFixModal = () => {
+    setShowFixModal(!showFixModal);
+  };
+
+  const [file, setFile] = useState();
+  const [description, setDescription] = useState("");
+  const [images, setImages] = useState("img/depic.png");
 
   const submit = async (event) => {
     event.preventDefault();
     const result = await PostImage({ image: file, description });
-
-    setImages([result.image, ...images]);
+    const newImg = `http://localhost:4000/${result.imagePath}`;
+    setImages(newImg);
   };
 
   const fileSelected = (event) => {
@@ -73,19 +89,24 @@ export const Profiles = () => {
 
   const UserInfo = Info.data;
 
+  let MyRunDistance = 0;
+  for (let i = 0; i < UserInfo.runningDays.length; i++) {
+    MyRunDistance = MyRunDistance + UserInfo.runningDays[i].distance;
+  }
+
   return (
     <>
       <Container>
         <MyInfo>
           <InfoFirst>
             <MyInfoLeft>
-              <UserPic src="img/depic.png" alt=""></UserPic>
+              <UserPic src={images} alt=""></UserPic>
             </MyInfoLeft>
             <MyInfoRight>
               <h2>닉네임</h2>
               <Nick>{UserInfo.username}</Nick>
               <h2>달린 거리</h2>
-              <Meter>6km</Meter>
+              <Meter>{MyRunDistance}km</Meter>
             </MyInfoRight>
           </InfoFirst>
           <SubmitContainer onSubmit={submit}>
@@ -99,50 +120,42 @@ export const Profiles = () => {
             <button type="submit">Submit</button>
             <h2>획득한 메달</h2>
             <Medal>
-              <oneMedal>
-                <ImgContainer>
-                  <MedalImg src="img/medal1.jpeg" />
-                  <MedalName>Rain</MedalName>
-                  <TooltipText>빗속에서 달린 당신!</TooltipText>
-                </ImgContainer>
-              </oneMedal>
-              <oneMedal>
-                <ImgContainer>
-                  <MedalImg src="img/medal2.png" />
-                  <MedalName>10km</MedalName>
-                  <TooltipText>10km를 뛰었군요!</TooltipText>
-                </ImgContainer>
-              </oneMedal>
-              <oneMedal>
-                <ImgContainer>
-                  <MedalImg src="img/medal3.jpeg" />
-                  <MedalName>make5</MedalName>
-                  <TooltipText>5개의 크루를 만들었습니다.</TooltipText>
-                </ImgContainer>
-              </oneMedal>
+              {UserInfo.medal.map((data) => {
+                return (
+                  <ImgContainer>
+                    <MedalImg src="img/medal3.jpeg" />
+                    <MedalName>{data.medalName}</MedalName>
+                    <TooltipText>{data.medalDesc}</TooltipText>
+                  </ImgContainer>
+                );
+              })}
             </Medal>
-            <h2>이렇게 자주 뛰었어요!</h2>
-            <Green></Green>
           </SubmitContainer>
+          <Btn>
+            <button onClick={handleFixModal}>회원 정보 수정</button>
+            <button onClick={handleSignoutModal}>회원 탈퇴</button>
+          </Btn>
         </MyInfo>
-        {/* { images.map( image => (
-        <div key={image}>
-        <img src={image}></img>
-        </div>
-    ))} */}
-        <img src="http://localhost:4000/images/38f550d87d82bbd67f3a236aabf31e9a"></img>
       </Container>
+      <div onClick={handleSignoutModal}>
+        {showSignoutModal ? (
+          <Signout MyRunDistance={MyRunDistance}></Signout>
+        ) : null}
+      </div>
+      <div onClick={handleFixModal}>{showFixModal ? <Fix></Fix> : null}</div>
     </>
   );
 };
 
 const Container = styled.div`
   padding-top: 6rem;
+  padding-bottom: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #21c897;
+  background-color: white;
+  height: 100%;
 `;
 
 const SubmitContainer = styled.form`
@@ -154,7 +167,7 @@ const MyInfo = styled.div`
   min-width: 310px;
   max-width: 500px;
   min-height: 600px;
-  max-height: 900px;
+  max-height: 1200px;
   border: solid 2px;
   justify-content: center;
   align-items: center;
@@ -209,6 +222,7 @@ const Medal = styled.div`
   height: 95px;
   display: flex;
   flex-direction: row;
+  /* overflow: auto; */
 `;
 
 const TooltipText = styled.span`
@@ -282,5 +296,21 @@ const Images = styled.div`
   }
   form > * {
     margin: 10px 0;
+  }
+`;
+
+const Btn = styled.div`
+  ${flexCenter}
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  button {
+    height: 1.5rem;
+    width: 160px;
+    height: 2rem;
+    margin: 0.5rem;
+    margin-top: 0.5rem;
+    background-color: ${theme.color.black};
+    color: white;
+    font-weight: bold;
   }
 `;
