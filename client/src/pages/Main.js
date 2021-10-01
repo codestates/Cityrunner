@@ -8,7 +8,7 @@ import { MainFirst } from "../components/main/MainFirst";
 import { MainFourth } from "../components/main/MainFourth";
 import { MainSecond } from "../components/main/MainSecond";
 import { MainThird } from "../components/main/MainThird";
-
+import { MainCount } from "../components/main/MainCount";
 import qs from "querystring";
 import { useHistory } from "react-router";
 import { loginUser } from "../redux/modules/user";
@@ -76,6 +76,7 @@ export const Main = () => {
 			<MainSecond />
 			<MainThird />
 			<MainFourth />
+			<MainCount />
 			<Footer />
 		</>
 	);

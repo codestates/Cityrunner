@@ -20,7 +20,8 @@ module.exports = {
       else delete rooms[roomId][uuid];
     };
     socket.on("message", async (msg) => {
-      const { roomId, userId, chat, option } = JSON.parse(msg);
+      const jsonParseMsg = JSON.parse(msg);
+      const { roomId, userId, chat, option } = jsonParseMsg;
       if (option === "Join") {
         if (!rooms[roomId]) rooms[roomId] = {};
         if (!rooms[roomId][uuid]) rooms[roomId][uuid] = socket;
@@ -33,7 +34,14 @@ module.exports = {
             memberId: userId,
             postId: roomId,
           });
-          Object.entries(rooms[roomId]).forEach(([, sock]) => sock.send(msg));
+          let userInfo = await models.user.findOne({
+            where: { id: userId },
+          });
+          jsonParseMsg["username"] = userInfo.dataValues.username;
+          jsonParseMsg["image"] = userInfo.dataValues.image;
+          Object.entries(rooms[roomId]).forEach(([, sock]) =>
+            sock.send(JSON.stringify(jsonParseMsg))
+          );
         }
       }
     });
