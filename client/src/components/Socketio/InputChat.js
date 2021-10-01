@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 export const InputChat = ({ onClick }) => {
   const [curChat, setCurChat] = useState("");
+  const [isText, setisText] = useState(false);
 
   const onChange = (event) => {
     setCurChat(event.target.value);
@@ -15,13 +16,22 @@ export const InputChat = ({ onClick }) => {
 
   useEffect(() => {
     const sendMsg = (event) => {
-      if (event.keyCode === 13) {
+      if (event.keyCode === 13 && curChat.length > 0) {
         Click(curChat);
       }
     };
     window.addEventListener("keydown", sendMsg);
     return () => window.removeEventListener("keydown", sendMsg);
   });
+
+  useEffect(() => {
+    setisText(false);
+    if (curChat.length === 0) {
+      setisText(false);
+    } else {
+      setisText(true);
+    }
+  }, [curChat]);
 
   return (
     <>
@@ -31,7 +41,12 @@ export const InputChat = ({ onClick }) => {
           onChange(event);
         }}
       ></InputMsg>
-      <SendButton onClick={Click}>채팅</SendButton>
+
+      {isText ? (
+        <SendButtonIstext onClick={Click}>채팅</SendButtonIstext>
+      ) : (
+        <SendButton>채팅</SendButton>
+      )}
     </>
   );
 };
@@ -46,8 +61,16 @@ const InputMsg = styled.input.attrs({
   margin-left: 5px;
 `;
 
-const SendButton = styled.button`
+const SendButtonIstext = styled.button`
   background-color: ${theme.color.apricot};
+  display: inline;
+  border-radius: 10px;
+  border: solid 1px ${theme.color.gray};
+  padding: 7px 20px 7px 20px;
+`;
+
+const SendButton = styled.button`
+  background-color: ${theme.color.black};
   display: inline;
   border-radius: 10px;
   border: solid 1px ${theme.color.gray};
