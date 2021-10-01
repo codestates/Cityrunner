@@ -85,10 +85,19 @@ module.exports = {
       if (!decode) {
         return res.status(401).json({message : '권한이 없는 유저입니다'});
       }
-      const { username, password } = req.body;
+      const { username, password, newPassword } = req.body;
+      const checkPw = await user.findOne({
+        where : {
+          id : decode.id
+        }
+      });
+      if(checkPw.password !== password) {
+        return res.status(400).json({message : '비밀번호가 일치하지 않습니다'});
+      }
       if (!!username) {
         const newUsername = await user.findOne({
           where : {
+            id : decode.id,
             username : username
           }
         });
@@ -101,8 +110,8 @@ module.exports = {
           }
         });
       }
-      if (!!password) {
-        user.update({password : password}, {
+      if (!!newPassword) {
+        user.update({password : newPassword}, {
           where : {
             id : decode.id
           }
