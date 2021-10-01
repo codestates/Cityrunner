@@ -10,8 +10,6 @@ const LOGIN_CHECK = "user/LOGIN_CHECK";
 const SET_IS_LOGIN = "user/SET_IS_LOGIN";
 const SET_USERINFO = "user/SET_USERINFO";
 
-
-
 export const setIsLogin = (isLogin) => {
 	return {
 		type: SET_IS_LOGIN,
@@ -31,11 +29,11 @@ export const setUserinfo = (userinfo) => {
 };
 
 export const registerUser = (dataToSubmit) => {
-  const data = axios.post(`${url}/user/signup`, dataToSubmit);
-  return {
-    type: REGISTER_USER,
-    payload: data,
-  };
+	const data = axios.post(`${url}/user/signup`, dataToSubmit);
+	return {
+		type: REGISTER_USER,
+		payload: data,
+	};
 };
 
 export const loginUser = (userInfo) => {
@@ -72,3 +70,4 @@ export default function user(state = initialState, action) {
 		default:
 			return state;
 	}
+}
