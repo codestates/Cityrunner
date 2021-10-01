@@ -33,14 +33,16 @@ export const MainCount = () => {
 	return (
 		<Contanier>
 			<Wrapper>
-      {FIGURE_ITEMS.map((item, index) => (
-            <ListItem key={item.title}>
-              <Number {...countItem[index]}>0</Number>
-              <Unit>{item.unit}</Unit>
-              <Title>{item.title}</Title>
-              <Description>{item.description}</Description>
-            </ListItem>
-          ))}
+        <List>
+        {FIGURE_ITEMS.map((item, index) => (
+              <ListItem key={item.title}>
+                <Number {...countItem[index]}>0</Number>
+                <Unit>{item.unit}</Unit>
+                <Title>{item.title}</Title>
+                <Description>{item.description}</Description>
+              </ListItem>
+            ))}
+          </List>
 			</Wrapper>
 		</Contanier>
 	);
