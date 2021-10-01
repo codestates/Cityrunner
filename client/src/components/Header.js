@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { theme } from "../themes/theme";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, Redirect } from "react-router-dom";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LoginModal } from "./modal/LoginModal";
 import { Signup } from "./modal/Signup";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsLogin, setUserinfo } from "../redux/modules/user";
+import { MobileNavbar } from "./MobileNavbar";
 
 export const Header = () => {
 	const [showSignupModal, setShowSignupModal] = useState(false);
-	// 임시 로그인성공 해더 상태관리(redux로 구현중)
-	const [islogin, setIsLogin] = useState(false);
 	const [isModal, setisModal] = useState(false);
 	const history = useHistory();
+	const dispatch = useDispatch();
 
 	const handleModal = () => {
 		setisModal(!false);
@@ -22,6 +24,12 @@ export const Header = () => {
 	};
 	const handleSignupModal = () => {
 		setShowSignupModal(!showSignupModal);
+	};
+
+	const onLogout = () => {
+		dispatch(setIsLogin(false));
+		dispatch(setUserinfo({}));
+		localStorage.removeItem("userinfo");
 	};
 
 	// ESC키로 모달을 close 기능
@@ -34,6 +42,9 @@ export const Header = () => {
 		window.addEventListener("keydown", close);
 		return () => window.removeEventListener("keydown", close);
 	}, []);
+
+	const userinfo = useSelector((state) => state.user);
+	let token = localStorage.getItem("userinfo");
 
 	return (
 		<>
@@ -52,15 +63,7 @@ export const Header = () => {
 					>
 						매칭페이지
 					</h4>
-					<h4
-						className="login-pages"
-						onClick={() => {
-							history.push("/Mypage");
-						}}
-					>
-						마이페이지
-					</h4>
-					{!islogin ? (
+					{!token ? (
 						<>
 							<h4 className="login-pages" onClick={handleModal}>
 								로그인
@@ -70,9 +73,19 @@ export const Header = () => {
 							</h4>
 						</>
 					) : (
-						<h4 className="login-pages" onClick={handleModal}>
-							로그아웃
-						</h4>
+						<>
+							<h4
+								className="login-pages"
+								onClick={() => {
+									history.push("/Mypage");
+								}}
+							>
+								마이페이지
+							</h4>
+							<h4 className="login-pages" onClick={onLogout}>
+								로그아웃
+							</h4>
+						</>
 					)}
 					<Burgerbar>
 						<FontAwesomeIcon icon={faBars} size="lg" />
@@ -80,7 +93,9 @@ export const Header = () => {
 				</RightSide>
 			</Container>
 			<div onClick={handleCloseModal}>
-				{isModal ? <LoginModal></LoginModal> : null}
+				{isModal ? (
+					<LoginModal handleCloseModal={handleCloseModal}></LoginModal>
+				) : null}
 			</div>
 			<div onClick={handleSignupModal}>
 				{showSignupModal ? <Signup></Signup> : null}

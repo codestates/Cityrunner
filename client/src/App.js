@@ -3,8 +3,8 @@ import { Main } from "./pages/Main";
 import { GlobalStyles } from "./themes/GlobalStyles";
 import { Socketio } from "./components/Socketio/Socketio";
 import { Matching } from "./pages/Matching";
-import { MyRoom } from "./components/modal/MyRoom";
 import Mypage from "./pages/Mypage";
+import { MyRoom } from "./components/modal/MyRoom";
 
 function App() {
 	return (

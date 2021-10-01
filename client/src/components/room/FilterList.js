@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { theme } from "../../themes/theme";
 import { CreateRoom } from "../modal/CreateRoom";
 
 export const FilterList = () => {
-	const dispatch = useDispatch();
 	const [isModal, setIsModal] = useState(false);
 
 	const handleModal = () => {

@@ -1,32 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { setPost } from "../../redux/modules/room";
 import { flexCenter, flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
 
 export const MyRoom = () => {
+	const dispatch = useDispatch();
+	const [info, setinfo] = useState([]);
+	const Roominfo = () => {
+		dispatch(setPost).then((data) => {
+			console.log(data.payload.data.data);
+			const infos = data.payload.data.data;
+			setinfo(infos);
+		});
+	};
+
+	// 참여하기 버튼을 누르면
+	// 채팅창 페이지로 넘어감
+
 	return (
 		<MakeModal>
 			<DialogBlock onClick={(e) => e.stopPropagation()}>
+				<button onClick={Roominfo}>크루불러오기</button>
 				<Title>참가중인 크루</Title>
 				<SelectContainer>
 					<h3>크루장</h3>
-					<h4>킬리안 음바페</h4>
+					<h4></h4>
 				</SelectContainer>
 				<SelectContainer>
 					<h3>난이도</h3>
-					<h4>상</h4>
+					<h4>{info.level}</h4>
 				</SelectContainer>
 				<SelectContainer>
 					<h3>모집인원</h3>
-					<h4>4명</h4>
+					<h4>{info.max}</h4>
 				</SelectContainer>
 				<SelectContainer>
 					<h3>시간</h3>
-					<h4>2시간</h4>
+					<h4>{info.time}</h4>
 				</SelectContainer>
 				<SelectContainer>
 					<h3>장소</h3>
-					<h4>여의나루역 4번 출구</h4>
+					<h4>{info.location}</h4>
+				</SelectContainer>
+				<SelectContainer>
+					<h3>Comment</h3>
+					<h4>{info.comment}</h4>
 				</SelectContainer>
 				<CommentBtn>
 					<button>크루 나가기</button>
