@@ -71,7 +71,7 @@ export const Fix = (props) => {
   const [FixInfo, setFixInfo] = useState({
     email: "",
     password: "",
-    username: " ",
+    username: "",
   });
   const CloseFix = () => {
     props.setShowFixModal(false);
@@ -85,19 +85,23 @@ export const Fix = (props) => {
       alert("모든 값을 입력해주세요.");
     }
     axios
-      .post(`http://localhost:4000/user/signup`, FixInfo, {
+      .patch(`http://localhost:4000/mypage`, FixInfo, {
         withCredentials: true,
       })
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
           CloseFix();
-          alert("회원가입에 성공하였습니다.");
+          alert("변경되었습니다.");
         }
       })
       .catch((err) => {
-        if (err.response.status === 409) {
-          alert("이미 존재하는 이메일,닉네임 입니다");
+        if (err.response.status === 400) {
+          alert("비밀번호가 일치하지 않습니다.");
+          return;
+        }
+        if (err.response.status === 401) {
+          alert("권한이 없는 유저입니다.");
           return;
         }
       });
