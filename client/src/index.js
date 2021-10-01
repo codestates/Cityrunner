@@ -12,19 +12,19 @@ import promiseMiddlerware from "redux-promise";
 import reduxThunk from "redux-thunk";
 
 const createStoreWidthMiddleware = applyMiddleware(
-	promiseMiddlerware,
-	reduxThunk
+  promiseMiddlerware,
+  reduxThunk
 )(createStore);
 
 ReactDOM.render(
-	<React.StrictMode>
-		<Provider store={createStoreWidthMiddleware(rootReducer)}>
-			<ThemeProvider theme={theme}>
-				<App />
-			</ThemeProvider>
-		</Provider>
-	</React.StrictMode>,
-	document.getElementById("root")
+  <React.StrictMode>
+    <Provider store={createStoreWidthMiddleware(rootReducer)}>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
