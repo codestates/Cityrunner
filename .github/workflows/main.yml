@@ -25,8 +25,8 @@ jobs:
         run: npm install
         working-directory: ${{ secrets.working_directory }}
         
-      - name: npm run build
-        run: npm run build
+      - name: npm run test
+        run: npm run test
         working-directory: ${{ secrets.working_directory }}
         
       - uses: jakejarvis/s3-sync-action@master
