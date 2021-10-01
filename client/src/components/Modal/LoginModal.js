@@ -1,16 +1,15 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { loginUser } from "../../redux/modules/user";
+import { loginUser, setIsLogin, setUserinfo } from "../../redux/modules/user";
 import { flexCenter, flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
+import { useState } from "react";
 
 export const LoginModal = () => {
-	const history = useHistory();
-	//const dispatch = useDispatch();
-
+	const dispatch = useDispatch();
 	const formik = useFormik({
 		initialValues: {
 			email: "",
@@ -23,38 +22,51 @@ export const LoginModal = () => {
 		}),
 
 		onSubmit: (values) => {
-			console.log(values);
+			dispatch(loginUser(values)).then((res) => {
+				const userinfo = res.payload.data.data;
+				console.log(res);
+				dispatch(setIsLogin(true));
+				dispatch(setUserinfo(userinfo));
+				localStorage.setItem("userinfo", JSON.stringify({ userinfo }));
+			});
+			setTimeout(() => {
+				window.location.reload();
+			}, 150);
 		},
 	});
 
 	const oauth = {
-		google : {
-			client_id : '545489609690-8herb2edjhvhhsmmm8oh5tnhb88d4bop.apps.googleusercontent.com',
-			uri : 'http://localhost:3000',
-			scope : 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+		google: {
+			client_id:
+				"545489609690-8herb2edjhvhhsmmm8oh5tnhb88d4bop.apps.googleusercontent.com",
+			uri: "http://localhost:3000",
+			scope:
+				"https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
 		},
-		kakao : {
-			client_id :'63d21bbf51229a38085d23a58ecf2b9e',
-			uri : 'http://localhost:3000',
-		}
-	}
+		kakao: {
+			client_id: "63d21bbf51229a38085d23a58ecf2b9e",
+			uri: "http://localhost:3000",
+		},
+	};
 
 	const oauthHandler = (category) => {
-		if (category === 'google') {
-			window.location.assign(`https://accounts.google.com/o/oauth2/v2/auth?client_id=${oauth.google.client_id}&
-response_type=token&redirect_uri=${oauth.google.uri}&scope=${oauth.google.scope}`);//! 줄 바꿈 수정하면 에러나요ㅠㅠ 들여쓰기 없이 딱 붙어있어야 정상작동!
-		} else if (category === 'kakao') {
-			window.location.assign(`https://kauth.kakao.com/oauth/authorize?client_id=${oauth.kakao.client_id}&
-redirect_uri=${oauth.kakao.uri}&response_type=code`)
+		if (category === "google") {
+			window.location
+				.assign(`https://accounts.google.com/o/oauth2/v2/auth?client_id=${oauth.google.client_id}&
+response_type=token&redirect_uri=${oauth.google.uri}&scope=${oauth.google.scope}`); //! 줄 바꿈 수정하면 에러나요ㅠㅠ 들여쓰기 없이 딱 붙어있어야 정상작동!
+		} else if (category === "kakao") {
+			window.location
+				.assign(`https://kauth.kakao.com/oauth/authorize?client_id=${oauth.kakao.client_id}&
+redirect_uri=${oauth.kakao.uri}&response_type=code`);
 		}
-	}
+	};
 
 	return (
 		<>
 			<MakeModal>
 				<DialogBlock
-					onSubmit={formik.handleSubmit}
 					onClick={(e) => e.stopPropagation()}
+					onSubmit={formik.handleSubmit}
 				>
 					<Title>로그인</Title>
 					<LoginInput>
@@ -83,8 +95,20 @@ redirect_uri=${oauth.kakao.uri}&response_type=code`)
 					</LoginInput>
 					<LoginBtn>
 						<button type="submit">로그인</button>
-						<button onClick={() => {oauthHandler('google')}}>Google</button>
-						<button onClick={() => {oauthHandler('kakao')}}>Kakao</button>
+						<button
+							onClick={() => {
+								oauthHandler("google");
+							}}
+						>
+							Google
+						</button>
+						<button
+							onClick={() => {
+								oauthHandler("kakao");
+							}}
+						>
+							Kakao
+						</button>
 					</LoginBtn>
 				</DialogBlock>
 			</MakeModal>
