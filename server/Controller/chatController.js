@@ -37,11 +37,9 @@ module.exports = {
         },
       ],
       where: { postId: postId },
+      order: [["id", "ASC"]],
     });
     // 대화방에 가는 유저가 맞는지 판단하기위해서
-    const chattingRoom = await models.chattingRoom.findOne({
-      where: { memberId: 1 },
-    });
 
     return res.json({ data: chattingLogs });
   },

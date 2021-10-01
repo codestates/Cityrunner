@@ -15,10 +15,21 @@ export const PreviousChat = () => {
 
     setPreChat(getChattingLog);
     setLoading(false);
+    handleScroll();
   }, []);
 
+  const handleScroll = () => {
+    window.scroll({
+      top: document.body.offsetHeight,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
   return (
     <>
+      <button type="button" onClick={handleScroll}>
+        Scroll
+      </button>
       {Loading ? <IsLoading></IsLoading> : null}
       <ChatRoom>
         {preChat.map((el, idx) =>
@@ -66,6 +77,7 @@ const LeftBalloon = styled.div`
 
 const RightBalloon = styled.div`
   background: ${theme.color.apricot};
+  text-align: left;
   margin-bottom: 20px;
   margin-right: 10px;
   padding: 10px;
