@@ -75,13 +75,13 @@ module.exports = {
           where: { memberId: user.id },
           order: [["id", "DESC"]],
         });
+        roomid = roomid.dataValues.id;
       }
-
       postList.createdAt = getParsedDate(postList.createdAt);
       res.status(200).json({
         data: postList,
         message: "성공적으로 글목록을 가져왔습니다",
-        roomid: roomid.dataValues.id,
+        roomid: roomid,
       });
     } catch (err) {
       console.log(err);
