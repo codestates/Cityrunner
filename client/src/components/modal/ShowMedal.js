@@ -20,6 +20,10 @@ const Modal = styled.div`
   padding: 1rem;
   background: white;
   border-radius: 2px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
   h3 {
     ${flexCenter}
   }
@@ -89,59 +93,80 @@ const Input = styled.div`
   flex-direction: row;
 `;
 
-export const Signout = (MyRunDistance) => {
-  const [exit, setExit] = useState(false);
+const Medal = styled.div`
+  max-width: 350px;
+  display: flex;
+  flex-flow: wrap;
+  margin-bottom: 1.5rem;
+  align-items: center;
+  justify-content: center;
+`;
+const TooltipText = styled.span`
+  visibility: hidden;
+  width: auto;
+  height: 15px;
+  white-space: nowrap;
+  background-color: #474c50;
+  color: #f3f4f6;
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px 5px;
+  position: absolute;
+  z-index: 1;
+  top: 120%;
+  font-size: 13px;
+  font-weight: bold;
+  :after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #474c50 transparent;
+  }
+`;
+const ImgContainer = styled.div`
+  position: relative;
+  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &:hover ${TooltipText} {
+    visibility: visible;
+  }
+`;
+const MedalImg = styled.img`
+  width: 70px;
+  height: 70px;
+`;
+const MedalName = styled.div`
+  text-align: center;
+`;
 
-  let runDis = 0;
-  const OnChange = (key) => (e) => {
-    runDis = Number(e.target.value);
-    console.log(runDis);
-    console.log(MyRunDistance.MyRunDistance);
-    if (runDis === MyRunDistance.MyRunDistance) {
-      setExit(true);
-    } else {
-      setExit(false);
-    }
-    console.log(exit);
-  };
+export const ShowMedal = (UserInfo) => {
+  const medalInfo = UserInfo.UserInfo.medal;
+  console.log(medalInfo);
 
-  const SignoutButton = () => {
-    axios
-      .delete("http://localhost:4000/user/signout", {
-        withCredentials: true,
-      })
-      .then((data) => {
-        console.log(data);
-      });
-  };
   return (
     <>
       <ModalContainer>
         <Modal onClick={(e) => e.stopPropagation()}>
-          <Title>회원 탈퇴</Title>
-          <Text>정말로 탈퇴 하시겠습니까?</Text>
-          <Text>회원정보가 삭제되며 복구가 불가능 합니다.</Text>
-          <Text>탈퇴 하시려면 지금까지 달린 거리를 입력해주세요.</Text>
-          <NumText>CityRunner를 통해</NumText>
-          <Num>{MyRunDistance.MyRunDistance} km 달렸습니다!</Num>
-          <Input>
-            <input
-              name="distance"
-              type="text"
-              placeholder="달린 거리"
-              onChange={OnChange()}
-            />
-            km
-          </Input>
-          <LoginBtn>
-            {exit ? (
-              <button className="exitCan" onClick={SignoutButton}>
-                회원탈퇴
-              </button>
-            ) : (
-              <button>회원탈퇴</button>
-            )}
-          </LoginBtn>
+          <Title>획득한 메달</Title>
+          <Medal>
+            {medalInfo.map((data) => {
+              const ImgsrcId = data.id;
+              const Imgsrc = "img/medal" + ImgsrcId + ".jpeg";
+              return (
+                <ImgContainer>
+                  <MedalImg src={Imgsrc} />
+                  <MedalName>{data.medalName}</MedalName>
+                  <TooltipText>{data.medalDesc}</TooltipText>
+                </ImgContainer>
+              );
+            })}
+          </Medal>
         </Modal>
       </ModalContainer>
     </>
