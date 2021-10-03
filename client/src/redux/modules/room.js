@@ -7,13 +7,10 @@ const DELETE_ROOM = "room/DLEELTE_ROOM";
 const PATCH_ROOM = "room/PUT_ROOM";
 const SET_POST = "room/SET_POST";
 
-export const setPost = async () => {
-	const room = await axios.get(`${url}/posts/1`, {
-		withCredentials: true,
-	});
+export const setPost = async (data) => {
 	return {
 		type: SET_POST,
-		payload: room,
+		payload: data,
 	};
 };
 
@@ -109,6 +106,7 @@ export default function room(state = initialState, action) {
 				},
 			};
 		case SET_POST:
+			console.log(state);
 			return Object.assign({}, state, {
 				post: action.payload,
 			});

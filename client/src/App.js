@@ -7,9 +7,7 @@ import Mypage from "./pages/Mypage";
 import { MyRoom } from "./components/modal/MyRoom";
 import ScrollToTop from "./components/ScrollToTop";
 
-
 function App() {
-
 	return (
 		<Router>
 			<ScrollToTop />
@@ -33,7 +31,6 @@ function App() {
 			</Switch>
 		</Router>
 	);
-
 }
 
 export default App;
