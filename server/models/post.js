@@ -31,7 +31,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     max: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      defaultValue: 1
     },
     title: {
       type: DataTypes.STRING,
@@ -44,6 +45,10 @@ module.exports = (sequelize, DataTypes) => {
     location: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    join : {
+      type: DataTypes.INTEGER,
+      defaultValue: 1
     }
   }, {
     sequelize,
