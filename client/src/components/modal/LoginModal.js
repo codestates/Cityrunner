@@ -22,16 +22,17 @@ export const LoginModal = () => {
 		}),
 
 		onSubmit: (values) => {
-			dispatch(loginUser(values)).then((res) => {
-				const userinfo = res.payload.data.data;
-				console.log(res);
-				dispatch(setIsLogin(true));
-				dispatch(setUserinfo(userinfo));
-				localStorage.setItem("userinfo", JSON.stringify({ userinfo }));
-			});
-			setTimeout(() => {
-				window.location.reload();
-			}, 150);
+			dispatch(loginUser(values))
+				.then((res) => {
+					const userinfo = res.payload.data.data;
+					console.log(userinfo);
+					dispatch(setIsLogin(true));
+					dispatch(setUserinfo(userinfo));
+					localStorage.setItem("userinfo", JSON.stringify({ userinfo }));
+				})
+				.then(() => {
+					window.location.reload();
+				});
 		},
 	});
 

@@ -7,6 +7,7 @@ const url = "http://localhost:4000";
 const REGISTER_USER = "user/REGISTER_USER";
 const LOGIN = "user/LOGIN";
 const LOGIN_CHECK = "user/LOGIN_CHECK";
+const LOGOUT = "user/LOGOUT";
 const SET_IS_LOGIN = "user/SET_IS_LOGIN";
 const SET_USERINFO = "user/SET_USERINFO";
 
@@ -47,6 +48,16 @@ export const loginUser = (userInfo) => {
 	};
 };
 
+export const logoutUser = async () => {
+	const data = await axios.get(`${url}/user/logout`, {
+		withCredentials: true,
+	});
+	return {
+		type: LOGOUT,
+		payload: data,
+	};
+};
+
 const initialState = {
 	isLogin: false,
 	isLoading: false,
@@ -67,6 +78,12 @@ export default function user(state = initialState, action) {
 			return Object.assign({}, state, {
 				userinfo: action.payload,
 			});
+		case LOGOUT:
+			return {
+				...state,
+				isLogin: false,
+				isLoding: false,
+			};
 		default:
 			return state;
 	}
