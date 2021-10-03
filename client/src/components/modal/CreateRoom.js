@@ -97,7 +97,7 @@ const MakeModal = styled.div`
 	background: rgba(0, 0, 0, 0.1);
 `;
 
-const DialogBlock = styled.div`
+const DialogBlock = styled.form`
 	width: 350px;
 	height: 500px;
 	padding: 1rem;

@@ -5,6 +5,17 @@ const GET_ROOMS = "room/GET_ROOMS";
 const CREATE_ROOM = "room/CREATE_ROOM";
 const DELETE_ROOM = "room/DLEELTE_ROOM";
 const PATCH_ROOM = "room/PUT_ROOM";
+const SET_POST = "room/SET_POST";
+
+export const setPost = async () => {
+	const room = await axios.get(`${url}/posts/1`, {
+		withCredentials: true,
+	});
+	return {
+		type: SET_POST,
+		payload: room,
+	};
+};
 
 export const getRooms = async () => {
 	const rooms = await axios.get(`${url}/posts?page=1`, {
@@ -97,6 +108,11 @@ export default function room(state = initialState, action) {
 					error: null,
 				},
 			};
+		case SET_POST:
+			return Object.assign({}, state, {
+				post: action.payload,
+			});
+
 		default:
 			return state;
 	}

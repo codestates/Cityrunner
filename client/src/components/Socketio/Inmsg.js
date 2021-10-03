@@ -33,6 +33,17 @@ export const Inmsg = ({ socket }) => {
     setChats([...chats, socketMsg]);
   }, [socketMsg]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      window.scroll({
+        top: document.body.offsetHeight,
+        left: 0,
+        behavior: "smooth",
+      });
+    };
+    return handleScroll();
+  }, [chats]);
+
   return (
     <>
       <ChatRoom>
@@ -56,6 +67,7 @@ export const Inmsg = ({ socket }) => {
 
 const ChatRoom = styled.div`
   background: ${theme.color.hovergray};
+  width: 100%;
 `;
 
 const Left = styled.div`
@@ -75,6 +87,7 @@ const LeftBalloon = styled.div`
 `;
 
 const RightBalloon = styled.div`
+  text-align: left;
   background: ${theme.color.apricot};
   margin-bottom: 20px;
   margin-right: 10px;
