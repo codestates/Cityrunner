@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 export const InputChat = ({ onClick }) => {
   const [curChat, setCurChat] = useState("");
+  const [isText, setisText] = useState(false);
 
   const onChange = (event) => {
     setCurChat(event.target.value);
@@ -12,29 +13,66 @@ export const InputChat = ({ onClick }) => {
     onClick(curChat);
     setCurChat("");
   };
+
+  useEffect(() => {
+    const sendMsg = (event) => {
+      if (event.keyCode === 13 && curChat.length > 0) {
+        Click(curChat);
+      }
+    };
+    window.addEventListener("keydown", sendMsg);
+    return () => window.removeEventListener("keydown", sendMsg);
+  });
+
+  useEffect(() => {
+    setisText(false);
+    if (curChat.length === 0) {
+      setisText(false);
+    } else {
+      setisText(true);
+    }
+  }, [curChat]);
+
   return (
     <>
-      <Test>
-        <input
-          type="text"
-          name="chat"
-          placeholder=""
-          onChange={(event) => {
-            onChange(event);
-          }}
-          value={curChat}
-        />
-      </Test>
-      <button onClick={Click}>채팅</button>
+      <InputMsg
+        value={curChat}
+        onChange={(event) => {
+          onChange(event);
+        }}
+      ></InputMsg>
+
+      {isText ? (
+        <SendButtonIstext onClick={Click}>채팅</SendButtonIstext>
+      ) : (
+        <SendButton>채팅</SendButton>
+      )}
     </>
   );
 };
 
-const Test = styled.div`
-  width: 100px;
-  border: solid 2px black;
+const InputMsg = styled.input.attrs({
+  required: true,
+  type: "text",
+  name: "chat",
+})`
+  width: calc(100% - 86px);
+  height: 50px;
+  margin-left: 5px;
 `;
 
-// 마이페이지 --> 반응형
-// 마이페이지 --> css 이대로 인지? 통일감 있게
-// 마이페이지 --> 컴포넌트로 나누기
+const SendButtonIstext = styled.button`
+  background-color: ${theme.color.apricot};
+  display: inline;
+  border-radius: 10px;
+  border: solid 1px ${theme.color.gray};
+  padding: 7px 20px 7px 20px;
+`;
+
+const SendButton = styled.button`
+  background-color: ${theme.color.black};
+  display: inline;
+  border-radius: 10px;
+  border: solid 1px ${theme.color.gray};
+  padding: 7px 20px 7px 20px;
+`;

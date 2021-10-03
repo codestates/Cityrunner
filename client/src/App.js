@@ -3,12 +3,16 @@ import { Main } from "./pages/Main";
 import { GlobalStyles } from "./themes/GlobalStyles";
 import { Socketio } from "./components/Socketio/Socketio";
 import { Matching } from "./pages/Matching";
-import { MyRoom } from "./components/modal/MyRoom";
 import Mypage from "./pages/Mypage";
+import { MyRoom } from "./components/modal/MyRoom";
+import ScrollToTop from "./components/ScrollToTop";
+
 
 function App() {
+
 	return (
 		<Router>
+			<ScrollToTop />
 			<GlobalStyles />
 			<Switch>
 				<Route exact path="/">
@@ -29,6 +33,7 @@ function App() {
 			</Switch>
 		</Router>
 	);
+
 }
 
 export default App;

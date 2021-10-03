@@ -7,48 +7,67 @@ const url = "http://localhost:4000";
 const REGISTER_USER = "user/REGISTER_USER";
 const LOGIN = "user/LOGIN";
 const LOGIN_CHECK = "user/LOGIN_CHECK";
+const SET_IS_LOGIN = "user/SET_IS_LOGIN";
+const SET_USERINFO = "user/SET_USERINFO";
 
-// userInfo를 받아와서 dispatch로 실행을 시켜줘야한다.
-// login 구현
-// login 유지 구현
-// 로그아웃 구현
-// 비밀번호 바꾸기 구현
-
-//액션생성함수
-export const registerUser = (dataToSubmit) => {
-	const data = axios.post(`${url}/user/signup`, dataToSubmit);
-	return {
-		type: REGISTER_USER,
-		payload: data,
-	};
+export const setIsLogin = (isLogin) => {
+  return {
+    type: SET_IS_LOGIN,
+    payload: {
+      isLogin,
+    },
+  };
 };
 
-// export const loginUser = (userInfo) => {
-// 	const data = axios.post(`${url}/user/login`, userInfo, {
-// 		withCredentials: true,
-// 	});
-// 	return {
-// 		type: LOGIN_USER,
-// 		payload: data,
-// 	};
-// };
+export const setUserinfo = (userinfo) => {
+  return {
+    type: SET_USERINFO,
+    payload: {
+      ...userinfo,
+    },
+  };
+};
 
-// 리듀서 함수
-export default function user(state = {}, action) {
-	switch (action.type) {
-		case REGISTER_USER:
-			return {
-				...state,
-				success: action.payload,
-			};
-		// case LOGIN_USER:
-		// 	return {
-		// 		...state,
-		// 		loginSuccess: action.payload,
-		// 	};
-		default:
-			return state;
-	}
+export const registerUser = (dataToSubmit) => {
+  const data = axios.post(`${url}/user/signup`, dataToSubmit);
+  return {
+    type: REGISTER_USER,
+    payload: data,
+  };
+};
+
+export const loginUser = (userInfo) => {
+  const data = axios.post(`${url}/user/login`, userInfo, {
+    headers: { "Content-Type": "application/json" },
+    withCredentials: true,
+  });
+  return {
+    type: LOGIN,
+    payload: data,
+  };
+};
+
+const initialState = {
+  isLogin: false,
+  isLoading: false,
+  userinfo: {
+    id: "",
+    email: "",
+    nickname: "",
+  },
+};
+
+export default function user(state = initialState, action) {
+  switch (action.type) {
+    case SET_IS_LOGIN:
+      return Object.assign({}, state, {
+        isLogin: action.payload.isLogin,
+      });
+    case SET_USERINFO:
+      return Object.assign({}, state, {
+        userinfo: action.payload,
+      });
+    default:
+      return state;
+  }
 }
-
-//npm i moment로 수정가능
