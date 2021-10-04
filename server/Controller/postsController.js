@@ -12,6 +12,7 @@ const {
 
 module.exports = {
   posts: async (req, res) => {
+    console.log;
     // router.post('/', posts);
     // 글쓰기
     try {
@@ -46,6 +47,7 @@ module.exports = {
         postManager: decode.id,
       };
       const postTest = await post.create(postData);
+      console.log(postTest);
       //! 테스트 끝나면 하루에 하나만 쓸 수 있도록 로직 추가
       await chattingRoom.create({
         memberId: decode.id,
@@ -61,6 +63,7 @@ module.exports = {
     // 글 목록 가져오기
     try {
       const { page } = req.query;
+
       if (!page) {
         return res.status(400).json("잘못된 요청입니다");
       }
@@ -72,6 +75,7 @@ module.exports = {
         }
       }
       delete filter.page;
+      console.log(filter);
       const postList = await post.findAll({
         where: filter, //! 조건과 일치하는 경우만 출력. 범위를 지정하려면 [Op.gte] 작성필요
         order: [["id", "DESC"]],
@@ -86,7 +90,7 @@ module.exports = {
           order: [["id", "DESC"]],
         });
         if (roomid) {
-          roomid = roomid.dataValues.id;
+          roomid = roomid.dataValues.postId;
         }
       }
       postList.createdAt = getParsedDate(postList.createdAt);
@@ -180,6 +184,7 @@ module.exports = {
     // 크루 참여하기
     try {
       const postId = req.params.postId;
+      console.log(postId);
       if (!postId) {
         return res.status(400).json({ message: "잘못된 요청입니다" });
       }
