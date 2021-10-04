@@ -6,6 +6,7 @@ import { Matching } from "./pages/Matching";
 import Mypage from "./pages/Mypage";
 import { MyRoom } from "./components/modal/MyRoom";
 import ScrollToTop from "./components/ScrollToTop";
+import ChatRoom from "./pages/ChatRoom";
 
 function App() {
 	return (
@@ -26,7 +27,7 @@ function App() {
 					<Socketio />
 				</Route>
 				<Route exact path="/MyRoom">
-					<MyRoom />
+					<ChatRoom />
 				</Route>
 			</Switch>
 		</Router>

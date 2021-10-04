@@ -7,7 +7,6 @@ const FirstInfo = () => {
 
 const Contanier = styled.div`
 	width: 100vw;
-	${flexCenter}
 
 	padding-top: 6rem;
 `;
