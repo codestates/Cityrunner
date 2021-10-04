@@ -82,8 +82,6 @@ export const Fix = (props) => {
   };
   const OnClickCheck = (e) => {
     setPasswordCheck(e.target.value);
-    console.log(FixInfo.newPassword);
-    console.log(PasswordCheck);
   };
   const FixButton = () => {
     if (!FixInfo.password) {

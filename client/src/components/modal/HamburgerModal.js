@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { theme } from "../../themes/theme";
 import { flexCenter, flexColum } from "../../themes/flex";
-import axios from "axios";
 
 export const HamburgerModal = (props) => {
   console.log(props);
@@ -16,7 +15,6 @@ export const HamburgerModal = (props) => {
     <>
       <ModalContainer>
         <Modal onClick={(e) => e.stopPropagation()}>
-          <EmptyBox />
           <Menu
             onClick={() => {
               history.push("/Matching");
@@ -62,6 +60,7 @@ export const HamburgerModal = (props) => {
               </Menu>
             </div>
           )}
+          <Menu onClick={handleHamburgerModal}>메뉴닫기</Menu>
         </Modal>
       </ModalContainer>
     </>
@@ -74,22 +73,20 @@ const ModalContainer = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: right;
   z-index: 10;
   background: rgba(0, 0, 0, 0.6);
 `;
 
 const Modal = styled.div`
-  width: 40vw;
-  max-width: 200px;
-  height: 230px;
-  padding: 1rem;
+  width: 100vw;
+  height: 40vh;
+  min-height: 500px;
   background-color: ${theme.color.black};
   border-radius: 2px;
-  h3 {
-    ${flexCenter}
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Menu = styled.div`
@@ -97,12 +94,9 @@ const Menu = styled.div`
   margin-top: 30px;
   color: white;
   font-family: Impact;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
   cursor: pointer;
-`;
-const EmptyBox = styled.div`
-  margin-bottom: 70px;
 `;
 
 // 받을거 token

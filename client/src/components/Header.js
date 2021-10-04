@@ -102,7 +102,9 @@ export const Header = () => {
         ) : null}
       </div>
       <div onClick={handleSignupModal}>
-        {showSignupModal ? <Signup></Signup> : null}
+        {showSignupModal ? (
+          <Signup setShowSignupModal={setShowSignupModal}></Signup>
+        ) : null}
       </div>
       <div onClick={handleHamburgerModal}>
         {showHamburgerModal ? (
