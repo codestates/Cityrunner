@@ -33,7 +33,7 @@ module.exports = {
       if (!decode) {
         return res.status(401).json({ message: "권한이 없는 유저입니다" });
       }
-      console.log(decode)
+      console.log(decode);
       const { level, time, location, max, distance, title, comment } = req.body;
       const postData = {
         level,
@@ -48,8 +48,8 @@ module.exports = {
       const postTest = await post.create(postData);
       //! 테스트 끝나면 하루에 하나만 쓸 수 있도록 로직 추가
       await chattingRoom.create({
-        memberId : decode.id,
-        postId : postTest.id
+        memberId: decode.id,
+        postId: postTest.id,
       });
       res.status(200).json({ message: "글이 생성 되었습니다" });
     } catch (err) {
@@ -85,7 +85,9 @@ module.exports = {
           where: { memberId: user.id },
           order: [["id", "DESC"]],
         });
-        roomid = roomid.dataValues.id;
+        if (roomid) {
+          roomid = roomid.dataValues.id;
+        }
       }
       postList.createdAt = getParsedDate(postList.createdAt);
       res.status(200).json({
@@ -205,18 +207,21 @@ module.exports = {
         return res.status(409).json({ message: "이미 참여한 크루입니다" });
       } else {
         const postData = await post.findOne({
-          where : {
-            id : result.postId
-          }
+          where: {
+            id: result.postId,
+          },
         });
         if (postData.join + 1 > postData.max) {
           return res.status(400).json({ message: "더이상 참여할 수 없습니다" });
         }
-        await post.update({join : postData.join + 1}, {
-          where : {
-            id : postData.id
+        await post.update(
+          { join: postData.join + 1 },
+          {
+            where: {
+              id: postData.id,
+            },
           }
-        });
+        );
         return res.status(200).json({ message: "크루에 참여하였습니다" });
       }
     } catch (err) {
