@@ -23,9 +23,8 @@ export const MyRoom = () => {
 			<MakeModal>
 				{roomsinfo ? (
 					<DialogBlock key={roomsinfo.id}>
-						<SelectContainer>
-							<h3>크루장</h3>
-							<h4></h4>
+						<SelectContainer className="title">
+							<h1>{roomsinfo.title}</h1>
 						</SelectContainer>
 						<SelectContainer>
 							<h3>난이도</h3>
@@ -87,6 +86,9 @@ const SelectContainer = styled.div`
 		width: 5rem;
 		height: 2rem;
 		padding-left: 1rem;
+	}
+	.title {
+		${flexCenter}
 	}
 `;
 
