@@ -4,11 +4,12 @@ import { theme } from "../../themes/theme";
 import styled from "styled-components";
 import { IsLoading } from "./IsLoading";
 
-export const PreviousChat = () => {
+export const PreviousChat = ({ info }) => {
   const [preChat, setPreChat] = useState([]);
   const [Loading, setLoading] = useState(true);
 
   useEffect(async () => {
+    console.log(info);
     //axios.get이 부분에서 Socketio가 props로 postId(매칭 페이지에서 선택된 익덴스)을 전달해야함
     const axiosGet = await axios.get(`http://localhost:4000/chat/1`);
     const getChattingLog = axiosGet.data.data;

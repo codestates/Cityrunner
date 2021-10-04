@@ -18,6 +18,7 @@ export const Inmsg = ({ socket }) => {
 
   useEffect(async () => {
     socket.addEventListener("message", (msg) => {
+      console.log(msg);
       let { roomId, userId, chat, username, image } = JSON.parse(msg.data);
       setSocketMsg({
         roomId: roomId,
