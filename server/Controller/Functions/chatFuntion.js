@@ -33,6 +33,7 @@ module.exports = {
         leave(roomId);
       } else if (!option) {
         if (rooms[roomId][uuid]) {
+          console.log(roomId, userId, chat);
           await models.chattingLog.create({
             comment: chat,
             memberId: userId,

@@ -6,7 +6,6 @@ const ChatRoom = () => {
   return (
     <>
       <Chat />
-      {/* <Socketio socket={socket} /> */}
       <Socketio />
     </>
   );

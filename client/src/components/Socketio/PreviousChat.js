@@ -4,16 +4,21 @@ import { theme } from "../../themes/theme";
 import styled from "styled-components";
 import { IsLoading } from "./IsLoading";
 
-export const PreviousChat = ({ info }) => {
+export const PreviousChat = () => {
   const [preChat, setPreChat] = useState([]);
-  const [Loading, setLoading] = useState(true);
+  const [Loading, setLoading] = useState(false);
+  const [userid, setUserid] = useState("");
+
+  const url = "http://localhost:4000";
 
   useEffect(async () => {
-    console.log(info);
-    //axios.get이 부분에서 Socketio가 props로 postId(매칭 페이지에서 선택된 익덴스)을 전달해야함
-    const axiosGet = await axios.get(`http://localhost:4000/chat/1`);
-    const getChattingLog = axiosGet.data.data;
+    const axiosGet = await axios.get(`http://localhost:4000/chat/`, {
+      withCredentials: true,
+    });
 
+    const getChattingLog = axiosGet.data.data;
+    console.log(getChattingLog);
+    setUserid(axiosGet.data.userid);
     setPreChat(getChattingLog);
     setLoading(false);
     handleScroll();
@@ -28,13 +33,10 @@ export const PreviousChat = ({ info }) => {
   };
   return (
     <>
-      <button type="button" onClick={handleScroll}>
-        Scroll
-      </button>
       {Loading ? <IsLoading></IsLoading> : null}
       <ChatRoom>
         {preChat.map((el, idx) =>
-          el.memberId !== 1 ? (
+          el.memberId !== userid ? (
             <Left key={idx}>
               <LeftBalloon>
                 {el.comment === ""
