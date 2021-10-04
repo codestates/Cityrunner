@@ -17,7 +17,7 @@ export const PreviousChat = () => {
     });
 
     const getChattingLog = axiosGet.data.data;
-    console.log(getChattingLog);
+    // console.log(getChattingLog);
     setUserid(axiosGet.data.userid);
     setPreChat(getChattingLog);
     setLoading(false);

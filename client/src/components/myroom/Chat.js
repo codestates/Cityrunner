@@ -61,7 +61,7 @@ export const Chat = () => {
   );
 };
 
-const Contanier = styled.div`
+const Contanier = styled.span`
   width: 50vw;
   height: 100vh;
   background-color: ${theme.color.black};

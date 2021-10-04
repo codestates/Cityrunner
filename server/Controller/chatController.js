@@ -71,7 +71,7 @@ module.exports = {
     });
     // 대화방에 가는 유저가 맞는지 판단하기위해서
 
-    return res.json({ data: chattingLogs, userid: data.id });
+    return res.json({ data: chattingLogs, userid: data.id, postId: postId });
   },
   deleteMessage: async (req, res) => {
     // DELETE end point : /chat/:postId/:chatroomId

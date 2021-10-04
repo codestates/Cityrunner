@@ -20,11 +20,9 @@ export const Socketio = () => {
     const axiosGet = await axios.get(`http://localhost:4000/chat/`, {
       withCredentials: true,
     });
-
-    const getChattingLog = axiosGet.data.data;
-
+    console.log(axiosGet);
     setUserid(axiosGet.data.userid);
-    setRoomid(axiosGet.data.data[0].id);
+    setRoomid(axiosGet.data.postId);
   }, []);
 
   const makeMessage = (roomId, userId, chat, option) => {
