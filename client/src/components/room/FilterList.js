@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { flexCenter, flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
 import { CreateRoom } from "../modal/CreateRoom";
 
@@ -97,54 +98,49 @@ export const FilterList = () => {
 };
 
 const Contanier = styled.div`
-  width: 100vw;
-  display: flex;
-  justify-content: space-between;
+	width: 100vw;
+	display: flex;
+	justify-content: space-between;
+	@media ${theme.laptopS} {
+		${flexColum}
+	}
 `;
 
 const ListNames = styled.ul`
-  display: flex;
-  margin-top: 2rem;
-  li {
-    margin-right: 2rem;
-    :hover {
-      background-color: ${theme.color.hovergray};
-      cursor: pointer;
-    }
-  }
+	display: flex;
+	margin-top: 2rem;
+	font-weight: bold;
+	li {
+		margin-right: 2rem;
+		:hover {
+			background-color: ${theme.color.hovergray};
+			cursor: pointer;
+		}
+	}
 `;
 
 const RightSide = styled.div`
-  margin-top: 0.8rem;
-  margin-right: 4rem;
-  button {
-    color: #f5f5f3;
-    font-weight: bold;
-    font-size: 1rem;
-    &:hover {
-      background-color: white;
-      transition: 0.4s;
-      color: ${theme.color.black};
-      border: solid 1px;
-    }
-    background-color: ${theme.color.black};
-    color: #f5f5f3;
-    height: 2.4rem;
-    width: 15vh;
-    margin: 0.5rem;
-    border-radius: none;
-    border: none;
-  }
-`;
-
-const SelectContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  select {
-    background-color: ${theme.color.hovergray};
-    border-radius: 0.3rem;
-    width: 5rem;
-    height: 2rem;
-    padding-left: 1rem;
-  }
+	margin-top: 0.8rem;
+	margin-right: 4rem;
+	button {
+		color: #f5f5f3;
+		font-weight: bold;
+		font-size: 1rem;
+		&:hover {
+			background-color: white;
+			transition: 0.4s;
+			color: ${theme.color.black};
+			border: solid 1px;
+		}
+		background-color: ${theme.color.black};
+		color: #f5f5f3;
+		height: 2.4rem;
+		width: 15vh;
+		margin: 0.5rem;
+		border-radius: none;
+		border: none;
+	}
+	@media ${theme.laptopS} {
+		margin-right: 0;
+	}
 `;
