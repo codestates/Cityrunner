@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import { Socketio } from "../components/Socketio/Socketio";
 import { theme } from "../themes/theme";
 import styled from "styled-components";
+import { IsLoading } from "../components/Socketio/IsLoading";
 
 const ChatRoom = () => {
   return (
@@ -32,6 +33,7 @@ const Contanier = styled.div`
 const SocketioContanier = styled.div`
   background: ${theme.color.hovergray};
   margin-left: 50%;
+  /* margin-left: 5px; */
   margin-top: 4px;
   width: 62%;
   @media ${theme.mobileS} {

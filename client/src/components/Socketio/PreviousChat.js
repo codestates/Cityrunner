@@ -21,6 +21,7 @@ export const PreviousChat = () => {
     setUserid(axiosGet.data.userid);
     setPreChat(getChattingLog);
     setLoading(false);
+
     handleScroll();
   }, []);
 
@@ -33,28 +34,31 @@ export const PreviousChat = () => {
   };
   return (
     <>
-      {Loading ? <IsLoading></IsLoading> : null}
-      <ChatRoom>
-        {preChat.map((el, idx) =>
-          el.memberId !== userid ? (
-            <Left key={idx}>
-              <LeftBalloon>
-                {el.comment === ""
-                  ? "ㅤ"
-                  : `${el.user.username}: ${el.comment}`}
-              </LeftBalloon>
-            </Left>
-          ) : (
-            <Right key={idx}>
-              <RightBalloon>
-                {el.comment === ""
-                  ? "ㅤ"
-                  : `${el.user.username}: ${el.comment}`}
-              </RightBalloon>
-            </Right>
-          )
-        )}
-      </ChatRoom>
+      {Loading ? (
+        <IsLoading></IsLoading>
+      ) : (
+        <ChatRoom>
+          {preChat.map((el, idx) =>
+            el.memberId !== userid ? (
+              <Left key={idx}>
+                <LeftBalloon>
+                  {el.comment === ""
+                    ? "ㅤ"
+                    : `${el.user.username}: ${el.comment}`}
+                </LeftBalloon>
+              </Left>
+            ) : (
+              <Right key={idx}>
+                <RightBalloon>
+                  {el.comment === ""
+                    ? "ㅤ"
+                    : `${el.user.username}: ${el.comment}`}
+                </RightBalloon>
+              </Right>
+            )
+          )}
+        </ChatRoom>
+      )}
     </>
   );
 };

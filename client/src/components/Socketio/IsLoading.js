@@ -17,8 +17,8 @@ const Circle = styled.div`
 
   width: 40px;
   height: 40px;
-  border: 10px solid ${theme.color.gray};
-  border-top: 10px solid ${theme.color.apricot};
+  border: 10px solid black;
+  border-top: 10px solid red;
   border-radius: 50em;
 
   animation-name: spinCircle;

@@ -55,31 +55,41 @@ export const Socketio = () => {
         {isChat ? <Inmsg socket={socket} userid={userid}></Inmsg> : null}
         {isChat ? <InputChat onClick={onClick}></InputChat> : null}
         {isChat ? (
-          <LeaveChatRoom onClick={leaveChatRoom}>나가기</LeaveChatRoom>
+          <LeaveChatRoom onClick={leaveChatRoom}>채팅방 나가기</LeaveChatRoom>
         ) : null}
         {isChat ? null : (
-          <EnterChatRoom onClick={enterChatRoom}> 채팅하기</EnterChatRoom>
+          <EnterContanier>
+            <EnterChatRoom onClick={enterChatRoom}> 채팅하기</EnterChatRoom>
+          </EnterContanier>
         )}
       </ChatRoom>
     </>
   );
 };
 
-const LeaveChatRoom = styled.button`
+const EnterContanier = styled.div`
+  height: 100vw;
+`;
+
+const LeaveChatRoom = styled.div`
   position: absolute;
-  top: 10%;
   background-color: ${theme.color.apricot};
   border-radius: 10px;
   border: solid 1px ${theme.color.gray};
   padding: 7px 20px 7px 20px;
-  left: calc(52% - 10px);
+  left: calc(21% - 20px);
+  top: 20%;
   :hover {
     background-color: ${theme.color.hovergray};
     transition: 0.1s;
   }
+  @media ${theme.mobileS} {
+    top: calc(17% - 10px);
+    left: calc(38% - 10px);
+  }
 `;
 
-const EnterChatRoom = styled.button`
+const EnterChatRoom = styled.div`
   position: absolute;
   top: 50%;
   background-color: ${theme.color.apricot};
@@ -87,14 +97,20 @@ const EnterChatRoom = styled.button`
   border: solid 1px ${theme.color.gray};
   padding: 7px 20px 7px 20px;
   left: calc(70% - 10px);
+
   :hover {
     background-color: ${theme.color.hovergray};
     transition: 0.1s;
+  }
+  @media ${theme.mobileS} {
+    top: calc(17% - 10px);
+    left: calc(40% - 10px);
   }
 `;
 
 const ChatRoom = styled.div`
   width: 100%;
+
   margin-top: 6px;
   background: ${theme.color.hovergray};
 `;
