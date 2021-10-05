@@ -12,7 +12,7 @@ let socket = new WebSocket(`ws://localhost:4000/chat`);
 export const Socketio = () => {
   const [userid, setUserid] = useState("");
   const [roomid, setRoomid] = useState("");
-  const [isChat, setIsChat] = useState(true);
+  const [isChat, setIsChat] = useState(false);
   /* 리덕스로 관리해야 변수 명
     roomId,userId
   */
