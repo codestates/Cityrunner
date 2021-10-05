@@ -12,23 +12,29 @@ const {
 
 module.exports = {
   posts: async (req, res) => {
+    console.log;
     // router.post('/', posts);
     // 글쓰기
     try {
-      const decode = verifyAccessToken(req);
+      // const decode = verifyAccessToken(req);
+      // if (!decode) {
+      //   const forced = decodeToken(req.cookies.accessToken);
+      //   if (!forced) {
+      //     return res.status(400).json({ message: "잘못된 요청 입니다" });
+      //   }
+      //   const refreshData = await verifyRefreshToken(forced.payload.id);
+      //   if (!refreshData) {
+      //     return res.status(401).json({ message: "권한이 없는 유저입니다" });
+      //   } else {
+      //     const accessToken = generateAccessToken(refreshData.id);
+      //     sendAccessToken(res, accessToken);
+      //   }
+      // }
+      const decode = await autoManageAccessToken(req, res);
       if (!decode) {
-        const forced = decodeToken(req.cookies.accessToken);
-        if (!forced) {
-          return res.status(400).json({ message: "잘못된 요청 입니다" });
-        }
-        const refreshData = await verifyRefreshToken(forced.payload.id);
-        if (!refreshData) {
-          return res.status(401).json({ message: "권한이 없는 유저입니다" });
-        } else {
-          const accessToken = generateAccessToken(refreshData.id);
-          sendAccessToken(res, accessToken);
-        }
+        return res.status(401).json({ message: "권한이 없는 유저입니다" });
       }
+      console.log(decode);
       const { level, time, location, max, distance, title, comment } = req.body;
       const postData = {
         level,
@@ -40,7 +46,13 @@ module.exports = {
         comment,
         postManager: decode.id,
       };
-      await post.create(postData);
+      const postTest = await post.create(postData);
+      console.log(postTest);
+      //! 테스트 끝나면 하루에 하나만 쓸 수 있도록 로직 추가
+      await chattingRoom.create({
+        memberId: decode.id,
+        postId: postTest.id,
+      });
       res.status(200).json({ message: "글이 생성 되었습니다" });
     } catch (err) {
       res.status(500).send(err);
@@ -51,6 +63,7 @@ module.exports = {
     // 글 목록 가져오기
     try {
       const { page } = req.query;
+
       if (!page) {
         return res.status(400).json("잘못된 요청입니다");
       }
@@ -62,6 +75,7 @@ module.exports = {
         }
       }
       delete filter.page;
+      console.log(filter);
       const postList = await post.findAll({
         where: filter, //! 조건과 일치하는 경우만 출력. 범위를 지정하려면 [Op.gte] 작성필요
         order: [["id", "DESC"]],
@@ -75,7 +89,9 @@ module.exports = {
           where: { memberId: user.id },
           order: [["id", "DESC"]],
         });
-        roomid = roomid.dataValues.id;
+        if (roomid) {
+          roomid = roomid.dataValues.postId;
+        }
       }
       postList.createdAt = getParsedDate(postList.createdAt);
       res.status(200).json({
@@ -168,6 +184,7 @@ module.exports = {
     // 크루 참여하기
     try {
       const postId = req.params.postId;
+      console.log(postId);
       if (!postId) {
         return res.status(400).json({ message: "잘못된 요청입니다" });
       }
@@ -194,6 +211,22 @@ module.exports = {
       if (!created) {
         return res.status(409).json({ message: "이미 참여한 크루입니다" });
       } else {
+        const postData = await post.findOne({
+          where: {
+            id: result.postId,
+          },
+        });
+        if (postData.join + 1 > postData.max) {
+          return res.status(400).json({ message: "더이상 참여할 수 없습니다" });
+        }
+        await post.update(
+          { join: postData.join + 1 },
+          {
+            where: {
+              id: postData.id,
+            },
+          }
+        );
         return res.status(200).json({ message: "크루에 참여하였습니다" });
       }
     } catch (err) {

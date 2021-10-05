@@ -10,9 +10,12 @@ let getUniqueID = function () {
   }
   return s4() + s4() + "-" + s4();
 };
+let arr = [];
 
 module.exports = {
   enterChat: (socket) => {
+    arr.push(socket);
+    console.log(arr.length);
     const uuid = getUniqueID();
     const leave = (roomId) => {
       if (!rooms[roomId][uuid]) return;
@@ -20,6 +23,7 @@ module.exports = {
       else delete rooms[roomId][uuid];
     };
     socket.on("message", async (msg) => {
+      console.log(msg);
       const jsonParseMsg = JSON.parse(msg);
       const { roomId, userId, chat, option } = jsonParseMsg;
       if (option === "Join") {
@@ -29,6 +33,7 @@ module.exports = {
         leave(roomId);
       } else if (!option) {
         if (rooms[roomId][uuid]) {
+          console.log(roomId, userId, chat);
           await models.chattingLog.create({
             comment: chat,
             memberId: userId,

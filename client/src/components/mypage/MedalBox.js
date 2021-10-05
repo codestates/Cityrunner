@@ -25,7 +25,7 @@ export const MedalBox = (props) => {
   );
 };
 const Medals = styled.div`
-  width: 210px;
+  width: 300px;
   height: 95px;
   display: flex;
   flex-direction: row;
@@ -62,6 +62,7 @@ const TooltipText = styled.span`
 const ImgContainer = styled.div`
   position: relative;
   display: inline-block;
+  display: flex;
   flex-direction: column;
   align-items: center;
   &:hover ${TooltipText} {

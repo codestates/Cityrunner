@@ -3,7 +3,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { flexCenter, flexColum } from "../../themes/flex";
+import { Locations } from "../../themes/Locations";
 import { theme } from "../../themes/theme";
+import { Times } from "../../themes/Times";
 
 export const CreateRoom = () => {
 	const [roomInfo, setroomInfo] = useState({
@@ -45,14 +47,16 @@ export const CreateRoom = () => {
 				</SelectContainer>
 				<SelectContainer>
 					<select onChange={onChange("level")}>
-						<option value="0">상</option>
-						<option value="1">중</option>
-						<option value="2">하</option>
+						<option value="프로">프로</option>
+						<option value="아마추어">아마추어</option>
+						<option value="비기너">비기너</option>
 					</select>
 					<select onChange={onChange("time")}>
-						<option value="0">19:00</option>
-						<option value="1">20:00</option>
-						<option value="2">21:00</option>
+						{Times.map((item) => (
+							<option value={item} key={item}>
+								{item}
+							</option>
+						))}
 					</select>
 				</SelectContainer>
 				<SelectContainer>
@@ -60,24 +64,35 @@ export const CreateRoom = () => {
 					<h5>목표거리</h5>
 				</SelectContainer>
 				<SelectContainer>
-					<select onChange={onChange("member")}>
-						<option value="0">1</option>
-						<option value="1">2</option>
-						<option value="2">3</option>
-						<option value="3">4</option>
+					<select onChange={onChange("max")}>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
 					</select>
-					<select onChange={onChange("location")}>
-						<option value="0">거리</option>
-						<option value="0">3km</option>
-						<option value="1">5km</option>
-						<option value="2">8km</option>
+
+					<select onChange={onChange("distance")}>
+						<option value="0">미정</option>
+						<option value="3km">3km</option>
+						<option value="5km">5km</option>
+						<option value="10km 이상">10km 이상</option>
 					</select>
 				</SelectContainer>
+				<LocationDiv>
+					<h5>장소</h5>
+					<select onChange={onChange("location")}>
+						{Locations.map((item) => (
+							<option value={item} key={item}>
+								{item}
+							</option>
+						))}
+					</select>
+				</LocationDiv>
 				<CreateInput>
-					<h5>크루설명</h5>
-					<input onChange={onChange("comment")}></input>
-					<h5>세부설명</h5>
+					<h5>글제목</h5>
 					<input onChange={onChange("title")}></input>
+					<h5>세부사항</h5>
+					<input onChange={onChange("comment")}></input>
 				</CreateInput>
 				<CommentBtn>
 					<button onClick={onRoompost}>생성하기</button>
@@ -99,7 +114,7 @@ const MakeModal = styled.div`
 
 const DialogBlock = styled.form`
 	width: 350px;
-	height: 500px;
+	height: 600px;
 	padding: 1rem;
 	background: white;
 	border-radius: 15px;
@@ -115,8 +130,23 @@ const SelectContainer = styled.div`
 		background-color: ${theme.color.hovergray};
 		border-radius: 0.3rem;
 		width: 5rem;
-		height: 2rem;
+		height: 1.8rem;
 		padding-left: 1rem;
+	}
+`;
+const LocationDiv = styled.div`
+	display: ${flexCenter};
+	margin-top: 1rem;
+	margin-left: 8rem;
+	select {
+		background-color: ${theme.color.hovergray};
+		border-radius: 0.3rem;
+		width: 5rem;
+		height: 1.8rem;
+		margin-left: 0.5rem;
+	}
+	h5 {
+		margin-left: 2rem;
 	}
 `;
 

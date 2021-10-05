@@ -7,6 +7,7 @@ const url = "http://localhost:4000";
 const REGISTER_USER = "user/REGISTER_USER";
 const LOGIN = "user/LOGIN";
 const LOGIN_CHECK = "user/LOGIN_CHECK";
+const LOGOUT = "user/LOGOUT";
 const SET_IS_LOGIN = "user/SET_IS_LOGIN";
 const SET_USERINFO = "user/SET_USERINFO";
 
@@ -29,11 +30,11 @@ export const setUserinfo = (userinfo) => {
 };
 
 export const registerUser = (dataToSubmit) => {
-  const data = axios.post(`${url}/user/signup`, dataToSubmit);
-  return {
-    type: REGISTER_USER,
-    payload: data,
-  };
+	const data = axios.post(`${url}/user/signup`, dataToSubmit);
+	return {
+		type: REGISTER_USER,
+		payload: data,
+	};
 };
 
 export const loginUser = (userInfo) => {
@@ -47,6 +48,16 @@ export const loginUser = (userInfo) => {
   };
 };
 
+export const logoutUser = async () => {
+	const data = await axios.get(`${url}/user/logout`, {
+		withCredentials: true,
+	});
+	return {
+		type: LOGOUT,
+		payload: data,
+	};
+};
+
 const initialState = {
   isLogin: false,
   isLoading: false,
@@ -58,16 +69,22 @@ const initialState = {
 };
 
 export default function user(state = initialState, action) {
-  switch (action.type) {
-    case SET_IS_LOGIN:
-      return Object.assign({}, state, {
-        isLogin: action.payload.isLogin,
-      });
-    case SET_USERINFO:
-      return Object.assign({}, state, {
-        userinfo: action.payload,
-      });
-    default:
-      return state;
-  }
+	switch (action.type) {
+		case SET_IS_LOGIN:
+			return Object.assign({}, state, {
+				isLogin: action.payload.isLogin,
+			});
+		case SET_USERINFO:
+			return Object.assign({}, state, {
+				userinfo: action.payload,
+			});
+		case LOGOUT:
+			return {
+				...state,
+				isLogin: false,
+				isLoding: false,
+			};
+		default:
+			return state;
+	}
 }

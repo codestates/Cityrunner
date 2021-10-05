@@ -1,58 +1,58 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { setPost } from "../../redux/modules/room";
 import { flexCenter, flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
 
 export const MyRoom = () => {
-	const dispatch = useDispatch();
-	const [info, setinfo] = useState([]);
-	const Roominfo = () => {
-		dispatch(setPost).then((data) => {
-			console.log(data.payload.data.data);
-			const infos = data.payload.data.data;
-			setinfo(infos);
-		});
+	const roomsinfo = useSelector((state) => state.room.post);
+	const history = useHistory();
+
+	const onEnterRoom = async () => {
+		await axios
+			.put(`http://localhost:4000/posts/join/${roomsinfo.id}`, "", {
+				withCredentials: true,
+			})
+			.then(() => history.push("/MyRoom"));
 	};
 
-	// 참여하기 버튼을 누르면
-	// 채팅창 페이지로 넘어감
-
 	return (
-		<MakeModal>
-			<DialogBlock onClick={(e) => e.stopPropagation()}>
-				<button onClick={Roominfo}>크루불러오기</button>
-				<Title>참가중인 크루</Title>
-				<SelectContainer>
-					<h3>크루장</h3>
-					<h4></h4>
-				</SelectContainer>
-				<SelectContainer>
-					<h3>난이도</h3>
-					<h4>{info.level}</h4>
-				</SelectContainer>
-				<SelectContainer>
-					<h3>모집인원</h3>
-					<h4>{info.max}</h4>
-				</SelectContainer>
-				<SelectContainer>
-					<h3>시간</h3>
-					<h4>{info.time}</h4>
-				</SelectContainer>
-				<SelectContainer>
-					<h3>장소</h3>
-					<h4>{info.location}</h4>
-				</SelectContainer>
-				<SelectContainer>
-					<h3>Comment</h3>
-					<h4>{info.comment}</h4>
-				</SelectContainer>
-				<CommentBtn>
-					<button>크루 나가기</button>
-				</CommentBtn>
-			</DialogBlock>
-		</MakeModal>
+		<>
+			<MakeModal>
+				{roomsinfo ? (
+					<DialogBlock key={roomsinfo.id}>
+						<SelectContainer className="title">
+							<h1>{roomsinfo.title}</h1>
+						</SelectContainer>
+						<SelectContainer>
+							<h3>난이도</h3>
+							<h4>{roomsinfo.level}</h4>
+						</SelectContainer>
+						<SelectContainer>
+							<h3>모집인원</h3>
+							<h4>{roomsinfo.max}</h4>
+						</SelectContainer>
+						<SelectContainer>
+							<h3>시간</h3>
+							<h4>{roomsinfo.time}</h4>
+						</SelectContainer>
+						<SelectContainer>
+							<h3>장소</h3>
+							<h4>{roomsinfo.location}</h4>
+						</SelectContainer>
+						<SelectContainer>
+							<h3>Comment</h3>
+							<h4>{roomsinfo.comment}</h4>
+						</SelectContainer>
+						<CommentBtn>
+							<button onClick={() => onEnterRoom()}>크루 참가하기</button>
+						</CommentBtn>
+					</DialogBlock>
+				) : null}
+			</MakeModal>
+		</>
 	);
 };
 
@@ -86,6 +86,9 @@ const SelectContainer = styled.div`
 		width: 5rem;
 		height: 2rem;
 		padding-left: 1rem;
+	}
+	.title {
+		${flexCenter}
 	}
 `;
 

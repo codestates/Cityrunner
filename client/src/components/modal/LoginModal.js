@@ -21,31 +21,32 @@ export const LoginModal = () => {
       password: Yup.string().required("패스워드를 입력해주세요."),
     }),
 
-    onSubmit: (values) => {
-      dispatch(loginUser(values))
-        .then((res) => {
-          const userinfo = res.payload.data.data;
-          console.log(res);
-          dispatch(setIsLogin(true));
-          dispatch(setUserinfo(userinfo));
-          localStorage.setItem("userinfo", JSON.stringify({ userinfo }));
-        })
-        .then(() => {
-          window.location.reload();
-        });
-    },
-  });
+
+		onSubmit: (values) => {
+			dispatch(loginUser(values))
+				.then((res) => {
+					const userinfo = res.payload.data.data;
+					console.log(userinfo);
+					dispatch(setIsLogin(true));
+					dispatch(setUserinfo(userinfo));
+					localStorage.setItem("userinfo", JSON.stringify({ userinfo }));
+				})
+				.then(() => {
+					window.location.reload();
+				});
+		},
+	});
+
 
   const oauth = {
     google: {
-      client_id:
-        "545489609690-8herb2edjhvhhsmmm8oh5tnhb88d4bop.apps.googleusercontent.com",
+      client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
       uri: "http://localhost:3000",
       scope:
         "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
     },
     kakao: {
-      client_id: "63d21bbf51229a38085d23a58ecf2b9e",
+      client_id: process.env.REACT_APP_KAKAO_CLIENT_ID,
       uri: "http://localhost:3000",
     },
   };
