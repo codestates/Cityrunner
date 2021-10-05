@@ -65,7 +65,7 @@ export const Footer = () => {
 
 const Contanier = styled.div`
 	width: 100vw;
-	height: 35vh;
+	height: 35%;
 	background-color: ${theme.color.gray};
 	color: white;
 	font-size: 1rem;

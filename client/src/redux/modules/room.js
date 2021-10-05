@@ -7,20 +7,18 @@ const DELETE_ROOM = "room/DLEELTE_ROOM";
 const PATCH_ROOM = "room/PUT_ROOM";
 const SET_POST = "room/SET_POST";
 
-export const setPost = async () => {
-	const room = await axios.get(`${url}/posts/1`, {
-		withCredentials: true,
-	});
+export const setPost = async (data) => {
 	return {
 		type: SET_POST,
-		payload: room,
+		payload: data,
 	};
 };
 
-export const getRooms = async () => {
-	const rooms = await axios.get(`${url}/posts?page=1`, {
+export const getRooms = async (id) => {
+	const rooms = await axios.get(`${url}/posts?page=${id}`, {
 		withCredentials: true,
 	});
+	console.log(rooms);
 	return {
 		type: GET_ROOMS,
 		payload: rooms,
@@ -37,10 +35,12 @@ export const createRoom = async () => {
 	};
 };
 
+//콜론쓰면안됨 delete
 export const deleteRoom = async (roomId) => {
-	const room = await axios.delete(`${url}/posts/${roomId}`, {
+	const room = await axios.delete(`${url}/posts/exit/${roomId}`, {
 		withCredentials: true,
 	});
+	console.log(room);
 	return {
 		type: DELETE_ROOM,
 		payload: room,
@@ -48,7 +48,7 @@ export const deleteRoom = async (roomId) => {
 };
 
 export const patchRoom = async (roomId) => {
-	const room = await axios.patch(`${url}/posts/${roomId}`, {
+	const room = await axios.patch(`${url}/posts/:${roomId}`, {
 		withCredentials: true,
 	});
 	return {
@@ -94,9 +94,12 @@ export default function room(state = initialState, action) {
 			return {
 				...state,
 				room: {
-					loading: false,
+					loading: "안녕",
 					data: action.room,
 					error: null,
+				},
+				post: {
+					data: action.room,
 				},
 			};
 		case PATCH_ROOM:
@@ -109,6 +112,7 @@ export default function room(state = initialState, action) {
 				},
 			};
 		case SET_POST:
+			console.log(state);
 			return Object.assign({}, state, {
 				post: action.payload,
 			});

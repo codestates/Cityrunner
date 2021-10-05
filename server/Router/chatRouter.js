@@ -9,7 +9,7 @@ const {
 } = require("../Controller/chatController");
 
 router.post("/:postId", createAndSendMessage);
-router.get("/:postId", getMessage);
+router.get("/", getMessage);
 router.delete("/:postId", deleteMessage);
 //router.get('/:postId', enterMessage);
 router.post("/:postId/:userid", reportUser);

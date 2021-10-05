@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { theme } from "../../themes/theme";
 
-export const Inmsg = ({ socket }) => {
+export const Inmsg = ({ socket, userid }) => {
   const [socketMsg, setSocketMsg] = useState({
     roomId: "",
     userId: "",
@@ -49,7 +49,7 @@ export const Inmsg = ({ socket }) => {
       <ChatRoom>
         {chats.map((el, idx) =>
           el.userId !== "" ? (
-            el.userId !== 1 ? (
+            el.userId !== userid ? (
               <Left key={idx}>
                 <LeftBalloon>{`${el.username}: ${el.chat}`}</LeftBalloon>
               </Left>
@@ -66,6 +66,7 @@ export const Inmsg = ({ socket }) => {
 };
 
 const ChatRoom = styled.div`
+  height: auto;
   background: ${theme.color.hovergray};
   width: 100%;
 `;
@@ -84,6 +85,9 @@ const LeftBalloon = styled.div`
   margin-left: 10px;
   border-radius: 5px;
   display: inline-block;
+  &:nth-child(1) {
+    margin-top: 20px;
+  }
 `;
 
 const RightBalloon = styled.div`
@@ -94,4 +98,7 @@ const RightBalloon = styled.div`
   padding: 10px;
   border-radius: 5px;
   display: inline-block;
+  &:nth-child(1) {
+    margin-top: 20px;
+  }
 `;

@@ -13,6 +13,7 @@ module.exports = {
           comment: '올림픽공원 잔디광장 세번째 벤치',
           location: '올림픽',
           postManager: 2,
+          join: 4,
           createdAt : new Date(),
           updatedAt : new Date()
         },
@@ -25,6 +26,7 @@ module.exports = {
           comment: '여의도 IFC몰 스타벅스 앞',
           location: '여의도',
           postManager: 1,
+          join: 2,
           createdAt : new Date(),
           updatedAt : new Date()
         },
@@ -37,6 +39,7 @@ module.exports = {
           comment: '뚝섬역 3번출구',
           location: '뚝섬',
           postManager: 3,
+          join: 0,
           createdAt : new Date(),
           updatedAt : new Date()
         },
@@ -49,6 +52,7 @@ module.exports = {
           comment: '반포한강공원 어디서 만나나요',
           location: '반포',
           postManager: 2,
+          join: 0,
           createdAt : new Date(),
           updatedAt : new Date()
         },{
@@ -60,6 +64,7 @@ module.exports = {
           comment: '반포한강공원 어디서 만나나요',
           location: '반포',
           postManager: 2,
+          join: 0,
           createdAt : new Date(),
           updatedAt : new Date()
         },{
@@ -71,6 +76,7 @@ module.exports = {
           comment: '반포한강공원 어디서 만나나요',
           location: '반포',
           postManager: 2,
+          join: 0,
           createdAt : new Date(),
           updatedAt : new Date()
         }

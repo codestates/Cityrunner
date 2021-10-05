@@ -9,10 +9,12 @@ import { ShowMedal } from "../modal/ShowMedal";
 import { theme } from "../../themes/theme";
 import { mockData } from "./UserInfo";
 import { MedalBox } from "./MedalBox";
+import { IsLoading } from "../Socketio/IsLoading";
 
 export const Profiles = () => {
   const [Info, setInfo] = useState(mockData);
   const [IsOauth, setIsOauth] = useState(false);
+  const [Loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -26,10 +28,12 @@ export const Profiles = () => {
           setIsOauth(true);
           const UserImg = data.data.data.image;
           setImages(UserImg);
+          setLoading(false);
         } else {
           if (data.data.data.image) {
             const UserImg = `http://localhost:4000/images/${data.data.data.image}`;
             setImages(UserImg);
+            setLoading(false);
           }
         }
       });
@@ -71,54 +75,57 @@ export const Profiles = () => {
   for (let i = 0; i < UserInfo.runningDays.length; i++) {
     MyRunDistance = MyRunDistance + UserInfo.runningDays[i].distance;
   }
-
   return (
     <>
       <Container>
-        <MyInfo>
-          <InfoFirst>
-            <MyInfoLeft>
-              <UserBox>
-                <UserPic src={images} alt=""></UserPic>
-              </UserBox>
+        {Loading ? (
+          <IsLoading></IsLoading>
+        ) : (
+          <MyInfo>
+            <InfoFirst>
+              <MyInfoLeft>
+                <UserBox>
+                  <UserPic src={images} alt=""></UserPic>
+                </UserBox>
+                {!IsOauth ? (
+                  <SubmitContainer class="file">
+                    <label for="file">프로필 바꾸기</label>
+                    <input
+                      onChange={fileSelected}
+                      type="file"
+                      id="file"
+                      accept="image/*"
+                    ></input>
+                    <input
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      type="text"
+                    ></input>
+                  </SubmitContainer>
+                ) : null}
+              </MyInfoLeft>
+              <MyInfoRight>
+                <Nick>{UserInfo.username}</Nick>
+              </MyInfoRight>
+            </InfoFirst>
+            <InfoSecond>
+              <h2>총 달린 거리</h2>
+              <Meter>{MyRunDistance}km</Meter>
+            </InfoSecond>
+            <InfoSecond>
+              <h2>획득한 메달</h2>
+              <Sss></Sss>
+              <MedalBox UserInfo={UserInfo} />
+              <button onClick={handleMedalModal}>더 보기</button>
+            </InfoSecond>
+            <Btn>
               {!IsOauth ? (
-                <SubmitContainer class="file">
-                  <label for="file">프로필 바꾸기</label>
-                  <input
-                    onChange={fileSelected}
-                    type="file"
-                    id="file"
-                    accept="image/*"
-                  ></input>
-                  <input
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    type="text"
-                  ></input>
-                </SubmitContainer>
+                <button onClick={handleFixModal}>회원 정보 수정</button>
               ) : null}
-            </MyInfoLeft>
-            <MyInfoRight>
-              <Nick>{UserInfo.username}</Nick>
-            </MyInfoRight>
-          </InfoFirst>
-          <InfoSecond>
-            <h2>총 달린 거리</h2>
-            <Meter>{MyRunDistance}km</Meter>
-          </InfoSecond>
-          <InfoSecond>
-            <h2>획득한 메달</h2>
-            <Sss></Sss>
-            <MedalBox UserInfo={UserInfo} />
-            <button onClick={handleMedalModal}>더 보기</button>
-          </InfoSecond>
-          <Btn>
-            {!IsOauth ? (
-              <button onClick={handleFixModal}>회원 정보 수정</button>
-            ) : null}
-            <button onClick={handleSignoutModal}>회원 탈퇴</button>
-          </Btn>
-        </MyInfo>
+              <button onClick={handleSignoutModal}>회원 탈퇴</button>
+            </Btn>
+          </MyInfo>
+        )}
       </Container>
       <div onClick={handleSignoutModal}>
         {showSignoutModal ? (
@@ -154,6 +161,8 @@ const MyInfo = styled.div`
   flex-direction: column;
   @media ${theme.mobileS} {
     display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 const InfoFirst = styled.div`
@@ -162,6 +171,8 @@ const InfoFirst = styled.div`
   @media ${theme.mobileS} {
     display: flex;
     justify-content: center;
+    align-items: center;
+
     flex-direction: column;
     margin-bottom: 1rem;
   }
@@ -183,7 +194,6 @@ const UserBox = styled.div`
   height: 160px;
   border-radius: 70%;
   overflow: hidden;
-  margin-right: 30px;
   margin-top: 20px;
   margin-bottom: 30px;
   justify-content: center;
@@ -204,8 +214,8 @@ const SubmitContainer = styled.form`
   margin: auto;
   justify-content: center;
   align-items: center;
+  margin-left: 30px;
   label {
-    margin-left: 1px;
     display: flex;
     width: 120px;
     height: 30px;
@@ -263,7 +273,6 @@ const InfoSecond = styled.div`
     margin-top: 2rem;
     margin-bottom: 1rem;
   }
-
   button {
     height: 15px;
     width: 100px;
@@ -277,12 +286,15 @@ const InfoSecond = styled.div`
     font-size: 13px;
   }
 `;
+
 const Sss = styled.div`
   width: 15vw;
+  max-width: 150px;
   @media ${theme.mobileS} {
     width: 0px;
   }
 `;
+
 const Meter = styled.div`
   float: left;
   margin-left: 13rem;

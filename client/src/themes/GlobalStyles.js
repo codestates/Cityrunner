@@ -25,4 +25,12 @@ export const GlobalStyles = createGlobalStyle`
 			color: ${theme.color.hovergray};
 		}
 	}
+
+	@media ${theme.mobileS}{
+		html,
+body{
+width:100%;
+overflow-x:hidden;
+}
+	}
 `;

@@ -22,7 +22,8 @@ module.exports = {
       },
       max: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue: 1
       },
       title: {
         allowNull: false,
