@@ -46,7 +46,6 @@ module.exports = {
     });
 
     postId = postId.postId;
-    console.log(postId);
 
     // 이전에 있는 대화 내용 불러오기
     const chattingLogs = await models.chattingLog.findAll({
