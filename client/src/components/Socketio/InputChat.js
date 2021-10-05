@@ -35,21 +35,27 @@ export const InputChat = ({ onClick }) => {
 
   return (
     <>
-      <InputMsg
-        value={curChat}
-        onChange={(event) => {
-          onChange(event);
-        }}
-      ></InputMsg>
+      <Contanier>
+        <InputMsg
+          value={curChat}
+          onChange={(event) => {
+            onChange(event);
+          }}
+        ></InputMsg>
 
-      {isText ? (
-        <SendButtonIstext onClick={Click}>채팅</SendButtonIstext>
-      ) : (
-        <SendButton>채팅</SendButton>
-      )}
+        {isText ? (
+          <SendButtonIstext onClick={Click}>채팅</SendButtonIstext>
+        ) : (
+          <SendButton>채팅</SendButton>
+        )}
+      </Contanier>
     </>
   );
 };
+const Contanier = styled.div`
+  width: auto;
+  height: auto;
+`;
 
 const InputMsg = styled.input.attrs({
   required: true,
@@ -59,6 +65,7 @@ const InputMsg = styled.input.attrs({
   width: calc(100% - 86px);
   height: 50px;
   margin-left: 5px;
+  margin-right: 5px;
 `;
 
 const SendButtonIstext = styled.button`

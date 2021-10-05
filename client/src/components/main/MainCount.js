@@ -39,7 +39,7 @@ export const MainCount = () => {
               <Number {...countItem[index]}>0</Number>
               <Unit>{item.unit}</Unit>
               <Title>{item.title}</Title>
-              <Description>{item.description}</Description>
+              <Description>{item.desc}</Description>
             </ListItem>
           ))}
         </List>
@@ -50,10 +50,11 @@ export const MainCount = () => {
 
 const Contanier = styled.div`
   width: 100%;
+  border-radius: 25px;
   background-color: ${theme.color.apricot};
-  @media ${theme.mobileS} {
+  /* @media ${theme.mobileS} {
     width: 100vw;
-  }
+  } */
 `;
 
 const Wrapper = styled.div`
@@ -99,7 +100,7 @@ const ListItem = styled.li`
   }
 `;
 const Number = styled.span`
-  color: black;
+  color: ${theme.color.gray};
   font-size: 3rem;
   margin-bottom: 1rem;
 `;
