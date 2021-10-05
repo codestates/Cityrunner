@@ -61,10 +61,9 @@ export const Chat = () => {
   );
 };
 
-const Contanier = styled.span`
-  width: 50vw;
-  height: 100vh;
+const Contanier = styled.div`
   background-color: ${theme.color.black};
+  height: 100vh;
   color: black;
   ${flexColum}
 `;

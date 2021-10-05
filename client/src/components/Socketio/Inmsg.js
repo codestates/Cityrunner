@@ -66,6 +66,7 @@ export const Inmsg = ({ socket, userid }) => {
 };
 
 const ChatRoom = styled.div`
+  height: auto;
   background: ${theme.color.hovergray};
   width: 100%;
 `;
@@ -84,6 +85,9 @@ const LeftBalloon = styled.div`
   margin-left: 10px;
   border-radius: 5px;
   display: inline-block;
+  &:nth-child(1) {
+    margin-top: 20px;
+  }
 `;
 
 const RightBalloon = styled.div`
@@ -94,4 +98,7 @@ const RightBalloon = styled.div`
   padding: 10px;
   border-radius: 5px;
   display: inline-block;
+  &:nth-child(1) {
+    margin-top: 20px;
+  }
 `;

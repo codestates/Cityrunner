@@ -7,13 +7,13 @@ const FIGURE_ITEMS = [
   {
     title: "Total Crew",
     number: 4924,
-    unit: "팀",
+    unit: "",
     desc: "총 만들어진 크루",
   },
   {
     title: "Running Member",
     number: 100000,
-    unit: "명",
+    unit: "+",
     desc: "총 함께달린 크루멤버",
   },
   {
@@ -39,7 +39,7 @@ export const MainCount = () => {
               <Number {...countItem[index]}>0</Number>
               <Unit>{item.unit}</Unit>
               <Title>{item.title}</Title>
-              <Description>{item.description}</Description>
+              <Description>{item.desc}</Description>
             </ListItem>
           ))}
         </List>
@@ -65,7 +65,6 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
   @media ${theme.mobileS} {
     width: 100vw;
     flex-direction: column;

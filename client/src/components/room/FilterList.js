@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -6,44 +7,94 @@ import { theme } from "../../themes/theme";
 import { CreateRoom } from "../modal/CreateRoom";
 
 export const FilterList = () => {
-	const [isModal, setIsModal] = useState(false);
-	const history = useHistory();
+  //리듀서 써야함
+  // RoomCard 컴포넌트에 값을 전달하기 위해서
+  const [isModal, setIsModal] = useState(false);
+  const history = useHistory();
+  const [queryData, setQueryData] = useState({
+    level: "",
+    time: "",
+    distance: "",
+    location: [],
+  });
+  const [curHours, setCurHours] = useState(new Date().getHours());
 
-	const handleModal = () => {
-		setIsModal(!false);
-	};
-	const handleCloseModal = () => {
-		setIsModal(false);
-	};
+  const handleModal = () => {
+    setIsModal(!false);
+  };
+  const handleCloseModal = () => {
+    setIsModal(false);
+  };
 
-	useEffect(() => {
-		const close = (e) => {
-			if (e.keyCode === 27) {
-				handleCloseModal();
-			}
-		};
-		window.addEventListener("keydown", close);
-		return () => window.removeEventListener("keydown", close);
-	}, []);
+  useEffect(() => {
+    const close = (e) => {
+      if (e.keyCode === 27) {
+        handleCloseModal();
+      }
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, []);
+  const onChange = (key) => (e) => {
+    setQueryData({ ...queryData, [key]: e.target.value });
+  };
 
-	return (
-		<>
-			<Contanier>
-				<ListNames>
-					<li>시간</li>
-					<li>난이도</li>
-					<li>거리</li>
-				</ListNames>
-				<RightSide>
-					<button onClick={handleModal}> + 방만들기</button>
-					<button onClick={() => history.push("/MyRoom")}> 참여중인방</button>
-				</RightSide>
-			</Contanier>
-			<div onClick={handleCloseModal}>
-				{isModal ? <CreateRoom></CreateRoom> : null}
-			</div>
-		</>
-	);
+  const Hours = () => {
+    const reuslt = [];
+    if (curHours < 12) {
+      for (let i = curHours; i < 12; i++) {
+        reuslt.push(<option value={i}> {i}:00</option>);
+      }
+    } else {
+      for (let i = curHours; i < 24; i++) {
+        reuslt.push(<option value={i}> {i}:00</option>);
+      }
+    }
+
+    return reuslt;
+  };
+
+  const onClick = async () => {
+    let data = await axios.get(
+      `http://localhost:4000/posts?page=1&level=${queryData.level}&time=${queryData.time}&distance=${queryData.distance}&location=${queryData.location}`
+    );
+    console.log(data);
+  };
+
+  return (
+    <>
+      <Contanier>
+        <ListNames>
+          <select onChange={onChange("level")}>
+            <option value="">난이도</option>
+            <option value="프로">프로</option>
+            <option value="아마추어">아마추어</option>
+            <option value="비기너">비기너</option>
+          </select>
+
+          <select onChange={onChange("time")}>
+            <option value="">시간</option>
+            {Hours()}
+          </select>
+          <select onChange={onChange("distance")}>
+            <option value="">거리</option>
+            <option value="3">3km</option>
+            <option value="5">5km</option>
+            <option value="10">10</option>
+          </select>
+
+          <button onClick={onClick}>조회</button>
+        </ListNames>
+        <RightSide>
+          <button onClick={handleModal}> + 방만들기</button>
+          <button onClick={() => history.push("/MyRoom")}> 참여중인방</button>
+        </RightSide>
+      </Contanier>
+      <div onClick={handleCloseModal}>
+        {isModal ? <CreateRoom></CreateRoom> : null}
+      </div>
+    </>
+  );
 };
 
 const Contanier = styled.div`

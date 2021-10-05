@@ -59,6 +59,8 @@ export const PreviousChat = () => {
   );
 };
 const ChatRoom = styled.div`
+  width: 100%;
+  margin-top: 6px;
   background: ${theme.color.hovergray};
 `;
 
@@ -76,6 +78,9 @@ const LeftBalloon = styled.div`
   margin-left: 10px;
   border-radius: 5px;
   display: inline-block;
+  &:nth-child(1) {
+    margin-top: 20px;
+  }
 `;
 
 const RightBalloon = styled.div`
@@ -86,4 +91,7 @@ const RightBalloon = styled.div`
   padding: 10px;
   border-radius: 5px;
   display: inline-block;
+  &:nth-child(1) {
+    margin-top: 20px;
+  }
 `;
