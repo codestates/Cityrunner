@@ -25,9 +25,9 @@ function App() {
         <Route exact path="/Matching">
           <Matching />
         </Route>
-        <Route exact path="/Chating">
+        {/* <Route exact path="/Chating">
           <Socketio />
-        </Route>
+        </Route> */}
         <Route exact path="/MyRoom">
           {/* <ChatRoom socket={socket} /> */}
           <ChatRoom />
