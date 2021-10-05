@@ -22,7 +22,6 @@ export const Profiles = () => {
         withCredentials: true,
       })
       .then((data) => {
-        console.log(data);
         setInfo(data.data);
         if (data.data.data.oauth) {
           setIsOauth(true);
@@ -59,12 +58,10 @@ export const Profiles = () => {
     setFile(file);
     event.preventDefault();
     const name = UserInfo.username;
-    console.log(name);
     const result = await PostImage({
       image: file,
       description: name,
     });
-    console.log(result);
     const newImg = `http://localhost:4000/${result.imagePath}`;
     setImages(newImg);
   };
@@ -88,8 +85,8 @@ export const Profiles = () => {
                   <UserPic src={images} alt=""></UserPic>
                 </UserBox>
                 {!IsOauth ? (
-                  <SubmitContainer class="file">
-                    <label for="file">프로필 바꾸기</label>
+                  <SubmitContainer className="file">
+                    <label htmlFor="file">프로필 바꾸기</label>
                     <input
                       onChange={fileSelected}
                       type="file"
@@ -129,7 +126,10 @@ export const Profiles = () => {
       </Container>
       <div onClick={handleSignoutModal}>
         {showSignoutModal ? (
-          <Signout MyRunDistance={MyRunDistance}></Signout>
+          <Signout
+            MyRunDistance={MyRunDistance}
+            handleSignoutModal={handleSignoutModal}
+          ></Signout>
         ) : null}
       </div>
       <div onClick={handleFixModal}>{showFixModal ? <Fix></Fix> : null}</div>

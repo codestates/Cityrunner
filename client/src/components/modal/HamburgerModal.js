@@ -4,7 +4,6 @@ import { theme } from "../../themes/theme";
 import { flexCenter, flexColum } from "../../themes/flex";
 
 export const HamburgerModal = (props) => {
-  console.log(props);
   const token = props.token;
   const history = props.history;
   const onLogout = props.onLogout;

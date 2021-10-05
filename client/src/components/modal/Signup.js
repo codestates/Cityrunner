@@ -11,6 +11,7 @@ const ModalContainer = styled.div`
   width: 100%;
   height: 100%;
   ${flexCenter}
+  z-index:10;
   background: rgba(0, 0, 0, 0.6);
 `;
 
@@ -20,6 +21,8 @@ const Modal = styled.div`
   padding: 1rem;
   background: white;
   border-radius: 2px;
+  z-index: 10;
+
   h3 {
     ${flexCenter}
   }
@@ -93,14 +96,12 @@ export const Signup = (props) => {
             withCredentials: true,
           })
           .then((res) => {
-            console.log(res);
             if (res.status === 200) {
               CloseSignup();
               alert("회원가입에 성공하였습니다.");
             }
           })
           .catch((err) => {
-            console.log(err.response.status);
             if (err.response.status === 409) {
               alert("이미 존재하는 이메일,닉네임 입니다");
               return;
