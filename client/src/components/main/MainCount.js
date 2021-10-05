@@ -52,23 +52,29 @@ const Contanier = styled.div`
   width: 100%;
   border-radius: 25px;
   background-color: ${theme.color.apricot};
-  @media ${theme.mobileS} {
+  /* @media ${theme.mobileS} {
     width: 100vw;
-  }
+  } */
 `;
 
 const Wrapper = styled.div`
   width: 100%;
   max-width: 1180px;
   margin: auto;
-  padding: 100px 0;
+  padding: 40px 0;
+  margin-bottom: 50px;
   @media ${theme.mobileS} {
     width: 100vw;
+    padding: 0 0;
   }
 `;
 
 const List = styled.ul`
   display: flex;
+  @media ${theme.mobileS} {
+    /* width: 100vw; */
+    flex-direction: column;
+  }
 `;
 
 const ListItem = styled.li`
@@ -79,6 +85,19 @@ const ListItem = styled.li`
     border: 10px solid ${theme.color.hovergray};
     border-top: none;
     border-bottom: none;
+  }
+  @media ${theme.mobileS} {
+    padding: 24px 0;
+  }
+  @media ${theme.mobileS} {
+    &:nth-child(2) {
+      border: 10px solid ${theme.color.hovergray};
+      border-left: none;
+      border-right: none;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      margin: 24px 0;
+    }
   }
 `;
 const Number = styled.span`
