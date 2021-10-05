@@ -21,22 +21,6 @@ const ChatRoom = () => {
   );
 };
 
-// const Contanier = styled.div`
-//   padding-top: 60px;
-//   height: 100%;
-//   display: flex;
-// `;
-// const SocketioContanier = styled.div`
-//   background: ${theme.color.hovergray};
-
-//   margin-top: 4px;
-//   width: 100%;
-// `;
-
-// const ChatContanier = styled.div`
-//   width: 100%;
-// `;
-
 const Contanier = styled.div`
   padding-top: 60px;
   height: 100%;
@@ -48,7 +32,6 @@ const Contanier = styled.div`
 const SocketioContanier = styled.div`
   background: ${theme.color.hovergray};
   margin-left: 50%;
-  /* margin-left: 5px; */
   margin-top: 4px;
   width: 62%;
   @media ${theme.mobileS} {

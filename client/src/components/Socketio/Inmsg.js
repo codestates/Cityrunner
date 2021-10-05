@@ -18,13 +18,16 @@ export const Inmsg = ({ socket, userid }) => {
 
   useEffect(async () => {
     socket.addEventListener("message", (msg) => {
-      let { roomId, userId, chat, username, image } = JSON.parse(msg.data);
+      let { roomId, userId, chat, username, image, option } = JSON.parse(
+        msg.data
+      );
       setSocketMsg({
         roomId: roomId,
         userId: userId,
         chat: chat,
         username: username,
         image: image,
+        option: option,
       });
     });
   }, []);
@@ -44,26 +47,54 @@ export const Inmsg = ({ socket, userid }) => {
     return handleScroll();
   }, [chats]);
 
-  return (
-    <>
-      <ChatRoom>
-        {chats.map((el, idx) =>
-          el.userId !== "" ? (
-            el.userId !== userid ? (
+  const makeMessage = () => {
+    let messages = [];
+    chats.map((el, idx) => {
+      if (el.option === "Join") {
+        messages.push(
+          <Notice key={idx}>{`${el.username} 입장했습니다`}</Notice>
+        );
+      } else if (el.option === "leave") {
+        messages.push(
+          <Notice key={idx}>{`${el.username} 퇴장했습니다`}</Notice>
+        );
+      } else {
+        if (el.chat !== "") {
+          if (el.userId !== userid) {
+            messages.push(
               <Left key={idx}>
                 <LeftBalloon>{`${el.username}: ${el.chat}`}</LeftBalloon>
               </Left>
-            ) : (
+            );
+          } else {
+            messages.push(
               <Right key={idx}>
                 <RightBalloon>{`${el.username}: ${el.chat}`}</RightBalloon>
               </Right>
-            )
-          ) : null
-        )}
-      </ChatRoom>
+            );
+          }
+        }
+      }
+    });
+
+    return messages;
+  };
+
+  return (
+    <>
+      <ChatRoom>{makeMessage()}</ChatRoom>
     </>
   );
 };
+
+const Notice = styled.div`
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  border-radius: 5px;
+  background: ${theme.color.gray};
+`;
 
 const ChatRoom = styled.div`
   height: auto;

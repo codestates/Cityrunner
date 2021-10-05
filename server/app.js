@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "http://cityrunner.site"],
     credentials: true,
   })
 );
@@ -44,15 +44,6 @@ app.use("/images", imageRouter);
 const ws = new WebSocket.Server({
   server,
 });
-
-ws.getUniqueID = function () {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  return s4() + s4() + "-" + s4();
-};
 
 ws.on("connection", (socket) => socketChat.enterChat(socket));
 

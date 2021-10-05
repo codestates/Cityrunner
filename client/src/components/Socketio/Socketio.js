@@ -13,6 +13,7 @@ export const Socketio = () => {
   const [userid, setUserid] = useState("");
   const [roomid, setRoomid] = useState("");
   const [isChat, setIsChat] = useState(false);
+
   /* 리덕스로 관리해야 변수 명
     roomId,userId
   */
@@ -34,31 +35,49 @@ export const Socketio = () => {
 
   const onClick = (data) => {
     return socket.send(makeMessage(roomid, userid, data));
-    //return socket.send(makeMessage(리덕스변수(roomId), 리덕스변수(userId), data));
   };
 
-  // 이쪽은 좀 더 꾸며야 함
   const enterChatRoom = () => {
     setIsChat(true);
     return socket.send(makeMessage(roomid, userid, "", "Join"));
   };
 
+  const leaveChatRoom = () => {
+    setIsChat(false);
+    socket.send(makeMessage(roomid, userid, "", "leave"));
+    window.location.replace("/MyRoom");
+  };
+
   return (
     <>
-      {isChat ? (
-        <ChatRoom>
-          <PreviousChat></PreviousChat>
-          <Inmsg socket={socket} userid={userid}></Inmsg>
-          <InputChat onClick={onClick}></InputChat>
-        </ChatRoom>
-      ) : null}
-
-      {isChat ? null : (
-        <EnterChatRoom onClick={enterChatRoom}> 채팅하기</EnterChatRoom>
-      )}
+      <ChatRoom>
+        {isChat ? <PreviousChat></PreviousChat> : null}
+        {isChat ? <Inmsg socket={socket} userid={userid}></Inmsg> : null}
+        {isChat ? <InputChat onClick={onClick}></InputChat> : null}
+        {isChat ? (
+          <LeaveChatRoom onClick={leaveChatRoom}>나가기</LeaveChatRoom>
+        ) : null}
+        {isChat ? null : (
+          <EnterChatRoom onClick={enterChatRoom}> 채팅하기</EnterChatRoom>
+        )}
+      </ChatRoom>
     </>
   );
 };
+
+const LeaveChatRoom = styled.button`
+  position: absolute;
+  top: 10%;
+  background-color: ${theme.color.apricot};
+  border-radius: 10px;
+  border: solid 1px ${theme.color.gray};
+  padding: 7px 20px 7px 20px;
+  left: calc(52% - 10px);
+  :hover {
+    background-color: ${theme.color.hovergray};
+    transition: 0.1s;
+  }
+`;
 
 const EnterChatRoom = styled.button`
   position: absolute;
@@ -67,8 +86,11 @@ const EnterChatRoom = styled.button`
   border-radius: 10px;
   border: solid 1px ${theme.color.gray};
   padding: 7px 20px 7px 20px;
-
   left: calc(70% - 10px);
+  :hover {
+    background-color: ${theme.color.hovergray};
+    transition: 0.1s;
+  }
 `;
 
 const ChatRoom = styled.div`
