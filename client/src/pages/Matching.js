@@ -5,11 +5,13 @@ import { Header } from "../components/Header";
 import { FilterList } from "../components/room/FilterList";
 import FirstInfo from "../components/room/FirstInfo";
 import RoomCard from "../components/room/RoomCard";
+import SelectMap from "../components/room/SelectMap";
 
 export const Matching = () => {
 	return (
 		<>
 			<Header />
+			<SelectMap />
 			<FirstInfo />
 			<FilterList />
 			<RoomCard />

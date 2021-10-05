@@ -134,6 +134,7 @@ const Container = styled.header`
 	display: flex;
 	justify-content: space-between;
 	z-index: 999;
+	top : 0	
 `;
 
 const RightSide = styled.div`
