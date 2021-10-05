@@ -40,14 +40,13 @@ export const LoginModal = () => {
 
   const oauth = {
     google: {
-      client_id:
-        "545489609690-8herb2edjhvhhsmmm8oh5tnhb88d4bop.apps.googleusercontent.com",
+      client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
       uri: "http://localhost:3000",
       scope:
         "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
     },
     kakao: {
-      client_id: "63d21bbf51229a38085d23a58ecf2b9e",
+      client_id: process.env.REACT_APP_KAKAO_CLIENT_ID,
       uri: "http://localhost:3000",
     },
   };
