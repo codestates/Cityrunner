@@ -50,74 +50,79 @@ export const Header = () => {
 	const userinfo = useSelector((state) => state.user);
 	let token = localStorage.getItem("userinfo");
 
-	return (
-		<>
-			<Container>
-				<LeftSide>
-					<Link to="/">
-						<h3>CityRunner</h3>
-					</Link>
-				</LeftSide>
-				<RightSide>
-					<h4
-						className="login-pages"
-						onClick={() => {
-							history.push("/Matching");
-						}}
-					>
-						매칭페이지
-					</h4>
-					{!token ? (
-						<>
-							<h4 className="login-pages" onClick={handleModal}>
-								로그인
-							</h4>
-							<h4 className="login-pages" onClick={handleSignupModal}>
-								회원가입
-							</h4>
-						</>
-					) : (
-						<>
-							<h4
-								className="login-pages"
-								onClick={() => {
-									history.push("/Mypage");
-								}}
-							>
-								마이페이지
-							</h4>
-							<h4 className="login-pages" onClick={onLogout}>
-								로그아웃
-							</h4>
-						</>
-					)}
-					<Burgerbar onClick={handleHamburgerModal}>
-						<FontAwesomeIcon icon={faBars} size="lg" />
-					</Burgerbar>
-				</RightSide>
-			</Container>
-			<div onClick={handleCloseModal}>
-				{isModal ? (
-					<LoginModal handleCloseModal={handleCloseModal}></LoginModal>
-				) : null}
-			</div>
-			<div onClick={handleSignupModal}>
-				{showSignupModal ? <Signup></Signup> : null}
-			</div>
-			<div onClick={handleHamburgerModal}>
-				{showHamburgerModal ? (
-					<HamburgerModal
-						token={token}
-						history={history}
-						onLogout={onLogout}
-						handleModal={handleModal}
-						handleSignupModal={handleSignupModal}
-						handleHamburgerModal={handleHamburgerModal}
-					></HamburgerModal>
-				) : null}
-			</div>
-		</>
-	);
+
+  return (
+    <>
+      <Container>
+        <LeftSide>
+          <Link to="/">
+            <h3>CityRunner</h3>
+          </Link>
+        </LeftSide>
+        <RightSide>
+          <h4
+            className="login-pages"
+            onClick={() => {
+              history.push("/Matching");
+            }}
+          >
+            매칭페이지
+          </h4>
+          {!token ? (
+            <>
+              <h4 className="login-pages" onClick={handleModal}>
+                로그인
+              </h4>
+              <h4 className="login-pages" onClick={handleSignupModal}>
+                회원가입
+              </h4>
+            </>
+          ) : (
+            <>
+              <h4
+                className="login-pages"
+                onClick={() => {
+                  history.push("/Mypage");
+                }}
+              >
+                마이페이지
+              </h4>
+              <h4 className="login-pages" onClick={onLogout}>
+                로그아웃
+              </h4>
+            </>
+          )}
+          <Burgerbar onClick={handleHamburgerModal}>
+            <FontAwesomeIcon icon={faBars} size="lg" />
+          </Burgerbar>
+        </RightSide>
+      </Container>
+      <div onClick={handleCloseModal}>
+        {isModal ? (
+          <LoginModal handleCloseModal={handleCloseModal}></LoginModal>
+        ) : null}
+      </div>
+      <div onClick={handleSignupModal}>
+        {showSignupModal ? (
+          <Signup setShowSignupModal={setShowSignupModal}></Signup>
+        ) : null}
+      </div>
+      <div onClick={handleHamburgerModal}>
+        {showHamburgerModal ? (
+          <HamburgerModal
+            token={token}
+            history={history}
+            onLogout={onLogout}
+            handleModal={handleModal}
+            handleSignupModal={handleSignupModal}
+            handleHamburgerModal={handleHamburgerModal}
+          ></HamburgerModal>
+        ) : null}
+      </div>
+    </>
+  );
+
+
 };
 
 const Container = styled.header`
