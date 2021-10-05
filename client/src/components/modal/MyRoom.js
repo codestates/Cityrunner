@@ -1,5 +1,6 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { flexCenter, flexColum } from "../../themes/flex";
@@ -9,43 +10,49 @@ export const MyRoom = () => {
 	const roomsinfo = useSelector((state) => state.room.post);
 	const history = useHistory();
 
+	const onEnterRoom = async () => {
+		await axios
+			.put(`http://localhost:4000/posts/join/${roomsinfo.id}`, "", {
+				withCredentials: true,
+			})
+			.then(() => history.push("/MyRoom"));
+	};
+
 	return (
-		<MakeModal>
-			{roomsinfo ? (
-				<DialogBlock key={roomsinfo.id}>
-					<SelectContainer>
-						<h3>크루장</h3>
-						<h4></h4>
-					</SelectContainer>
-					<SelectContainer>
-						<h3>난이도</h3>
-						<h4>{roomsinfo.level}</h4>
-					</SelectContainer>
-					<SelectContainer>
-						<h3>모집인원</h3>
-						<h4>{roomsinfo.max}</h4>
-					</SelectContainer>
-					<SelectContainer>
-						<h3>시간</h3>
-						<h4>{roomsinfo.time}</h4>
-					</SelectContainer>
-					<SelectContainer>
-						<h3>장소</h3>
-						<h4>{roomsinfo.location}</h4>
-					</SelectContainer>
-					<SelectContainer>
-						<h3>Comment</h3>
-						<h4>{roomsinfo.comment}</h4>
-					</SelectContainer>
-					<CommentBtn>
-						<button onClick={() => history.push("/MyRoom")}>
-							크루 참가하기
-						</button>
-						<button>크루 나가기</button>
-					</CommentBtn>
-				</DialogBlock>
-			) : null}
-		</MakeModal>
+		<>
+			<MakeModal>
+				{roomsinfo ? (
+					<DialogBlock key={roomsinfo.id}>
+						<SelectContainer className="title">
+							<h1>{roomsinfo.title}</h1>
+						</SelectContainer>
+						<SelectContainer>
+							<h3>난이도</h3>
+							<h4>{roomsinfo.level}</h4>
+						</SelectContainer>
+						<SelectContainer>
+							<h3>모집인원</h3>
+							<h4>{roomsinfo.max}</h4>
+						</SelectContainer>
+						<SelectContainer>
+							<h3>시간</h3>
+							<h4>{roomsinfo.time}</h4>
+						</SelectContainer>
+						<SelectContainer>
+							<h3>장소</h3>
+							<h4>{roomsinfo.location}</h4>
+						</SelectContainer>
+						<SelectContainer>
+							<h3>Comment</h3>
+							<h4>{roomsinfo.comment}</h4>
+						</SelectContainer>
+						<CommentBtn>
+							<button onClick={() => onEnterRoom()}>크루 참가하기</button>
+						</CommentBtn>
+					</DialogBlock>
+				) : null}
+			</MakeModal>
+		</>
 	);
 };
 
@@ -79,6 +86,9 @@ const SelectContainer = styled.div`
 		width: 5rem;
 		height: 2rem;
 		padding-left: 1rem;
+	}
+	.title {
+		${flexCenter}
 	}
 `;
 

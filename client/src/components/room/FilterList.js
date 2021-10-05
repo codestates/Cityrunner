@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { flexCenter, flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
 import { CreateRoom } from "../modal/CreateRoom";
 
@@ -49,11 +50,15 @@ const Contanier = styled.div`
 	width: 100vw;
 	display: flex;
 	justify-content: space-between;
+	@media ${theme.laptopS} {
+		${flexColum}
+	}
 `;
 
 const ListNames = styled.ul`
 	display: flex;
 	margin-top: 2rem;
+	font-weight: bold;
 	li {
 		margin-right: 2rem;
 		:hover {
@@ -83,5 +88,8 @@ const RightSide = styled.div`
 		margin: 0.5rem;
 		border-radius: none;
 		border: none;
+	}
+	@media ${theme.laptopS} {
+		margin-right: 0;
 	}
 `;

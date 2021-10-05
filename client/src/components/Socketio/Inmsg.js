@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { theme } from "../../themes/theme";
 
-export const Inmsg = ({ socket }) => {
+export const Inmsg = ({ socket, userid }) => {
   const [socketMsg, setSocketMsg] = useState({
     roomId: "",
     userId: "",
@@ -49,7 +49,7 @@ export const Inmsg = ({ socket }) => {
       <ChatRoom>
         {chats.map((el, idx) =>
           el.userId !== "" ? (
-            el.userId !== 1 ? (
+            el.userId !== userid ? (
               <Left key={idx}>
                 <LeftBalloon>{`${el.username}: ${el.chat}`}</LeftBalloon>
               </Left>
