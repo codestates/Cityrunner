@@ -18,7 +18,7 @@ export const Profiles = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/mypage", {
+      .get("http://api.cityrunner.site/mypage", {
         withCredentials: true,
       })
       .then((data) => {
@@ -29,7 +29,7 @@ export const Profiles = () => {
           setImages(UserImg);
         } else {
           if (data.data.data.image && data.data.data.image !== "default") {
-            const UserImg = `http://localhost:4000/images/${data.data.data.image}`;
+            const UserImg = `http://api.cityrunner.site/images/${data.data.data.image}`;
             setImages(UserImg);
           }
         }
@@ -63,7 +63,7 @@ export const Profiles = () => {
       image: file,
       description: name,
     });
-    const newImg = `http://localhost:4000/${result.imagePath}`;
+    const newImg = `http://api.cityrunner.site/${result.imagePath}`;
     setImages(newImg);
   };
 

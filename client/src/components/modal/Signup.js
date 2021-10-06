@@ -114,7 +114,7 @@ export const Signup = (props) => {
         alert("새 비밀번호를 확인해주세요.");
       } else {
         await axios
-          .post(`http://localhost:4000/user/signup`, SignupInfo, {
+          .post(`http://api.cityrunner.site/user/signup`, SignupInfo, {
             withCredentials: true,
           })
           .then((res) => {
