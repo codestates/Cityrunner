@@ -90,15 +90,12 @@ const Input = styled.div`
   flex-direction: row;
 `;
 
-export const Signout = (MyRunDistance) => {
+export const Signout = ({ MyRunDistance }, { handleSignoutModal }) => {
   const [exit, setExit] = useState(false);
-
   let runDis = 0;
   const OnChange = (key) => (e) => {
     runDis = Number(e.target.value);
-    console.log(runDis);
-    console.log(MyRunDistance.MyRunDistance);
-    if (runDis === MyRunDistance.MyRunDistance) {
+    if (runDis === MyRunDistance) {
       setExit(true);
     } else {
       setExit(false);
@@ -108,11 +105,11 @@ export const Signout = (MyRunDistance) => {
 
   const SignoutButton = () => {
     axios
-      .delete("http://localhost:4000/user/signout", {
+      .delete("http://api.cityrunner.site/user/signout", {
         withCredentials: true,
       })
-      .then((data) => {
-        console.log(data);
+      .then(() => {
+        handleSignoutModal();
       });
   };
   return (
@@ -124,7 +121,7 @@ export const Signout = (MyRunDistance) => {
           <Text>회원정보가 삭제되며 복구가 불가능 합니다.</Text>
           <Text>탈퇴 하시려면 지금까지 달린 거리를 입력해주세요.</Text>
           <NumText>CityRunner를 통해</NumText>
-          <Num>{MyRunDistance.MyRunDistance} km 달렸습니다!</Num>
+          <Num>{MyRunDistance} km 달렸습니다!</Num>
           <Input>
             <input
               name="distance"

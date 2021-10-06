@@ -5,25 +5,25 @@ export const mockData = {
     image: "default",
     oauth: false,
     medal: [
-      {
-        id: 3,
-        medalName: "Rain",
-        medalDesc: "빗속에서 달린 당신!",
-      },
-      {
-        id: 7,
-        medalName: "10km",
-        medalDesc: "10km를 뛰었군요!",
-      },
-      {
-        id: 8,
-        medalName: "make5",
-        medalDesc: "5개의 크루를 만들었습니다",
-      },
+      // {
+      //   id: 3,
+      //   medalName: "Rain",
+      //   medalDesc: "빗속에서 달린 당신!",
+      // },
+      // {
+      //   id: 7,
+      //   medalName: "10km",
+      //   medalDesc: "10km를 뛰었군요!",
+      // },
+      // {
+      //   id: 8,
+      //   medalName: "make5",
+      //   medalDesc: "5개의 크루를 만들었습니다",
+      // },
     ],
     runningDays: [
-      { createdAt: "09-09", distance: 4 },
-      { createdAt: "09-10", distance: 3 },
+      // { createdAt: "09-09", distance: 4 },
+      // { createdAt: "09-10", distance: 3 },
     ],
     participation: [
       {

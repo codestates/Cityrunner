@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import { Socketio } from "../components/Socketio/Socketio";
 import { theme } from "../themes/theme";
 import styled from "styled-components";
+import { IsLoading } from "../components/Socketio/IsLoading";
 
 const ChatRoom = () => {
   return (
@@ -20,22 +21,6 @@ const ChatRoom = () => {
     </>
   );
 };
-
-// const Contanier = styled.div`
-//   padding-top: 60px;
-//   height: 100%;
-//   display: flex;
-// `;
-// const SocketioContanier = styled.div`
-//   background: ${theme.color.hovergray};
-
-//   margin-top: 4px;
-//   width: 100%;
-// `;
-
-// const ChatContanier = styled.div`
-//   width: 100%;
-// `;
 
 const Contanier = styled.div`
   padding-top: 60px;

@@ -71,14 +71,13 @@ const Contanier = styled.div`
 	font-size: 1rem;
 	font-weight: bold;
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: center;
 	padding-top: 0.5rem;
 	margin-bottom: 0;
 `;
 
 const Title = styled.ul`
 	margin-top: 3rem;
-	padding-right: 23rem;
 	li {
 		margin-top: 1rem;
 		font-weight: 450;
@@ -87,7 +86,6 @@ const Title = styled.ul`
 
 const About = styled.ul`
 	margin-top: 3rem;
-	padding-left: 23rem;
 	li {
 		margin-top: 1rem;
 		font-weight: 450;

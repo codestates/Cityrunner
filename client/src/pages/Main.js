@@ -11,6 +11,7 @@ import { MainCount } from "../components/main/MainCount";
 import qs from "querystring";
 import { useHistory } from "react-router";
 import { loginUser } from "../redux/modules/user";
+import { MainFinal } from "../components/main/MainFinal";
 
 export const Main = () => {
 	const dispatch = useDispatch();
@@ -24,7 +25,7 @@ export const Main = () => {
 			// Google Login
 			const authorizationCode = url.hash.split("=")[1].split("&")[0];
 			await axios
-				.post("http://localhost:4000/user/oauth", {
+				.post("http://api.cityrunner.site/user/oauth", {
 					authorizationCode,
 					category: "google",
 				})
@@ -44,7 +45,7 @@ export const Main = () => {
 					qs.stringify({
 						grant_type: "authorization_code",
 						client_id: "63d21bbf51229a38085d23a58ecf2b9e",
-						redirect_uri: "http://localhost:3000",
+						redirect_uri: "http://api.cityrunner.site",
 						code: params,
 					}),
 					{
@@ -54,7 +55,7 @@ export const Main = () => {
 				.then(async (res) => {
 					const access_token = res.data.access_token;
 					await axios
-						.post("http://localhost:4000/user/oauth", {
+						.post("http://api.cityrunner.site/user/oauth", {
 							authorizationCode: access_token,
 							category: "kakao",
 						})
@@ -75,6 +76,7 @@ export const Main = () => {
 			<MainSecond />
 			<MainThird />
 			<MainFourth />
+			<MainFinal />
 			<MainCount />
 			<Footer />
 		</>

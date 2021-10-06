@@ -19,9 +19,7 @@ export const CreateRoom = () => {
 		distance: 0,
 	});
 
-	const dispatch = useDispatch();
-
-	const url = "http://localhost:4000";
+	const url = "http://api.cityrunner.site";
 
 	const onRoompost = async () => {
 		await axios
@@ -29,7 +27,7 @@ export const CreateRoom = () => {
 				withCredentials: true,
 			})
 			.then((data) => {
-				console.log(data);
+				window.location.reload();
 			});
 	};
 
@@ -112,7 +110,7 @@ const MakeModal = styled.div`
 	background: rgba(0, 0, 0, 0.1);
 `;
 
-const DialogBlock = styled.form`
+const DialogBlock = styled.div`
 	width: 350px;
 	height: 600px;
 	padding: 1rem;
