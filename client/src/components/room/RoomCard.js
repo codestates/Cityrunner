@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { flexCenter, flexColum } from "../../themes/flex";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRooms } from "../../redux/modules/room";
+import room, { getRooms } from "../../redux/modules/room";
 import { useHistory } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import { setPost } from "../../redux/modules/room";
@@ -12,8 +12,10 @@ import { whenTime } from "../../themes/Times";
 
 // 쿼리 빈스트링으로 보내야함.
 
-const RoomCard = () => {
+const RoomCard = ({ setinfo, info, locationInfo }) => {
 	const dispatch = useDispatch();
+	const RoomCardinfo = useSelector((state) => state);
+
 	const [modal, setModal] = useState(false);
 	const [savedata, setsavedata] = useState([]);
 	const [page, setPage] = useState(1);
@@ -34,8 +36,13 @@ const RoomCard = () => {
 		await dispatch(getRooms(page)).then((data) => {
 			const Rooms = data.payload.data.data;
 			setsavedata(Rooms);
+			console.log(data.payload);
 		});
 	}, [page]);
+
+	useEffect(() => {
+		info && setsavedata(info.data.data);
+	}, [info]);
 
 	useEffect(() => {
 		const close = (e) => {
@@ -59,7 +66,7 @@ const RoomCard = () => {
 					return (
 						<CardContainer key={data.id}>
 							{modal ? <MyRoom /> : null}
-							<ImageContainer>
+							<ImageContainer onClick={() => onCardInfo(data)}>
 								<img src="img/Runner.png"></img>
 							</ImageContainer>
 							<Title>{data.title}</Title>
@@ -67,7 +74,6 @@ const RoomCard = () => {
 							<CardFooter>
 								<TimeDiv>{data.time}시</TimeDiv>
 								<Level>{data.level}</Level>
-								<button onClick={() => onCardInfo(data)}>상세정보</button>
 							</CardFooter>
 							<DaysFooter>
 								<Days>{whenTime(data.updatedAt)}</Days>

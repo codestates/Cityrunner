@@ -1,7 +1,7 @@
 //로그인을 진행하기위해서는
 //form에서 submit을 통해 현재 nmae과 비밀번호를 dispatch로 실행 시켜줘야 한다.
 import axios from "axios";
-const url = "http://localhost:4000";
+const url = "http://api.cityrunner.site";
 
 //액션타입
 const REGISTER_USER = "user/REGISTER_USER";
@@ -12,21 +12,21 @@ const SET_IS_LOGIN = "user/SET_IS_LOGIN";
 const SET_USERINFO = "user/SET_USERINFO";
 
 export const setIsLogin = (isLogin) => {
-  return {
-    type: SET_IS_LOGIN,
-    payload: {
-      isLogin,
-    },
-  };
+	return {
+		type: SET_IS_LOGIN,
+		payload: {
+			isLogin,
+		},
+	};
 };
 
 export const setUserinfo = (userinfo) => {
-  return {
-    type: SET_USERINFO,
-    payload: {
-      ...userinfo,
-    },
-  };
+	return {
+		type: SET_USERINFO,
+		payload: {
+			...userinfo,
+		},
+	};
 };
 
 export const registerUser = (dataToSubmit) => {
@@ -38,14 +38,14 @@ export const registerUser = (dataToSubmit) => {
 };
 
 export const loginUser = (userInfo) => {
-  const data = axios.post(`${url}/user/login`, userInfo, {
-    headers: { "Content-Type": "application/json" },
-    withCredentials: true,
-  });
-  return {
-    type: LOGIN,
-    payload: data,
-  };
+	const data = axios.post(`${url}/user/login`, userInfo, {
+		headers: { "Content-Type": "application/json" },
+		withCredentials: true,
+	});
+	return {
+		type: LOGIN,
+		payload: data,
+	};
 };
 
 export const logoutUser = async () => {
@@ -59,13 +59,13 @@ export const logoutUser = async () => {
 };
 
 const initialState = {
-  isLogin: false,
-  isLoading: false,
-  userinfo: {
-    id: "",
-    email: "",
-    nickname: "",
-  },
+	isLogin: false,
+	isLoading: false,
+	userinfo: {
+		id: "",
+		email: "",
+		nickname: "",
+	},
 };
 
 export default function user(state = initialState, action) {
