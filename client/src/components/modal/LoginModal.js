@@ -21,22 +21,20 @@ export const LoginModal = () => {
       password: Yup.string().required("패스워드를 입력해주세요."),
     }),
 
-
-		onSubmit: (values) => {
-			dispatch(loginUser(values))
-				.then((res) => {
-					const userinfo = res.payload.data.data;
-					console.log(userinfo);
-					dispatch(setIsLogin(true));
-					dispatch(setUserinfo(userinfo));
-					localStorage.setItem("userinfo", JSON.stringify({ userinfo }));
-				})
-				.then(() => {
-					window.location.reload();
-				});
-		},
-	});
-
+    onSubmit: (values) => {
+      dispatch(loginUser(values))
+        .then((res) => {
+          const userinfo = res.payload.data.data;
+          console.log(userinfo);
+          dispatch(setIsLogin(true));
+          dispatch(setUserinfo(userinfo));
+          localStorage.setItem("userinfo", JSON.stringify({ userinfo }));
+        })
+        .then(() => {
+          window.location.reload();
+        });
+    },
+  });
 
   const oauth = {
     google: {
@@ -124,6 +122,7 @@ const MakeModal = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
+  z-index: 10;
   ${flexCenter}
   background: rgba(0, 0, 0, 0.6);
 `;

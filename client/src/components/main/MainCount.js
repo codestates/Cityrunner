@@ -50,63 +50,60 @@ export const MainCount = () => {
 
 const Contanier = styled.div`
   width: 100%;
-  border-radius: 25px;
   background-color: ${theme.color.apricot};
-  /* @media ${theme.mobileS} {
+  @media ${theme.mobileS} {
     width: 100vw;
-  } */
+  }
 `;
 
 const Wrapper = styled.div`
   width: 100%;
   max-width: 1180px;
   margin: auto;
-  padding: 40px 0;
-  margin-bottom: 50px;
+  padding: 100px 0;
+  padding-left: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   @media ${theme.mobileS} {
     width: 100vw;
-    padding: 0 0;
+    flex-direction: column;
   }
 `;
 
 const List = styled.ul`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1px;
+  padding-left: 0;
   @media ${theme.mobileS} {
-    /* width: 100vw; */
     flex-direction: column;
   }
 `;
 
 const ListItem = styled.li`
   width: 100%;
-  padding: 0 2rem;
+  min-width: 220px;
+  padding-left: 20px;
+  padding-right: 20px;
   text-align: center;
   &:nth-child(2) {
-    border: 10px solid ${theme.color.hovergray};
+    border: 2px solid ${theme.color.gray};
     border-top: none;
     border-bottom: none;
-  }
-  @media ${theme.mobileS} {
-    padding: 24px 0;
-  }
-  @media ${theme.mobileS} {
-    &:nth-child(2) {
-      border: 10px solid ${theme.color.hovergray};
-      border-left: none;
-      border-right: none;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      margin: 24px 0;
+    @media ${theme.mobileS} {
+      border: 0px solid ${theme.color.gray};
     }
   }
 `;
 const Number = styled.span`
-  color: ${theme.color.gray};
+  color: black;
   font-size: 3rem;
   margin-bottom: 1rem;
 `;
 const Unit = styled.span`
-  color: ${theme.color.gray};
+  color: #0298d6;
   font-size: 3rem;
   margin-bottom: 1rem;
 `;

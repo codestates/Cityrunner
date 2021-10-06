@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { theme } from "../../themes/theme";
 import { flexCenter, flexColum } from "../../themes/flex";
 import axios from "axios";
+import { Link, useHistory, Redirect } from "react-router-dom";
 
 const ModalContainer = styled.div`
   position: fixed;
@@ -11,6 +12,7 @@ const ModalContainer = styled.div`
   width: 100%;
   height: 100%;
   ${flexCenter}
+  z-index:10;
   background: rgba(0, 0, 0, 0.6);
 `;
 
@@ -19,7 +21,11 @@ const Modal = styled.div`
   height: 500px;
   padding: 1rem;
   background: white;
-  border-radius: 2px;
+  z-index: 10;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   h3 {
     ${flexCenter}
   }
@@ -61,15 +67,34 @@ const LoginBtn = styled.div`
     }
   }
 `;
+const Congra = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const ImgCon = styled.img`
+  width: 280px;
+  height: auto;
+`;
 
 export const Signup = (props) => {
+  const history = useHistory();
+
   const [SignupInfo, setSignupInfo] = useState({
     email: "",
     password: "",
     username: "",
   });
   const [PasswordCheck, setPasswordCheck] = useState("");
+  const [Success, setSuccess] = useState(false);
 
+  const handleSuccess = () => {
+    setSuccess(true);
+  };
+  const exitButton = () => {
+    props.handleModal();
+  };
   const CloseSignup = () => {
     props.setShowSignupModal(false);
   };
@@ -93,14 +118,11 @@ export const Signup = (props) => {
             withCredentials: true,
           })
           .then((res) => {
-            console.log(res);
             if (res.status === 200) {
-              CloseSignup();
-              alert("회원가입에 성공하였습니다.");
+              handleSuccess();
             }
           })
           .catch((err) => {
-            console.log(err.response.status);
             if (err.response.status === 409) {
               alert("이미 존재하는 이메일,닉네임 입니다");
               return;
@@ -113,40 +135,58 @@ export const Signup = (props) => {
     <>
       <ModalContainer>
         <Modal onClick={(e) => e.stopPropagation()}>
-          <Title>회원가입</Title>
-          <Input>
-            <h5>E-mail</h5>
-            <input
-              name="email"
-              type="text"
-              placeholder="Email Adress"
-              onChange={OnClick("email")}
-            />
-            <h5>비밀번호</h5>
-            <input
-              name="password"
-              type="password"
-              placeholder="6자리 이상 입력해주세요."
-              onChange={OnClick("password")}
-            />
-            <h5>비밀번호 확인</h5>
-            <input
-              name="newPasswordCheck"
-              type="password"
-              placeholder="6자리 이상 입력해주세요."
-              onChange={OnClickCheck}
-            />
-            <h5>닉네임</h5>
-            <input
-              name="nickname"
-              type="text"
-              placeholder="닉네임"
-              onChange={OnClick("username")}
-            />
-          </Input>
-          <LoginBtn>
-            <button onClick={SignupButton}>회원가입</button>
-          </LoginBtn>
+          {!Success ? (
+            <div>
+              <Title>회원가입</Title>
+              <Input>
+                <h5>E-mail</h5>
+                <input
+                  name="email"
+                  type="text"
+                  placeholder="Email Adress"
+                  onChange={OnClick("email")}
+                />
+                <h5>비밀번호</h5>
+                <input
+                  name="password"
+                  type="password"
+                  placeholder="6자리 이상 입력해주세요."
+                  onChange={OnClick("password")}
+                />
+                <h5>비밀번호 확인</h5>
+                <input
+                  name="newPasswordCheck"
+                  type="password"
+                  placeholder="6자리 이상 입력해주세요."
+                  onChange={OnClickCheck}
+                />
+                <h5>닉네임</h5>
+                <input
+                  name="nickname"
+                  type="text"
+                  placeholder="닉네임"
+                  onChange={OnClick("username")}
+                />
+              </Input>
+              <LoginBtn>
+                <button onClick={SignupButton}>회원가입</button>
+              </LoginBtn>
+            </div>
+          ) : (
+            <Congra>
+              <ImgCon src="img/firework.jpg"></ImgCon>
+              <Title>회원가입에 성공하였습니다!</Title>
+              <LoginBtn>
+                <button
+                  onClick={() => {
+                    exitButton();
+                  }}
+                >
+                  로그인하기
+                </button>
+              </LoginBtn>
+            </Congra>
+          )}
         </Modal>
       </ModalContainer>
     </>

@@ -147,7 +147,16 @@ const MedalName = styled.div`
 `;
 
 export const ShowMedal = (UserInfo) => {
-  const medalInfo = UserInfo.UserInfo.medal;
+  let medalInfo = [
+    {
+      id: 3,
+      medalName: "Rain",
+      medalDesc: "빗속에서 달린 당신!",
+    },
+  ];
+  if (UserInfo.UserInfo.medal.length !== 0) {
+    medalInfo = UserInfo.UserInfo.medal;
+  }
   console.log(medalInfo);
 
   return (
