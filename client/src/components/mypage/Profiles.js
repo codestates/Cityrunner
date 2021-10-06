@@ -27,14 +27,15 @@ export const Profiles = () => {
           setIsOauth(true);
           const UserImg = data.data.data.image;
           setImages(UserImg);
-          setLoading(false);
         } else {
-          if (data.data.data.image) {
+          if (data.data.data.image && data.data.data.image !== "default") {
             const UserImg = `http://localhost:4000/images/${data.data.data.image}`;
             setImages(UserImg);
-            setLoading(false);
           }
         }
+      })
+      .then(() => {
+        setLoading(false);
       });
   }, []);
   const [showSignoutModal, setShowSignoutModal] = useState(false);
