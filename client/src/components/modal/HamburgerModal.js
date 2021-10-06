@@ -4,7 +4,6 @@ import { theme } from "../../themes/theme";
 import { flexCenter, flexColum } from "../../themes/flex";
 
 export const HamburgerModal = (props) => {
-  console.log(props);
   const token = props.token;
   const history = props.history;
   const onLogout = props.onLogout;
@@ -98,8 +97,3 @@ const Menu = styled.div`
   font-weight: bold;
   cursor: pointer;
 `;
-
-// 받을거 token
-//  history.push("/Matching");
-//  history.push("/Mypage"); ,  onLogout
-//  handleModal , handleSignupModal

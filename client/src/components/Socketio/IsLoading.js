@@ -1,5 +1,3 @@
-import React, { useState, useEffect } from "react";
-
 import { theme } from "../../themes/theme";
 import styled from "styled-components";
 

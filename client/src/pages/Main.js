@@ -11,6 +11,7 @@ import { MainCount } from "../components/main/MainCount";
 import qs from "querystring";
 import { useHistory } from "react-router";
 import { loginUser } from "../redux/modules/user";
+import { MainFinal } from "../components/main/MainFinal";
 
 export const Main = () => {
 	const dispatch = useDispatch();
@@ -75,6 +76,7 @@ export const Main = () => {
 			<MainSecond />
 			<MainThird />
 			<MainFourth />
+			<MainFinal />
 			<MainCount />
 			<Footer />
 		</>

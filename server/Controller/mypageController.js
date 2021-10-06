@@ -14,13 +14,13 @@ module.exports = {
         include: [
           {
             model: userMedal,
-            required: true,
+            required: false,
             attributes: {
               exclude: ["createdAt", "updatedAt", "id"],
             },
             include: {
               model: medal,
-              required: true,
+              required: false,
               attributes: {
                 exclude: ["createdAt", "updatedAt"],
               },
@@ -28,10 +28,10 @@ module.exports = {
           },
           {
             model: chattingRoom,
-            required: true,
+            required: false,
             include: {
               model: post,
-              required: true,
+              required: false,
             },
           },
         ],

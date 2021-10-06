@@ -9,6 +9,7 @@ import { theme } from "../../themes/theme";
 import { CreateRoom } from "../modal/CreateRoom";
 import { LoginModal } from "../modal/LoginModal";
 
+
 export const FilterList = ({ setinfo }) => {
 	//리듀서 써야함
 	// RoomCard 컴포넌트에 값을 전달하기 위해서

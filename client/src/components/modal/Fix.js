@@ -76,84 +76,82 @@ export const Fix = (props) => {
 	const CloseFix = () => {
 		props.setShowFixModal(false);
 	};
-
-	const OnClick = (key) => (e) => {
-		setFixInfo({ ...FixInfo, [key]: e.target.value });
-	};
-	const OnClickCheck = (e) => {
-		setPasswordCheck(e.target.value);
-	};
-	const FixButton = () => {
-		if (!FixInfo.password) {
-			alert("현재 비밀번호를 입력해주세요.");
-		} else {
-			if (FixInfo.newPassword !== PasswordCheck) {
-				alert("새 비밀번호를 확인해주세요.");
-			} else {
-				axios
-					.patch(`http://api.cityrunner.site/mypage`, FixInfo, {
-						withCredentials: true,
-					})
-					.then((res) => {
-						console.log(res);
-						if (res.status === 200) {
-							CloseFix();
-							alert("변경되었습니다.");
-						}
-					})
-					.catch((err) => {
-						if (err.response.status === 400) {
-							alert("비밀번호가 일치하지 않습니다.");
-							return;
-						}
-						if (err.response.status === 401) {
-							alert("권한이 없는 유저입니다.@@@@@@@@@@@@@@@");
-							return;
-						}
-					});
-			}
-		}
-	};
-	return (
-		<>
-			<ModalContainer>
-				<Modal onClick={(e) => e.stopPropagation()}>
-					<Title>회원 정보 수정</Title>
-					<Input>
-						<h5>현재 비밀번호</h5>
-						<input
-							name="password"
-							type="password"
-							placeholder="현재 비밀번호"
-							onChange={OnClick("password")}
-						/>
-						<h5>새 비밀번호</h5>
-						<input
-							name="newPassword"
-							type="password"
-							placeholder="6자리 이상 입력해주세요."
-							onChange={OnClick("newPassword")}
-						/>
-						<h5>새 비밀번호 확인</h5>
-						<input
-							name="newPasswordCheck"
-							type="password"
-							placeholder="6자리 이상 입력해주세요."
-							onChange={OnClickCheck}
-						/>
-						<h5>닉네임</h5>
-						<input
-							name="nickname"
-							type="text"
-							placeholder="닉네임"
-							onChange={OnClick("username")}
-						/>
-					</Input>
-					<Btn>
-						<button onClick={FixButton}>수정하기</button>
-					</Btn>
-				</Modal>
-			</ModalContainer>
-		</>
-	);
+  const OnClick = (key) => (e) => {
+    setFixInfo({ ...FixInfo, [key]: e.target.value });
+  };
+  const OnClickCheck = (e) => {
+    setPasswordCheck(e.target.value);
+  };
+  const FixButton = () => {
+    if (!FixInfo.password) {
+      alert("현재 비밀번호를 입력해주세요.");
+    } else {
+      if (FixInfo.newPassword !== PasswordCheck) {
+        alert("새 비밀번호를 확인해주세요.");
+      } else {
+        axios
+          .patch(`http://api.cityrunner.site/mypage`, FixInfo, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              CloseFix();
+              alert("변경되었습니다.");
+            }
+          })
+          .catch((err) => {
+            if (err.response.status === 400) {
+              alert("비밀번호가 일치하지 않습니다.");
+              return;
+            }
+            if (err.response.status === 401) {
+              alert("권한이 없는 유저입니다.@@@@@@@@@@@@@@@");
+              return;
+            }
+          });
+      }
+    }
+  };
+  return (
+    <>
+      <ModalContainer>
+        <Modal onClick={(e) => e.stopPropagation()}>
+          <Title>회원 정보 수정</Title>
+          <Input>
+            <h5>현재 비밀번호</h5>
+            <input
+              name="password"
+              type="password"
+              placeholder="현재 비밀번호"
+              onChange={OnClick("password")}
+            />
+            <h5>새 비밀번호</h5>
+            <input
+              name="newPassword"
+              type="password"
+              placeholder="6자리 이상 입력해주세요."
+              onChange={OnClick("newPassword")}
+            />
+            <h5>새 비밀번호 확인</h5>
+            <input
+              name="newPasswordCheck"
+              type="password"
+              placeholder="6자리 이상 입력해주세요."
+              onChange={OnClickCheck}
+            />
+            <h5>닉네임</h5>
+            <input
+              name="nickname"
+              type="text"
+              placeholder="닉네임"
+              onChange={OnClick("username")}
+            />
+          </Input>
+          <Btn>
+            <button onClick={FixButton}>수정하기</button>
+          </Btn>
+        </Modal>
+      </ModalContainer>
+    </>
+  );
 };
