@@ -1,13 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { flexCenter, flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
+import { LoginModal } from "./LoginModal";
 
 export const MyRoom = () => {
 	const roomsinfo = useSelector((state) => state.room.post);
+	const [modal, setModal] = useState(false);
 	const history = useHistory();
 
 	const onEnterRoom = async () => {
@@ -15,7 +17,19 @@ export const MyRoom = () => {
 			.put(`http://localhost:4000/posts/join/${roomsinfo.id}`, "", {
 				withCredentials: true,
 			})
-			.then(() => history.push("/MyRoom"));
+			.then(() => {
+				history.push("/MyRoom");
+			})
+			.catch((err) => {
+				if (err.response.status === 409) {
+					return alert("이미 참가한 크루입니다.");
+				} else if (err.response.status === 401) {
+					return setModal(true);
+				} else if (err.response.status === 400) {
+					return history.push("/MyRooms");
+				}
+			});
+		console.log(roomsinfo, "🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟");
 	};
 
 	return (
@@ -51,6 +65,7 @@ export const MyRoom = () => {
 						</CommentBtn>
 					</DialogBlock>
 				) : null}
+				{modal ? <LoginModal /> : null}
 			</MakeModal>
 		</>
 	);

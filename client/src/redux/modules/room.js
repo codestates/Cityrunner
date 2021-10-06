@@ -4,6 +4,7 @@ const url = "http://localhost:4000";
 const GET_ROOMS = "room/GET_ROOMS";
 const CREATE_ROOM = "room/CREATE_ROOM";
 const DELETE_ROOM = "room/DLEELTE_ROOM";
+const EXIT_ROOM = "room/EXIT_ROOM";
 const PATCH_ROOM = "room/PUT_ROOM";
 const SET_POST = "room/SET_POST";
 
@@ -18,7 +19,6 @@ export const getRooms = async (id) => {
 	const rooms = await axios.get(`${url}/posts?page=${id}`, {
 		withCredentials: true,
 	});
-	console.log(rooms);
 	return {
 		type: GET_ROOMS,
 		payload: rooms,
@@ -35,12 +35,21 @@ export const createRoom = async () => {
 	};
 };
 
-//콜론쓰면안됨 delete
-export const deleteRoom = async (roomId) => {
+export const exitRoom = async (roomId) => {
 	const room = await axios.delete(`${url}/posts/exit/${roomId}`, {
 		withCredentials: true,
 	});
-	console.log(room);
+	return {
+		type: EXIT_ROOM,
+		payload: room,
+	};
+};
+
+//콜론쓰면안됨 delete
+export const deleteRoom = async (roomId) => {
+	const room = await axios.delete(`${url}/posts/${roomId}`, {
+		withCredentials: true,
+	});
 	return {
 		type: DELETE_ROOM,
 		payload: room,
@@ -73,14 +82,9 @@ const initialState = {
 export default function room(state = initialState, action) {
 	switch (action.type) {
 		case GET_ROOMS:
-			return {
-				...state,
-				rooms: {
-					loading: false,
-					data: action.rooms,
-					error: null,
-				},
-			};
+			return Object.assign({}, state, {
+				roomspost: action.payload,
+			});
 		case CREATE_ROOM:
 			return {
 				...state,
@@ -98,9 +102,12 @@ export default function room(state = initialState, action) {
 					data: action.room,
 					error: null,
 				},
-				post: {
-					data: action.room,
-				},
+				post: {},
+			};
+		case EXIT_ROOM:
+			return {
+				...state,
+				post: {},
 			};
 		case PATCH_ROOM:
 			return {
@@ -112,7 +119,6 @@ export default function room(state = initialState, action) {
 				},
 			};
 		case SET_POST:
-			console.log(state);
 			return Object.assign({}, state, {
 				post: action.payload,
 			});
