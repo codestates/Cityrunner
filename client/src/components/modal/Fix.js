@@ -91,7 +91,7 @@ export const Fix = (props) => {
         alert("새 비밀번호를 확인해주세요.");
       } else {
         axios
-          .patch(`http://localhost:4000/mypage`, FixInfo, {
+          .patch(`http://api.cityrunner.site/mypage`, FixInfo, {
             withCredentials: true,
           })
           .then((res) => {

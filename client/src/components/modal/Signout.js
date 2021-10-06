@@ -105,7 +105,7 @@ export const Signout = ({ MyRunDistance }, { handleSignoutModal }) => {
 
   const SignoutButton = () => {
     axios
-      .delete("http://localhost:4000/user/signout", {
+      .delete("http://api.cityrunner.site/user/signout", {
         withCredentials: true,
       })
       .then(() => {

@@ -97,8 +97,3 @@ const Menu = styled.div`
   font-weight: bold;
   cursor: pointer;
 `;
-
-// 받을거 token
-//  history.push("/Matching");
-//  history.push("/Mypage"); ,  onLogout
-//  handleModal , handleSignupModal
