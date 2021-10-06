@@ -9,10 +9,8 @@ export const PreviousChat = () => {
   const [Loading, setLoading] = useState(false);
   const [userid, setUserid] = useState("");
 
-  const url = "http://localhost:4000";
-
   useEffect(async () => {
-    const axiosGet = await axios.get(`http://localhost:4000/chat/`, {
+    const axiosGet = await axios.get(`http://api.cityrunner.site/chat/`, {
       withCredentials: true,
     });
 

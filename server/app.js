@@ -48,5 +48,5 @@ const ws = new WebSocket.Server({
 ws.on("connection", (socket) => socketChat.enterChat(socket));
 
 server.listen(port, () => {
-  console.log(`listening at => http://localhost.com:${port}`);
+  console.log(`listening at => http://api.cityrunner.site:${port}`);
 });
