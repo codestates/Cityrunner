@@ -7,13 +7,21 @@ const FIGURE_ITEMS = [
   {
     title: "Total Crew",
     number: 4924,
+<<<<<<< HEAD
     unit: "팀",
+=======
+    unit: "",
+>>>>>>> 001d7ef0d38e4c15306b563ad1cc960a57037bff
     desc: "총 만들어진 크루",
   },
   {
     title: "Running Member",
     number: 100000,
+<<<<<<< HEAD
     unit: "명",
+=======
+    unit: "+",
+>>>>>>> 001d7ef0d38e4c15306b563ad1cc960a57037bff
     desc: "총 함께달린 크루멤버",
   },
   {
@@ -51,9 +59,9 @@ export const MainCount = () => {
 const Contanier = styled.div`
   width: 100%;
   background-color: ${theme.color.apricot};
-  /* @media ${theme.mobileS} {
+  @media ${theme.mobileS} {
     width: 100vw;
-  } */
+  }
 `;
 
 const Wrapper = styled.div`
@@ -65,7 +73,6 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
   @media ${theme.mobileS} {
     width: 100vw;
     flex-direction: column;
@@ -99,7 +106,11 @@ const ListItem = styled.li`
   }
 `;
 const Number = styled.span`
+<<<<<<< HEAD
   color: ${theme.color.gray};
+=======
+  color: black;
+>>>>>>> 001d7ef0d38e4c15306b563ad1cc960a57037bff
   font-size: 3rem;
   margin-bottom: 1rem;
 `;
