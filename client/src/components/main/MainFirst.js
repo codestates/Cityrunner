@@ -8,7 +8,7 @@ export const MainFirst = () => {
   const history = useHistory();
   return (
     <Contanier>
-      <img src="img/Runner.png" alt=""></img>
+      <img src="img/mainImage.PNG" alt=""></img>
       <Title>
         <li>오늘하루 함께할 &nbsp;</li>
         <li>런닝크루를 만들어보세요!</li>

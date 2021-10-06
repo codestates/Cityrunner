@@ -16,27 +16,27 @@ export const Profiles = () => {
   const [IsOauth, setIsOauth] = useState(false);
   const [Loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:4000/mypage", {
-        withCredentials: true,
-      })
-      .then((data) => {
-        setInfo(data.data);
-        if (data.data.data.oauth) {
-          setIsOauth(true);
-          const UserImg = data.data.data.image;
-          setImages(UserImg);
-          setLoading(false);
-        } else {
-          if (data.data.data.image) {
-            const UserImg = `http://localhost:4000/images/${data.data.data.image}`;
-            setImages(UserImg);
-            setLoading(false);
-          }
-        }
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:4000/mypage", {
+  //       withCredentials: true,
+  //     })
+  //     .then((data) => {
+  //       setInfo(data.data);
+  //       if (data.data.data.oauth) {
+  //         setIsOauth(true);
+  //         const UserImg = data.data.data.image;
+  //         setImages(UserImg);
+  //         setLoading(false);
+  //       } else {
+  //         if (data.data.data.image) {
+  //           const UserImg = `http://localhost:4000/images/${data.data.data.image}`;
+  //           setImages(UserImg);
+  //           setLoading(false);
+  //         }
+  //       }
+  //     });
+  // }, []);
   const [showSignoutModal, setShowSignoutModal] = useState(false);
   const handleSignoutModal = () => {
     setShowSignoutModal(!showSignoutModal);
@@ -69,13 +69,15 @@ export const Profiles = () => {
   const UserInfo = Info.data;
 
   let MyRunDistance = 0;
-  for (let i = 0; i < UserInfo.runningDays.length; i++) {
-    MyRunDistance = MyRunDistance + UserInfo.runningDays[i].distance;
+  if (UserInfo.runningDays.length !== 0) {
+    for (let i = 0; i < UserInfo.runningDays.length; i++) {
+      MyRunDistance = MyRunDistance + UserInfo.runningDays[i].distance;
+    }
   }
   return (
     <>
       <Container>
-        {Loading ? (
+        {!Loading ? (
           <IsLoading></IsLoading>
         ) : (
           <MyInfo>
@@ -107,13 +109,24 @@ export const Profiles = () => {
             </InfoFirst>
             <InfoSecond>
               <h2>총 달린 거리</h2>
-              <Meter>{MyRunDistance}km</Meter>
+              <Sss></Sss>
+              {!MyRunDistance ? (
+                <h2>함께 시작해보아요!</h2>
+              ) : (
+                <Meter>{MyRunDistance}km</Meter>
+              )}
             </InfoSecond>
             <InfoSecond>
               <h2>획득한 메달</h2>
               <Sss></Sss>
-              <MedalBox UserInfo={UserInfo} />
-              <button onClick={handleMedalModal}>더 보기</button>
+              {UserInfo.medal.length !== 0 ? (
+                <MedalBox UserInfo={UserInfo} />
+              ) : (
+                <h2>획득한 메달이 여기 표시됩니다.</h2>
+              )}
+              {UserInfo.medal.length !== 0 ? (
+                <button onClick={handleMedalModal}>더 보기</button>
+              ) : null}
             </InfoSecond>
             <Btn>
               {!IsOauth ? (

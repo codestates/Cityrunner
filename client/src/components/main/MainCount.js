@@ -50,7 +50,6 @@ export const MainCount = () => {
 
 const Contanier = styled.div`
   width: 100%;
-  border-radius: 25px;
   background-color: ${theme.color.apricot};
   /* @media ${theme.mobileS} {
     width: 100vw;
