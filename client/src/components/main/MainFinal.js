@@ -4,16 +4,16 @@ import useScrollFadeIn from "../../hooks/useScrollFadeIn";
 import { flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
 
-export const MainFourth = () => {
+export const MainFinal = () => {
   const fadeIn = useScrollFadeIn("up", 1);
   const text = useScrollFadeIn("up", 1);
   return (
     <Contanier>
       <InfoText>
-        <h1 {...text}>지금까지 달린 거리를 볼 수 있어요!</h1>
+        <h1 {...text}>모바일에서도 이용할 수 있습니다.</h1>
         <br />
-        <li>지금까지 참여한 크루를 기준으로 달린 거리를 확인할 수 있어요!</li>
-        <li>열심히 달리면 메달도 얻을 수 있답니다.</li>
+        <li>PC와 모바일환경을 모두 지원합니다.</li>
+        <li>어디서나 쉽게 참여할 수 있습니다.</li>
       </InfoText>
       <ImgContainer src="img/hanRiver_map.png" {...fadeIn}></ImgContainer>
     </Contanier>
@@ -27,7 +27,7 @@ const Contanier = styled.div`
   border-bottom: solid 1px ${theme.color.hovergray};
   display: flex;
   justify-content: space-evenly;
-  background-color: ${theme.color.lightgray};
+  /* background-color: ${theme.color.apricot}; */
 
   @media ${theme.mobileS} {
     ${flexColum}
