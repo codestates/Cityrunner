@@ -109,7 +109,10 @@ export const Header = () => {
       </div>
       <div onClick={handleSignupModal}>
         {showSignupModal ? (
-          <Signup setShowSignupModal={setShowSignupModal}></Signup>
+          <Signup
+            setShowSignupModal={setShowSignupModal}
+            handleModal={handleModal}
+          ></Signup>
         ) : null}
       </div>
       <div onClick={handleHamburgerModal}>

@@ -92,7 +92,9 @@ export const Signup = (props) => {
   const handleSuccess = () => {
     setSuccess(true);
   };
-
+  const exitButton = () => {
+    props.handleModal();
+  };
   const CloseSignup = () => {
     props.setShowSignupModal(false);
   };
@@ -177,10 +179,10 @@ export const Signup = (props) => {
               <LoginBtn>
                 <button
                   onClick={() => {
-                    history.push("/Matching");
+                    exitButton();
                   }}
                 >
-                  매칭페이지로
+                  로그인하기
                 </button>
               </LoginBtn>
             </Congra>
