@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = "http://localhost:4000";
+const url = "http://api.cityrunner.site";
 
 const GET_ROOMS = "room/GET_ROOMS";
 const CREATE_ROOM = "room/CREATE_ROOM";

@@ -14,7 +14,7 @@ export const Chat = () => {
 	const history = useHistory();
 	const [status, setStatus] = useState(false);
 
-	const url = "http://localhost:4000";
+	const url = "http://api.cityrunner.site";
 
 	const [myroomdata, setMyroomdata] = useState();
 
@@ -86,6 +86,8 @@ const Title = styled.ul`
 	li {
 		margin-bottom: 3rem;
 		font-size: 1.5rem;
+		color: white;
+		font-weight: bold;
 	}
 `;
 
@@ -93,6 +95,8 @@ const Categoryinfo = styled.ul`
 	li {
 		margin-bottom: 3rem;
 		font-size: 1.5rem;
+		color: white;
+		font-weight: bold;
 	}
 `;
 

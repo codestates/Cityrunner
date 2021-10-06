@@ -47,13 +47,13 @@ export const LoginModal = () => {
 	const oauth = {
 		google: {
 			client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-			uri: "http://localhost:3000",
+			uri: "http://api.cityrunner.site",
 			scope:
 				"https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
 		},
 		kakao: {
 			client_id: process.env.REACT_APP_KAKAO_CLIENT_ID,
-			uri: "http://localhost:3000",
+			uri: "http://api.cityrunner.site",
 		},
 	};
 

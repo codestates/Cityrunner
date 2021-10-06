@@ -14,7 +14,7 @@ export const MyRoom = () => {
 
 	const onEnterRoom = async () => {
 		await axios
-			.put(`http://localhost:4000/posts/join/${roomsinfo.id}`, "", {
+			.put(`http://api.cityrunner.site/posts/join/${roomsinfo.id}`, "", {
 				withCredentials: true,
 			})
 			.then(() => {

@@ -1,6 +1,3 @@
-import axios from "axios";
-const url = "http://localhost:4000";
-
 const SELECT_MAP = "filter/SELECT_MAP";
 
 export const setMap = (data) => {

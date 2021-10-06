@@ -19,9 +19,7 @@ export const CreateRoom = () => {
 		distance: 0,
 	});
 
-	const dispatch = useDispatch();
-
-	const url = "http://localhost:4000";
+	const url = "http://api.cityrunner.site";
 
 	const onRoompost = async () => {
 		await axios

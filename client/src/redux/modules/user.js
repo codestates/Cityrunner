@@ -1,7 +1,7 @@
 //로그인을 진행하기위해서는
 //form에서 submit을 통해 현재 nmae과 비밀번호를 dispatch로 실행 시켜줘야 한다.
 import axios from "axios";
-const url = "http://localhost:4000";
+const url = "http://api.cityrunner.site";
 
 //액션타입
 const REGISTER_USER = "user/REGISTER_USER";

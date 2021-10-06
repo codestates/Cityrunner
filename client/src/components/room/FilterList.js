@@ -76,7 +76,7 @@ export const FilterList = ({ setinfo }) => {
 
 	const onClick = async () => {
 		let data = await axios.get(
-			`http://localhost:4000/posts?page=1&level=${queryData.level}&time=${queryData.time}&distance=${queryData.distance}&location=${Mapinfo}`
+			`http://api.cityrunner.site/posts?page=1&level=${queryData.level}&time=${queryData.time}&distance=${queryData.distance}&location=${Mapinfo}`
 		);
 		console.log(data);
 		setinfo(data);
