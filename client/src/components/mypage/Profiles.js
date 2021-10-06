@@ -16,27 +16,27 @@ export const Profiles = () => {
   const [IsOauth, setIsOauth] = useState(false);
   const [Loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:4000/mypage", {
-  //       withCredentials: true,
-  //     })
-  //     .then((data) => {
-  //       setInfo(data.data);
-  //       if (data.data.data.oauth) {
-  //         setIsOauth(true);
-  //         const UserImg = data.data.data.image;
-  //         setImages(UserImg);
-  //         setLoading(false);
-  //       } else {
-  //         if (data.data.data.image) {
-  //           const UserImg = `http://localhost:4000/images/${data.data.data.image}`;
-  //           setImages(UserImg);
-  //           setLoading(false);
-  //         }
-  //       }
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/mypage", {
+        withCredentials: true,
+      })
+      .then((data) => {
+        setInfo(data.data);
+        if (data.data.data.oauth) {
+          setIsOauth(true);
+          const UserImg = data.data.data.image;
+          setImages(UserImg);
+          setLoading(false);
+        } else {
+          if (data.data.data.image) {
+            const UserImg = `http://localhost:4000/images/${data.data.data.image}`;
+            setImages(UserImg);
+            setLoading(false);
+          }
+        }
+      });
+  }, []);
   const [showSignoutModal, setShowSignoutModal] = useState(false);
   const handleSignoutModal = () => {
     setShowSignoutModal(!showSignoutModal);
@@ -77,7 +77,7 @@ export const Profiles = () => {
   return (
     <>
       <Container>
-        {!Loading ? (
+        {Loading ? (
           <IsLoading></IsLoading>
         ) : (
           <MyInfo>
