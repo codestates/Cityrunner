@@ -41,6 +41,9 @@ export const Header = () => {
     dispatch(setIsLogin(false));
     localStorage.removeItem("userinfo");
   };
+  const goMain = () => {
+    history.push('/');
+  }
 
   // ESC키로 모달을 close 기능
   useEffect(() => {
@@ -92,7 +95,7 @@ export const Header = () => {
               >
                 마이페이지
               </h4>
-              <h4 className="login-pages" onClick={onLogout}>
+              <h4 className="login-pages" onClick={() => {onLogout(); goMain()}}>
                 로그아웃
               </h4>
             </>

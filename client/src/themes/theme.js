@@ -5,6 +5,7 @@ const color = {
 	hovergray: "#ced4da",
 	green: "#21c897",
 	apricot: "#FEF7E5",
+	lightgray: "#F2F4F4",
 };
 
 const line = {
