@@ -45,7 +45,7 @@ export const Main = () => {
 					qs.stringify({
 						grant_type: "authorization_code",
 						client_id: "63d21bbf51229a38085d23a58ecf2b9e",
-						redirect_uri: "http://api.cityrunner.site",
+						redirect_uri: "http://cityrunner.site",
 						code: params,
 					}),
 					{
