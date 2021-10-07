@@ -21,13 +21,11 @@ export const Chat = () => {
 	useEffect(async () => {
 		await axios.get(`${url}/mycrew`, { withCredentials: true }).then((data) => {
 			setMyroomdata(data.data.data);
-			console.log(data, "!@#!@#!@#!@#!@#");
 		});
 	}, []);
 
 	const onExitRoom = (id) => {
 		dispatch(exitRoom(id));
-		console.log(id);
 		history.push("/Matching");
 	};
 	const onDeleteRoom = (id) => {
@@ -35,7 +33,6 @@ export const Chat = () => {
 		history.push("/Matching");
 	};
 
-	console.log(roomsinfo, "@@@@@@@@@@@@@@");
 	return (
 		<>
 			{myroomdata ? (

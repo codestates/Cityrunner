@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { setMap } from "../../redux/modules/filterMap";
 import { theme } from "../../themes/theme";
 
-const SelectMap = ({ locationInfo, setlocationInfo }) => {
+const SelectMap = () => {
 	const [currentLoc, setCurrentLoc] = useState("");
 	const dispatch = useDispatch();
 	const locations = [
@@ -21,7 +21,6 @@ const SelectMap = ({ locationInfo, setlocationInfo }) => {
 		{ id: 10, location: "광나루", className: "kwangnaroo" },
 	];
 	const handleClick = (id) => {
-		//console.log(locations[id]);
 		if (currentLoc === id) {
 			setCurrentLoc("");
 		} else {

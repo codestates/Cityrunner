@@ -6,11 +6,17 @@ import styled from "styled-components";
 import { loginUser, setIsLogin, setUserinfo } from "../../redux/modules/user";
 import { flexCenter, flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { modalclose, modalopen } from "../../redux/modules/filterMap";
 
 export const LoginModal = () => {
 	const dispatch = useDispatch();
 	const [errors, seterrors] = useState(false);
+
+	const Modals = () => {
+		dispatch(modalclose());
+	};
+
 	const formik = useFormik({
 		initialValues: {
 			email: "",
@@ -27,7 +33,6 @@ export const LoginModal = () => {
 				.then((res) => {
 					const userinfo = res.payload.data.data;
 					const logincheck = true;
-					console.log(userinfo);
 					dispatch(setIsLogin(true));
 					dispatch(setUserinfo(userinfo));
 					localStorage.setItem("userinfo", JSON.stringify({ logincheck }));
@@ -76,6 +81,7 @@ redirect_uri=${oauth.kakao.uri}&response_type=code`);
 					onClick={(e) => e.stopPropagation()}
 					onSubmit={formik.handleSubmit}
 				>
+					<CloseModal onClick={Modals}>X</CloseModal>
 					<Title>로그인</Title>
 					<LoginInput>
 						<h5>E-mail</h5>
@@ -136,7 +142,7 @@ const MakeModal = styled.div`
 	width: 100%;
 	height: 100%;
 	${flexCenter}
-	background: rgba(0, 0, 0, 0.6);
+	background: rgba(0, 0, 0, 0.1);
 	z-index: 1;
 `;
 
@@ -198,8 +204,8 @@ const LoginBtn = styled.div`
 	}
 `;
 
-const Errorblock = styled.div`
-	color: red;
-	padding-top: 1rem;
-	font-weight: bold;
+const CloseModal = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	cursor: pointer;
 `;
