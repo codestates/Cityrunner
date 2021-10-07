@@ -1,20 +1,19 @@
 import styled from "styled-components";
 import { flexCenter, flexColum } from "../../themes/flex";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import room, { getRooms } from "../../redux/modules/room";
-import { useHistory } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import { setPost } from "../../redux/modules/room";
 import { MyRoom } from "../modal/MyRoom";
 import { theme } from "../../themes/theme";
 import { whenTime } from "../../themes/Times";
+import { modalclose } from "../../redux/modules/filterMap";
 
 // 쿼리 빈스트링으로 보내야함.
 
-const RoomCard = ({ setinfo, info, locationInfo }) => {
+const RoomCard = ({ info }) => {
 	const dispatch = useDispatch();
-	const RoomCardinfo = useSelector((state) => state);
 
 	const [modal, setModal] = useState(false);
 	const [savedata, setsavedata] = useState([]);
@@ -26,6 +25,7 @@ const RoomCard = ({ setinfo, info, locationInfo }) => {
 
 	const handleCloseModal = () => {
 		setModal(false);
+		dispatch(modalclose());
 	};
 
 	const handleModal = () => {
@@ -36,7 +36,6 @@ const RoomCard = ({ setinfo, info, locationInfo }) => {
 		await dispatch(getRooms(page)).then((data) => {
 			const Rooms = data.payload.data.data;
 			setsavedata(Rooms);
-			console.log(data.payload);
 		});
 	}, [page]);
 
@@ -54,18 +53,21 @@ const RoomCard = ({ setinfo, info, locationInfo }) => {
 		return () => window.removeEventListener("keydown", close);
 	}, []);
 
-	const onCardInfo = (data) => {
-		dispatch(setPost(data));
-		handleModal();
-	};
+	const onCardInfo = useCallback(
+		(data) => {
+			dispatch(setPost(data));
+			handleModal();
+		},
+		[dispatch]
+	);
 
 	return (
 		<>
 			<Container>
+				{modal ? <MyRoom handleCloseModal={handleCloseModal} /> : null}
 				{savedata.map((data) => {
 					return (
 						<CardContainer key={data.id}>
-							{modal ? <MyRoom /> : null}
 							<ImageContainer onClick={() => onCardInfo(data)}>
 								<img src="img/Runner.png"></img>
 							</ImageContainer>

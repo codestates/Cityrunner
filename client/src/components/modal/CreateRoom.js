@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { flexCenter, flexColum } from "../../themes/flex";
 import { Locations } from "../../themes/Locations";
 import { theme } from "../../themes/theme";
 import { Times } from "../../themes/Times";
 
-export const CreateRoom = () => {
+export const CreateRoom = ({ setIsModal }) => {
 	const [roomInfo, setroomInfo] = useState({
 		level: "",
 		time: "",
@@ -18,6 +18,12 @@ export const CreateRoom = () => {
 		max: 0,
 		distance: 0,
 	});
+	const isModal = useSelector((state) => state.filterMap.modal);
+	const dispatch = useDispatch();
+
+	const ModalClose = () => {
+		setIsModal(false);
+	};
 
 	const url = "http://api.cityrunner.site";
 
@@ -38,6 +44,7 @@ export const CreateRoom = () => {
 	return (
 		<MakeModal>
 			<DialogBlock onClick={(e) => e.stopPropagation()}>
+				<CloseModal onClick={ModalClose}>X</CloseModal>
 				<Title>크루원 모집하기</Title>
 				<SelectContainer>
 					<h5>난이도</h5>
@@ -193,4 +200,9 @@ const CommentBtn = styled.div`
 			transition: 0.4s;
 		}
 	}
+`;
+
+const CloseModal = styled.div`
+	display: flex;
+	justify-content: flex-end;
 `;
