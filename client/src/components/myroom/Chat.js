@@ -33,6 +33,12 @@ export const Chat = () => {
 		history.push("/Matching");
 	};
 
+	useEffect(() => {}, [onDeleteRoom]);
+
+	const onBack = () => {
+		return history.push("/Matching");
+	};
+
 	return (
 		<>
 			{myroomdata ? (
@@ -61,7 +67,14 @@ export const Chat = () => {
 					</CommentBtn>
 				</Contanier>
 			) : (
-				<IsLoading />
+				<MakeModal>
+					<DialogBlock>
+						<h2>참여중인 방이 없습니다</h2>
+						<Backenter>
+							<h3 onClick={onBack}>확인</h3>
+						</Backenter>
+					</DialogBlock>
+				</MakeModal>
 			)}
 		</>
 	);
@@ -118,8 +131,28 @@ const CommentBtn = styled.div`
 	}
 `;
 
-const EmptyRoom = styled.div`
+const MakeModal = styled.div`
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
 	${flexCenter}
-	color: black;
-	margin-top: 40vh;
+	background: rgba(0, 0, 0, 0.6);
+	z-index: 1;
+`;
+
+const DialogBlock = styled.div`
+	width: 320px;
+	height: 180px;
+	padding: 1rem;
+	padding-top: 3rem;
+	background: white;
+	border-radius: 15px;
+	${flexColum}
+`;
+
+const Backenter = styled.div`
+	${flexCenter}
+	cursor: pointer;
 `;

@@ -7,6 +7,8 @@ import { flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
 import { CreateRoom } from "../modal/CreateRoom";
 import { LoginModal } from "../modal/LoginModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faRedo, faSync } from "@fortawesome/free-solid-svg-icons";
 
 export const FilterList = ({ setinfo }) => {
 	//리듀서 써야함
@@ -75,6 +77,17 @@ export const FilterList = ({ setinfo }) => {
 
 	let token = localStorage.getItem("userinfo");
 
+
+	const onReset = () => {
+		return window.location.reload();
+	};
+
+	return (
+		<>
+			<SearchBox>
+				<button onClick={onClick}>검색</button>
+			</SearchBox>
+
 	return (
 		<>
 			<Contanier>
@@ -97,6 +110,10 @@ export const FilterList = ({ setinfo }) => {
 						<option value="10">10km이상</option>
 					</select>
 
+					<ResetButton>
+						<FontAwesomeIcon icon={faSync} size="lg" onClick={onReset} />
+					</ResetButton>
+
 					<button onClick={onClick}>조회</button>
 				</ListNames>
 				<RightSide>
@@ -113,6 +130,32 @@ export const FilterList = ({ setinfo }) => {
 		</>
 	);
 };
+
+const SearchBox = styled.div`
+	background-color: ${theme.color.apricot};
+	${flexCenter}
+	button {
+		border: 0.1px solid black;
+		border-radius: 0.3rem;
+		background-color: ${theme.color.black};
+		color: white;
+		font-weight: bold;
+		width: 12rem;
+		height: 3rem;
+		font-size: 1rem;
+		:hover {
+			background-color: white;
+			transition: 0.2s;
+			color: black;
+		}
+	}
+	@media ${theme.mobileS} {
+		padding-bottom: 2.2rem;
+		button {
+			height: 2.5rem;
+		}
+	}
+`;
 
 const Contanier = styled.div`
 	width: 100vw;
@@ -133,12 +176,14 @@ const ListNames = styled.div`
 	select {
 		text-align: center;
 		height: 2.3rem;
+		border-radius: 0.3rem;
 		margin-left: 1rem;
 		margin-right: 0rem;
 		margin-bottom: 0rem;
-		background-color: ${theme.color.gray};
+		background-color: ${theme.color.black};
 		color: white;
 		font-weight: bold;
+		width: 6rem;
 		:hover {
 			cursor: pointer;
 		}
@@ -154,6 +199,25 @@ const ListNames = styled.div`
 			transition: 0.2s;
 		}
 	}
+
+	@media ${theme.laptopS} {
+		select {
+			margin-right: 0.5rem;
+			width: 4rem;
+		}
+	}
+	@media ${theme.mobileS} {
+		margin-right: 1.3rem;
+	}
+`;
+
+const ResetButton = styled.div`
+	${theme.color.black};
+	margin-left: 1rem;
+	transform: translateY(6px);
+	:hover {
+		color: ${theme.color.hovergray};
+	}
 `;
 
 const RightSide = styled.div`
@@ -164,6 +228,7 @@ const RightSide = styled.div`
 		font-weight: bold;
 		font-size: 1rem;
 		margin-left: 2rem;
+		border-radius: 0.3rem;
 		&:hover {
 			background-color: white;
 			transition: 0.4s;
@@ -180,11 +245,5 @@ const RightSide = styled.div`
 	}
 	@media ${theme.laptopS} {
 		margin-right: 0;
-	}
-`;
-
-const SearchBox = styled.div`
-	:hover {
-		${theme.color.hovergray}
 	}
 `;
