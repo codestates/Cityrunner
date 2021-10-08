@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { theme } from "../themes/theme";
-import { Link, useHistory, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LoginModal } from "./modal/LoginModal";
 import { Signup } from "./modal/Signup";
 import { HamburgerModal } from "./modal/HamburgerModal";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser, setIsLogin, setUserinfo } from "../redux/modules/user";
-import { MobileNavbar } from "./MobileNavbar";
+import { logoutUser, setIsLogin } from "../redux/modules/user";
+import { modalclose, modalopen } from "../redux/modules/filterMap";
 
 export const Header = () => {
 	const [showSignupModal, setShowSignupModal] = useState(false);
@@ -18,14 +18,15 @@ export const Header = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 
+	const Modalis = useSelector((state) => state.filterMap.modal);
+
 	const handleModal = () => {
-		if (showSignupModal) {
-			setShowSignupModal(false);
-		}
+		dispatch(modalopen());
 		setisModal(!false);
 	};
+
 	const handleCloseModal = () => {
-		setisModal(false);
+		dispatch(modalclose());
 	};
 	const handleSignupModal = () => {
 		if (isModal) {
@@ -56,7 +57,6 @@ export const Header = () => {
 		return () => window.removeEventListener("keydown", close);
 	}, []);
 
-	const userinfo = useSelector((state) => state.user);
 	let token = localStorage.getItem("userinfo");
 
 	return (
@@ -112,8 +112,11 @@ export const Header = () => {
 				</RightSide>
 			</Container>
 			<div onClick={handleCloseModal}>
-				{isModal ? (
-					<LoginModal handleCloseModal={handleCloseModal}></LoginModal>
+				{Modalis ? (
+					<LoginModal
+						handleCloseModal={handleCloseModal}
+						setisModal={setisModal}
+					></LoginModal>
 				) : null}
 			</div>
 			<div onClick={handleSignupModal}>

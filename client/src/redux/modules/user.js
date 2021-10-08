@@ -6,7 +6,6 @@ const url = "http://api.cityrunner.site";
 //액션타입
 const REGISTER_USER = "user/REGISTER_USER";
 const LOGIN = "user/LOGIN";
-const LOGIN_CHECK = "user/LOGIN_CHECK";
 const LOGOUT = "user/LOGOUT";
 const SET_IS_LOGIN = "user/SET_IS_LOGIN";
 const SET_USERINFO = "user/SET_USERINFO";

@@ -7,6 +7,13 @@ const DELETE_ROOM = "room/DLEELTE_ROOM";
 const EXIT_ROOM = "room/EXIT_ROOM";
 const PATCH_ROOM = "room/PUT_ROOM";
 const SET_POST = "room/SET_POST";
+const RESET_ROOM = "room/RESET_ROOM";
+
+export const resetroom = () => {
+	return {
+		type: RESET_ROOM,
+	};
+};
 
 export const setPost = async (data) => {
 	return {
@@ -36,7 +43,7 @@ export const createRoom = async () => {
 };
 
 export const exitRoom = async (roomId) => {
-	const room = await axios.delete(`${url}/posts/exit/${roomId}`, {
+	const room = await axios.put(`${url}/posts/exit/${roomId}`, {
 		withCredentials: true,
 	});
 	return {
@@ -45,7 +52,6 @@ export const exitRoom = async (roomId) => {
 	};
 };
 
-//콜론쓰면안됨 delete
 export const deleteRoom = async (roomId) => {
 	const room = await axios.delete(`${url}/posts/${roomId}`, {
 		withCredentials: true,
@@ -71,11 +77,13 @@ const initialState = {
 		loading: false,
 		data: null,
 		error: null,
+		modal: false,
 	},
 	room: {
 		loading: false,
 		data: null,
 		error: null,
+		modal: false,
 	},
 };
 
@@ -122,6 +130,13 @@ export default function room(state = initialState, action) {
 			return Object.assign({}, state, {
 				post: action.payload,
 			});
+		case RESET_ROOM:
+			return {
+				...state,
+				rooms: {
+					modal: true,
+				},
+			};
 
 		default:
 			return state;

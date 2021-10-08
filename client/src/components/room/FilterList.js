@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import filterMap from "../../redux/modules/filterMap";
-import { flexCenter, flexColum } from "../../themes/flex";
+import { modalclose, modalopen } from "../../redux/modules/filterMap";
+import { flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
 import { CreateRoom } from "../modal/CreateRoom";
 import { LoginModal } from "../modal/LoginModal";
@@ -16,32 +15,25 @@ export const FilterList = ({ setinfo }) => {
 	// RoomCard 컴포넌트에 값을 전달하기 위해서
 
 	const Mapinfo = useSelector((state) => state.filterMap.state.location);
-
+	const Modalis = useSelector((state) => state.filterMap.modal);
+	const dispatch = useDispatch();
 	const [isModal, setIsModal] = useState(false);
 	const [loginCheck, setLoginCheck] = useState(false);
-	const history = useHistory();
-
+	const [closeModal, setCloseModal] = useState(false);
 	const [queryData, setQueryData] = useState({
 		level: "",
 		time: "",
 		distance: "",
 	});
 
-	const [loaction2, setLocations] = useState({
-		loaction: "",
-	});
-
 	const [curHours, setCurHours] = useState(new Date().getHours());
 
 	const handleModal = () => {
-		token ? setIsModal(!false) : setLoginCheck(true);
-	};
-	const handleCloseModal = () => {
-		setIsModal(false);
+		return token ? setIsModal(true) : dispatch(modalopen());
 	};
 
 	const ChattingRoom = () => {
-		!token ? setLoginCheck(true) : window.location.replace("/MyRoom");
+		!token ? dispatch(modalopen()) : window.location.replace("/MyRoom");
 	};
 	const LoginCheck = () => {
 		setLoginCheck(false);
@@ -50,13 +42,13 @@ export const FilterList = ({ setinfo }) => {
 	useEffect(() => {
 		const close = (e) => {
 			if (e.keyCode === 27) {
-				handleCloseModal();
 				LoginCheck();
 			}
 		};
 		window.addEventListener("keydown", close);
 		return () => window.removeEventListener("keydown", close);
 	}, []);
+
 	const onChange = (key) => (e) => {
 		setQueryData({ ...queryData, [key]: e.target.value });
 	};
@@ -80,11 +72,11 @@ export const FilterList = ({ setinfo }) => {
 		let data = await axios.get(
 			`http://api.cityrunner.site/posts?page=1&level=${queryData.level}&time=${queryData.time}&distance=${queryData.distance}&location=${Mapinfo}`
 		);
-		console.log(data);
 		setinfo(data);
 	};
 
 	let token = localStorage.getItem("userinfo");
+
 
 	const onReset = () => {
 		return window.location.reload();
@@ -95,6 +87,9 @@ export const FilterList = ({ setinfo }) => {
 			<SearchBox>
 				<button onClick={onClick}>검색</button>
 			</SearchBox>
+
+	return (
+		<>
 			<Contanier>
 				<ListNames>
 					<select onChange={onChange("level")}>
@@ -118,15 +113,19 @@ export const FilterList = ({ setinfo }) => {
 					<ResetButton>
 						<FontAwesomeIcon icon={faSync} size="lg" onClick={onReset} />
 					</ResetButton>
+
+					<button onClick={onClick}>조회</button>
 				</ListNames>
 				<RightSide>
 					<button onClick={handleModal}> + 방만들기</button>
 					<button onClick={ChattingRoom}>참여중인방</button>
 				</RightSide>
-				{loginCheck ? <LoginModal /> : null}
+				{Modalis ? <LoginModal setLoginCheck={setLoginCheck} /> : null}
 			</Contanier>
-			<div onClick={handleCloseModal}>
-				{isModal ? <CreateRoom></CreateRoom> : null}
+			<div>
+				{isModal ? (
+					<CreateRoom isModal={isModal} setIsModal={setIsModal}></CreateRoom>
+				) : null}
 			</div>
 		</>
 	);
@@ -200,6 +199,7 @@ const ListNames = styled.div`
 			transition: 0.2s;
 		}
 	}
+
 	@media ${theme.laptopS} {
 		select {
 			margin-right: 0.5rem;
