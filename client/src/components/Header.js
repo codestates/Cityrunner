@@ -166,7 +166,7 @@ const RightSide = styled.div`
 			transition: 0.1s;
 		}
 
-		@media ${theme.mobileS} {
+		@media ${(theme.mobileS, theme.laptopS)} {
 			display: none;
 		}
 	}
@@ -174,7 +174,7 @@ const RightSide = styled.div`
 
 const Burgerbar = styled.div`
 	display: none;
-	@media ${theme.mobileS} {
+	@media ${(theme.mobileS, theme.laptopS)} {
 		display: flex;
 		margin-top: 1.28rem;
 		margin-left: 11.5rem;

@@ -68,15 +68,16 @@ const RoomCard = ({ info }) => {
 				{savedata.map((data) => {
 					return (
 						<CardContainer key={data.id}>
-							<ImageContainer onClick={() => onCardInfo(data)}>
-								<img src="img/Runner.png"></img>
-							</ImageContainer>
 							<Title>{data.title}</Title>
+
 							<Content>{data.comment}</Content>
 							<CardFooter>
 								<TimeDiv>{data.time}시</TimeDiv>
 								<Level>{data.level}</Level>
 							</CardFooter>
+							<EnterButton>
+								<button onClick={() => onCardInfo(data)}>크루정보</button>
+							</EnterButton>
 							<DaysFooter>
 								<Days>{whenTime(data.updatedAt)}</Days>
 							</DaysFooter>
@@ -104,16 +105,21 @@ const Container = styled.div`
 	width: 100vw;
 	height: 100%;
 	flex-wrap: wrap;
-
 	@media ${theme.laptop} {
 		${flexCenter}
 	}
 `;
 
 const CardContainer = styled.div`
-	margin-top: 1rem;
+	margin-top: 3rem;
 	margin-left: 2rem;
-	border: 0.8px solid #ced4da;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.1);
+	:hover {
+		transform: translateY(-10px);
+		transition: 0.2s;
+		box-shadow: 0 8px 5px rgba(0, 0, 0, 0.1), 0 8px 5px rgba(0, 0, 0, 0.1);
+	}
+	border-radius: 0.5rem;
 	width: 320px;
 	height: 380px;
 	${flexColum};
@@ -121,23 +127,36 @@ const CardContainer = styled.div`
 		margin-left: 0;
 	}
 `;
-const ImageContainer = styled.div`
-	overflow: hidden;
-	img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
+const EnterButton = styled.div`
+	button {
+		border: 1px solid gray;
+		border-radius: 10px;
+		background-color: ${theme.color.black};
+		color: white;
+		font-weight: bold;
+		width: 12rem;
+		height: 3rem;
+		font-size: 1rem;
+		:hover {
+			background-color: white;
+			transition: 0.2s;
+			color: black;
+		}
 	}
 `;
 
-const Title = styled.h3``;
+const Title = styled.h3`
+	font-size: 1.5rem;
+`;
 
 const Content = styled.h4`
-	font-size: 1rem;
+	font-size: 1.2rem;
+	color: #495057;
 `;
 
 const CardFooter = styled.div`
 	${flexColum}
+	font-size: 1.3rem;
 `;
 
 const TimeDiv = styled.div`
@@ -147,6 +166,7 @@ const TimeDiv = styled.div`
 
 const Level = styled.div`
 	margin-bottom: 1rem;
+	font-size: 1rem;
 `;
 
 const DaysFooter = styled.div`

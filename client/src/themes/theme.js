@@ -14,7 +14,7 @@ const line = {
 
 const size = {
 	laptopS: "566px",
-	mobileS: "710px",
+	mobileS: "375px",
 	tabletS: "1023px",
 	laptopXs: "503px",
 	tabletL: "1023px",
