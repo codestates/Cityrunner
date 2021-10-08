@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { modalclose, modalopen } from "../../redux/modules/filterMap";
-import { flexColum } from "../../themes/flex";
+import { flexCenter, flexColum } from "../../themes/flex";
 import { theme } from "../../themes/theme";
 import { CreateRoom } from "../modal/CreateRoom";
 import { LoginModal } from "../modal/LoginModal";
@@ -77,7 +77,6 @@ export const FilterList = ({ setinfo }) => {
 
 	let token = localStorage.getItem("userinfo");
 
-
 	const onReset = () => {
 		return window.location.reload();
 	};
@@ -87,9 +86,6 @@ export const FilterList = ({ setinfo }) => {
 			<SearchBox>
 				<button onClick={onClick}>검색</button>
 			</SearchBox>
-
-	return (
-		<>
 			<Contanier>
 				<ListNames>
 					<select onChange={onChange("level")}>
@@ -113,8 +109,6 @@ export const FilterList = ({ setinfo }) => {
 					<ResetButton>
 						<FontAwesomeIcon icon={faSync} size="lg" onClick={onReset} />
 					</ResetButton>
-
-					<button onClick={onClick}>조회</button>
 				</ListNames>
 				<RightSide>
 					<button onClick={handleModal}> + 방만들기</button>
