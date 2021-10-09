@@ -44,7 +44,7 @@ export const Main = () => {
 					"https://kauth.kakao.com/oauth/token",
 					qs.stringify({
 						grant_type: "authorization_code",
-						client_id: "63d21bbf51229a38085d23a58ecf2b9e",
+						client_id: `${process.env.REACT_APP_KAKAO_CLIENT_ID}e`,
 						redirect_uri: "http://cityrunner.site",
 						code: params,
 					}),
@@ -62,6 +62,8 @@ export const Main = () => {
 						.then((res) => {
 							const { email, password } = res.data.data;
 							dispatch(loginUser({ email, password }));
+							localStorage.setItem("userinfo", JSON.stringify(res));
+							setState(true);
 							history.push("/");
 						})
 						.catch((err) => console.log(err));
