@@ -1,4 +1,5 @@
 # **Overview**
+배포 URL <http://cityrunner.site>
 
 ## **Features**
 - 한강 공원을 중심으로 함께 달릴 크루원을 모집할 수 있습니다.
@@ -34,3 +35,8 @@
 |김세윤|Back-End|https://github.com/seyoonkim48|
 |김재민|Front-End|https://github.com/jmean12|
 |김호진|Front-End|https://github.com/Alamarama|
+
+
+## **프로젝트 소개**
+
+
