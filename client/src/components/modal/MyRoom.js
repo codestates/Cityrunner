@@ -82,6 +82,7 @@ const MakeModal = styled.div`
 	height: 100%;
 	${flexCenter}
 	background: rgba(0, 0, 0, 0.1);
+	z-index: 1;
 `;
 
 const DialogBlock = styled.div`
