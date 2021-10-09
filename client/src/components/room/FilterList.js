@@ -14,7 +14,7 @@ export const FilterList = ({ setinfo }) => {
 	//리듀서 써야함
 	// RoomCard 컴포넌트에 값을 전달하기 위해서
 
-	const Mapinfo = useSelector((state) => state.filterMap.state.location);
+	const Mapinfo = useSelector((state) => state.filterMap.state.location) || "";
 	const Modalis = useSelector((state) => state.filterMap.modal);
 	const dispatch = useDispatch();
 	const [isModal, setIsModal] = useState(false);
@@ -24,6 +24,7 @@ export const FilterList = ({ setinfo }) => {
 		level: "",
 		time: "",
 		distance: "",
+		location: "",
 	});
 
 	const [curHours, setCurHours] = useState(new Date().getHours());
@@ -72,6 +73,7 @@ export const FilterList = ({ setinfo }) => {
 		let data = await axios.get(
 			`http://api.cityrunner.site/posts?page=1&level=${queryData.level}&time=${queryData.time}&distance=${queryData.distance}&location=${Mapinfo}`
 		);
+		console.log(queryData);
 		setinfo(data);
 	};
 
