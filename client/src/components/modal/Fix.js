@@ -5,77 +5,77 @@ import { flexCenter, flexColum } from "../../themes/flex";
 import axios from "axios";
 
 const ModalContainer = styled.div`
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 10;
-	${flexCenter}
-	background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  ${flexCenter}
+  background: rgba(0, 0, 0, 0.6);
 `;
 
 const Modal = styled.div`
-	width: 430px;
-	height: 500px;
-	padding: 1rem;
-	background: white;
-	border-radius: 2px;
-	h3 {
-		${flexCenter}
-	}
+  width: 430px;
+  height: 500px;
+  padding: 1rem;
+  background: white;
+  border-radius: 2px;
+  h3 {
+    ${flexCenter}
+  }
 `;
 
 const Input = styled.div`
-	${flexColum}
-	input {
-		height: 1.8rem;
-		width: 200px;
-		margin-top: -1rem;
-		border: solid 1px;
-		padding-left: 1rem;
-	}
-	h5 {
-		${flexCenter}
-		margin-bottom:1.5rem;
-	}
+  ${flexColum}
+  input {
+    height: 1.8rem;
+    width: 200px;
+    margin-top: -1rem;
+    border: solid 1px;
+    padding-left: 1rem;
+  }
+  h5 {
+    ${flexCenter}
+    margin-bottom:1.5rem;
+  }
 `;
 
 const Title = styled.h2`
-	${flexCenter}
-	margin-top: 2rem;
-	margin-bottom: 3rem;
+  ${flexCenter}
+  margin-top: 2rem;
+  margin-bottom: 3rem;
 `;
 
 const Btn = styled.div`
-	${flexColum}
-	margin-top: 1.5rem;
-	button {
-		width: 200px;
-		height: 2rem;
-		margin: 0.5rem;
-		background-color: ${theme.color.black};
-		color: white;
-		font-weight: bold;
-		:hover {
-			background-color: white;
-			color: ${theme.color.black};
-			border: solid 1px;
-			transition: 0.4s;
-		}
-	}
+  ${flexColum}
+  margin-top: 1.5rem;
+  button {
+    width: 200px;
+    height: 2rem;
+    margin: 0.5rem;
+    background-color: ${theme.color.black};
+    color: white;
+    font-weight: bold;
+    :hover {
+      background-color: white;
+      color: ${theme.color.black};
+      border: solid 1px;
+      transition: 0.4s;
+    }
+  }
 `;
 
-export const Fix = (props) => {
-	const [FixInfo, setFixInfo] = useState({
-		password: "",
-		newPassword: "",
-		username: "",
-	});
-	const [PasswordCheck, setPasswordCheck] = useState("");
-	const CloseFix = () => {
-		props.setShowFixModal(false);
-	};
+export const Fix = ({ handleFixModal }) => {
+  const [FixInfo, setFixInfo] = useState({
+    password: "",
+    newPassword: "",
+    username: "",
+  });
+  const [PasswordCheck, setPasswordCheck] = useState("");
+  const CloseFix = () => {
+    handleFixModal();
+  };
   const OnClick = (key) => (e) => {
     setFixInfo({ ...FixInfo, [key]: e.target.value });
   };
