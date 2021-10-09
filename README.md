@@ -11,7 +11,7 @@
 ### **Front-End**
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black"/> <img src="https://img.shields.io/badge/styled_components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/>
 <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"/>
-<img src="https://img.shields.io/badge/axios-764ABC?style=for-the-badge&logo=axios&logoColor=white"/>
+<img src="https://img.shields.io/badge/axios-d9480f?style=for-the-badge&logo=axios&logoColor=white"/>
 <br> </br>
 
 ### **Back-End**
