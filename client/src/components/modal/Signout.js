@@ -109,6 +109,7 @@ export const Signout = ({ MyRunDistance, handleSignoutModal }) => {
       })
       .then(() => {
         handleSignoutModal();
+        window.location.href = "http://cityrunner.site/";
       });
   };
   return (

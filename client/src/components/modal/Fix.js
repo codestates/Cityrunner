@@ -66,7 +66,7 @@ const Btn = styled.div`
   }
 `;
 
-export const Fix = ({ handleFixModal }) => {
+export const Fix = ({ handleFixModal, handleUpdate }) => {
   const [FixInfo, setFixInfo] = useState({
     password: "",
     newPassword: "",
@@ -96,6 +96,7 @@ export const Fix = ({ handleFixModal }) => {
           .then((res) => {
             if (res.status === 200) {
               CloseFix();
+              handleUpdate();
               alert("변경되었습니다.");
             }
           })
