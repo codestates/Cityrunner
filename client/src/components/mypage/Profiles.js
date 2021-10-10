@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { flexCenter } from "../../themes/flex";
 import PostImage from "./PostImage";
@@ -15,6 +15,10 @@ export const Profiles = () => {
   const [Info, setInfo] = useState(mockData);
   const [IsOauth, setIsOauth] = useState(false);
   const [Loading, setLoading] = useState(true);
+  const [update, setUpdate] = useState(false);
+  const handleUpdate = () => {
+    setUpdate(!update);
+  };
 
   useEffect(() => {
     axios
@@ -37,7 +41,7 @@ export const Profiles = () => {
       .then(() => {
         setLoading(false);
       });
-  }, []);
+  }, [update]);
   const [showSignoutModal, setShowSignoutModal] = useState(false);
   const handleSignoutModal = () => {
     setShowSignoutModal(!showSignoutModal);
@@ -147,7 +151,12 @@ export const Profiles = () => {
         ) : null}
       </div>
       <div onClick={handleFixModal}>
-        {showFixModal ? <Fix handleFixModal={handleFixModal}></Fix> : null}
+        {showFixModal ? (
+          <Fix
+            handleFixModal={handleFixModal}
+            handleUpdate={handleUpdate}
+          ></Fix>
+        ) : null}
       </div>
       <div onClick={handleMedalModal}>
         {showMedalModal ? <ShowMedal UserInfo={UserInfo}></ShowMedal> : null}
