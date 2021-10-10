@@ -21,7 +21,6 @@ export const Chat = () => {
 	useEffect(async () => {
 		await axios.get(`${url}/mycrew`, { withCredentials: true }).then((data) => {
 			setMyroomdata(data.data.data);
-			console.log(data);
 			if (data.status === 204) {
 				return setStatus(false);
 			}
@@ -36,8 +35,6 @@ export const Chat = () => {
 		dispatch(deleteRoom(id));
 		history.push("/Matching");
 	};
-
-	useEffect(() => {}, [onDeleteRoom]);
 
 	return (
 		<>
