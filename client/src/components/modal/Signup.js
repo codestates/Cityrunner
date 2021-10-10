@@ -32,40 +32,40 @@ const Modal = styled.div`
 `;
 
 const Input = styled.div`
-	${flexColum}
-	input {
-		height: 1.8rem;
-		width: 200px;
-		margin-top: -1rem;
-		border: solid 1px;
-		padding-left: 1rem;
-	}
+  ${flexColum}
+  input {
+    height: 1.8rem;
+    width: 200px;
+    margin-top: -1rem;
+    border: solid 1px;
+    padding-left: 1rem;
+  }
 `;
 
 const Title = styled.h2`
-	${flexCenter}
-	margin-top: 2rem;
+  ${flexCenter}
+  margin-top: 2rem;
 `;
 
 const LoginBtn = styled.div`
-	${flexColum}
-	margin-top: 1.5rem;
-	button {
-		height: 1.5rem;
-		width: 200px;
-		height: 2rem;
-		margin: 0.5rem;
-		margin-top: 0.5rem;
-		background-color: ${theme.color.black};
-		color: white;
-		font-weight: bold;
-		:hover {
-			background-color: white;
-			color: ${theme.color.black};
-			border: solid 1px;
-			transition: 0.4s;
-		}
-	}
+  ${flexColum}
+  margin-top: 1.5rem;
+  button {
+    height: 1.5rem;
+    width: 200px;
+    height: 2rem;
+    margin: 0.5rem;
+    margin-top: 0.5rem;
+    background-color: ${theme.color.black};
+    color: white;
+    font-weight: bold;
+    :hover {
+      background-color: white;
+      color: ${theme.color.black};
+      border: solid 1px;
+      transition: 0.4s;
+    }
+  }
 `;
 const Congra = styled.div`
   display: flex;
@@ -78,7 +78,7 @@ const ImgCon = styled.img`
   height: auto;
 `;
 
-export const Signup = (props) => {
+export const Signup = ({ setShowSignupModal, handleModal }) => {
   const history = useHistory();
 
   const [SignupInfo, setSignupInfo] = useState({
@@ -93,19 +93,16 @@ export const Signup = (props) => {
     setSuccess(true);
   };
   const exitButton = () => {
-    props.handleModal();
-  };
-  const CloseSignup = () => {
-    props.setShowSignupModal(false);
+    setShowSignupModal(false);
+    handleModal();
   };
 
-	const OnClick = (key) => (e) => {
-		setSignupInfo({ ...SignupInfo, [key]: e.target.value });
-	};
-	const OnClickCheck = (e) => {
-		setPasswordCheck(e.target.value);
-	};
-
+  const OnClick = (key) => (e) => {
+    setSignupInfo({ ...SignupInfo, [key]: e.target.value });
+  };
+  const OnClickCheck = (e) => {
+    setPasswordCheck(e.target.value);
+  };
 
   const SignupButton = async () => {
     if (!SignupInfo.email && !SignupInfo.password && !SignupInfo.username) {
