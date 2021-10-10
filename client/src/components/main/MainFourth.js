@@ -15,7 +15,7 @@ export const MainFourth = () => {
         <li>지금까지 참여한 크루를 기준으로 달린 거리를 확인할 수 있어요!</li>
         <li>열심히 달리면 메달도 얻을 수 있답니다.</li>
       </InfoText>
-      <ImgContainer src="img/hanRiver_map.png" {...fadeIn}></ImgContainer>
+      <ImgContainer src="img/medal.gif" {...fadeIn}></ImgContainer>
     </Contanier>
   );
 };

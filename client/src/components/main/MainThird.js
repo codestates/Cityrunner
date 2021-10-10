@@ -56,7 +56,7 @@ export const MainThird = () => {
 
   return (
     <Contaniner>
-      <ImgContainer src="img/crews3.png" {...fadeIn}></ImgContainer>
+      <ImgContainer src="img/createRoom.gif" {...fadeIn}></ImgContainer>
       <InfoText>
         <h1 {...text}>크루원을 모집해 보아요!</h1>
         <br />

@@ -58,11 +58,21 @@ export const FilterList = ({ setinfo }) => {
 		const reuslt = [];
 		if (curHours < 12) {
 			for (let i = curHours; i < 12; i++) {
-				reuslt.push(<option value={i}> {i}:00</option>);
+				reuslt.push(
+					<option key={i} value={i}>
+						{" "}
+						{i}:00
+					</option>
+				);
 			}
 		} else {
 			for (let i = curHours; i < 24; i++) {
-				reuslt.push(<option value={i}> {i}:00</option>);
+				reuslt.push(
+					<option key={i} value={i}>
+						{" "}
+						{i}:00
+					</option>
+				);
 			}
 		}
 

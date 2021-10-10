@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { theme } from "../../themes/theme";
 import { flexCenter, flexColum } from "../../themes/flex";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { logoutUser, setIsLogin } from "../../redux/modules/user";
 
 const ModalContainer = styled.div`
   position: fixed;
@@ -91,6 +93,13 @@ const Input = styled.div`
 `;
 
 export const Signout = ({ MyRunDistance, handleSignoutModal }) => {
+  const dispatch = useDispatch();
+
+  const onLogout = () => {
+    dispatch(logoutUser);
+    dispatch(setIsLogin(false));
+    localStorage.removeItem("userinfo");
+  };
   const [exit, setExit] = useState(false);
   let runDis = 0;
   const OnChange = (key) => (e) => {
@@ -109,6 +118,7 @@ export const Signout = ({ MyRunDistance, handleSignoutModal }) => {
       })
       .then(() => {
         handleSignoutModal();
+        onLogout();
         window.location.href = "http://cityrunner.site/";
       });
   };

@@ -14,8 +14,8 @@ export const CreateRoom = ({ setIsModal }) => {
 		location: "",
 		title: "",
 		comment: "",
-		member: 0,
-		max: 0,
+		member: 1,
+		max: 1,
 		distance: 0,
 	});
 	const isModal = useSelector((state) => state.filterMap.modal);

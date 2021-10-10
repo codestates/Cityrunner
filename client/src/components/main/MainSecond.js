@@ -15,7 +15,7 @@ export const MainSecond = () => {
         <li>시간, 난이도, 거리 등 다양한 조건으로 크루를 찾을 수 있어요.</li>
         <li>원하는 크루에 참가해 크루원들끼리 채팅을 나눠보세요.</li>
       </InfoText>
-      <Iamge src="img/crews2.jpg" {...fadeIn}></Iamge>
+      <Iamge src="img/filter.gif" {...fadeIn}></Iamge>
     </Contanier>
   );
 };

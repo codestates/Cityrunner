@@ -12,7 +12,7 @@ export const Chat = () => {
 	const dispatch = useDispatch();
 	const roomsinfo = useSelector((state) => state.room.post);
 	const history = useHistory();
-	const [status, setStatus] = useState(false);
+	const [status, setStatus] = useState(true);
 
 	const url = "http://api.cityrunner.site";
 
@@ -21,6 +21,10 @@ export const Chat = () => {
 	useEffect(async () => {
 		await axios.get(`${url}/mycrew`, { withCredentials: true }).then((data) => {
 			setMyroomdata(data.data.data);
+			console.log(data);
+			if (data.status === 204) {
+				return setStatus(false);
+			}
 		});
 	}, []);
 
@@ -34,10 +38,6 @@ export const Chat = () => {
 	};
 
 	useEffect(() => {}, [onDeleteRoom]);
-
-	const onBack = () => {
-		return history.push("/Matching");
-	};
 
 	return (
 		<>
@@ -67,15 +67,18 @@ export const Chat = () => {
 					</CommentBtn>
 				</Contanier>
 			) : (
+				<IsLoading></IsLoading>
+			)}
+			{!status ? (
 				<MakeModal>
 					<DialogBlock>
-						<h2>참여중인 방이 없습니다</h2>
-						<Backenter>
-							<h3 onClick={onBack}>확인</h3>
+						<h3>참여중인 방이 없습니다.</h3>
+						<Backenter onClick={() => history.push("/Matching")}>
+							<h4>확인</h4>
 						</Backenter>
 					</DialogBlock>
 				</MakeModal>
-			)}
+			) : null}
 		</>
 	);
 };
@@ -129,6 +132,12 @@ const CommentBtn = styled.div`
 			transition: 0.4s;
 		}
 	}
+
+	@media ${theme.mobileS} {
+		button {
+			width: 100px;
+		}
+	}
 `;
 
 const MakeModal = styled.div`
@@ -139,7 +148,6 @@ const MakeModal = styled.div`
 	height: 100%;
 	${flexCenter}
 	background: rgba(0, 0, 0, 0.6);
-	z-index: 1;
 `;
 
 const DialogBlock = styled.div`
@@ -150,6 +158,7 @@ const DialogBlock = styled.div`
 	background: white;
 	border-radius: 15px;
 	${flexColum}
+	z-index: 3;
 `;
 
 const Backenter = styled.div`
