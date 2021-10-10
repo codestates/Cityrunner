@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { flexCenter, flexColum } from "../../themes/flex";
 import { useCallback, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import room, { getRooms } from "../../redux/modules/room";
 import Pagination from "react-js-pagination";
 import { setPost } from "../../redux/modules/room";
@@ -14,7 +14,6 @@ import { modalclose } from "../../redux/modules/filterMap";
 
 const RoomCard = ({ info }) => {
 	const dispatch = useDispatch();
-
 	const [modal, setModal] = useState(false);
 	const [savedata, setsavedata] = useState([]);
 	const [page, setPage] = useState(1);
