@@ -41,7 +41,9 @@ export const Header = () => {
 		dispatch(logoutUser);
 		dispatch(setIsLogin(false));
 		localStorage.removeItem("userinfo");
+		window.location.reload();
 	};
+
 	const goMain = () => {
 		history.push("/");
 	};

@@ -12,16 +12,25 @@ export const Chat = () => {
 	const dispatch = useDispatch();
 	const roomsinfo = useSelector((state) => state.room.post);
 	const history = useHistory();
-	const [status, setStatus] = useState(false);
+	const [status, setStatus] = useState(true);
 
 	const url = "http://api.cityrunner.site";
 
 	const [myroomdata, setMyroomdata] = useState();
 
 	useEffect(async () => {
-		await axios.get(`${url}/mycrew`, { withCredentials: true }).then((data) => {
-			setMyroomdata(data.data.data);
-		});
+		await axios
+			.get(`${url}/mycrew`, { withCredentials: true })
+			.then((data) => {
+				setMyroomdata(data.data.data);
+			})
+			.catch((err) => {
+				if (err.response.status === 205) {
+					return setStatus(false);
+				} else if (err.response.status === 204) {
+					return setStatus(false);
+				}
+			});
 	}, []);
 
 	const onExitRoom = (id) => {
@@ -34,10 +43,6 @@ export const Chat = () => {
 	};
 
 	useEffect(() => {}, [onDeleteRoom]);
-
-	const onBack = () => {
-		return history.push("/Matching");
-	};
 
 	return (
 		<>
@@ -67,14 +72,19 @@ export const Chat = () => {
 					</CommentBtn>
 				</Contanier>
 			) : (
+				<IsLoading></IsLoading>
+			)}
+			{!status ? (
 				<MakeModal>
 					<DialogBlock>
-						<h2>참여중인 방이 없습니다</h2>
-						<Backenter>
-							<h3 onClick={onBack}>확인</h3>
+						<h3>참여중인 방이 없습니다.</h3>
+						<Backenter onClick={() => history.push("/Matching")}>
+							<h4>확인</h4>
 						</Backenter>
 					</DialogBlock>
 				</MakeModal>
+			) : (
+				<IsLoading></IsLoading>
 			)}
 		</>
 	);
