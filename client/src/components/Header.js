@@ -41,7 +41,7 @@ export const Header = () => {
 		dispatch(logoutUser);
 		dispatch(setIsLogin(false));
 		localStorage.removeItem("userinfo");
-		window.location.reload();
+		window.location.href = "http://cityrunner.site";
 	};
 
 	const goMain = () => {
