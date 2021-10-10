@@ -20,6 +20,7 @@ const size = {
 	tabletL: "1023px",
 	laptop: "710px",
 	desktop: "1023px",
+	desktopL: "930px",
 };
 
 export const theme = {

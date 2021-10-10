@@ -43,6 +43,7 @@ export const Header = () => {
 		localStorage.removeItem("userinfo");
 		window.location.href = "http://cityrunner.site";
 	};
+
 	const goMain = () => {
 		history.push("/");
 	};
