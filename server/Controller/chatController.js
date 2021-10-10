@@ -12,16 +12,6 @@ const {
 } = require("./Functions/tokenFunction");
 
 module.exports = {
-  createAndSendMessage: async (req, res) => {
-    const { comment, memberId, postId } = req.body;
-    console.log(req.body);
-    await models.chattingLog.create({
-      comment: comment,
-      memberId: memberId,
-      postId: postId,
-    });
-    return res.status(200).send("ok");
-  },
   getMessage: async (req, res) => {
     // GET end point : /chat/:postId
     // const postId = req.params.postId;
@@ -71,12 +61,5 @@ module.exports = {
     // 대화방에 가는 유저가 맞는지 판단하기위해서
 
     return res.json({ data: chattingLogs, userid: data.id, postId: postId });
-  },
-  deleteMessage: async (req, res) => {
-    // DELETE end point : /chat/:postId/:chatroomId
-  },
-  enterMessage: async (req, res) => {},
-  reportUser: async (req, res) => {
-    // POST end point : /chat/:chatroom/:userid
   },
 };
