@@ -1,7 +1,7 @@
 # **Overview**
 배포 URL <http://cityrunner.site>
 
-## **마크**
+## **intro**
 
 ![](https://images.velog.io/images/jmean12/post/1f468a55-20b8-4554-a6ea-2a63458b8266/logo192%20%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB.png)
 
