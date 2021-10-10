@@ -1,6 +1,9 @@
 # **Overview**
 배포 URL <http://cityrunner.site>
 
+#**마크**
+![](https://images.velog.io/images/jmean12/post/f5e6ddfd-abef-4b59-9e7c-95d751fc6245/logo512%20%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB.png)
+
 ## **Features**
 - 한강 공원을 중심으로 함께 달릴 크루원을 모집할 수 있습니다.
 
