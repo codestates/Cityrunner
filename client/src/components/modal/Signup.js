@@ -6,29 +6,30 @@ import axios from "axios";
 import { Link, useHistory, Redirect } from "react-router-dom";
 
 const ModalContainer = styled.div`
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	${flexCenter}
-	z-index:10;
-	background: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  ${flexCenter}
+  z-index:10;
+  background: rgba(0, 0, 0, 0.3);
 `;
 
 const Modal = styled.div`
-	width: 320px;
-	height: 500px;
-	padding: 1rem;
-	background: white;
-	z-index: 10;
-	border-radius: 15px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	h3 {
-		${flexCenter}
-	}
+  width: 320px;
+  height: 500px;
+  padding: 1rem;
+  background: white;
+  z-index: 10;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  h3 {
+    ${flexCenter}
+  }
 `;
 
 const Input = styled.div`
@@ -68,26 +69,36 @@ const LoginBtn = styled.div`
   }
 `;
 const Congra = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 const ImgCon = styled.img`
-	width: 280px;
-	height: auto;
+  width: 280px;
+  height: auto;
 `;
-
-export const Signup = ({ setShowSignupModal, handleModal }) => {
+const CloseModal = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: right;
+  cursor: pointer;
+`;
+export const Signup = ({
+  setShowSignupModal,
+  handleModal,
+  handleSignupModal,
+}) => {
   const history = useHistory();
 
-	const [SignupInfo, setSignupInfo] = useState({
-		email: "",
-		password: "",
-		username: "",
-	});
-	const [PasswordCheck, setPasswordCheck] = useState("");
-	const [Success, setSuccess] = useState(false);
+  const [SignupInfo, setSignupInfo] = useState({
+    email: "",
+    password: "",
+    username: "",
+  });
+  const [PasswordCheck, setPasswordCheck] = useState("");
+  const [Success, setSuccess] = useState(false);
   const handleSuccess = () => {
     setSuccess(true);
   };
@@ -132,6 +143,7 @@ export const Signup = ({ setShowSignupModal, handleModal }) => {
     <>
       <ModalContainer>
         <Modal onClick={(e) => e.stopPropagation()}>
+          <CloseModal onClick={handleSignupModal}>X</CloseModal>
           {!Success ? (
             <div>
               <Title>회원가입</Title>
