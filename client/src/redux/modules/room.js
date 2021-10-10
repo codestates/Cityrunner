@@ -43,7 +43,7 @@ export const createRoom = async () => {
 };
 
 export const exitRoom = async (roomId) => {
-	const room = await axios.put(`${url}/posts/exit/${roomId}`, {
+	const room = await axios.delete(`${url}/posts/exit/${roomId}`, {
 		withCredentials: true,
 	});
 	return {
