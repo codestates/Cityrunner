@@ -19,18 +19,13 @@ export const Chat = () => {
 	const [myroomdata, setMyroomdata] = useState();
 
 	useEffect(async () => {
-		await axios
-			.get(`${url}/mycrew`, { withCredentials: true })
-			.then((data) => {
-				setMyroomdata(data.data.data);
-			})
-			.catch((err) => {
-				if (err.response.status === 205) {
-					return setStatus(false);
-				} else if (err.response.status === 204) {
-					return setStatus(false);
-				}
-			});
+		await axios.get(`${url}/mycrew`, { withCredentials: true }).then((data) => {
+			setMyroomdata(data.data.data);
+			console.log(data);
+			if (data.status === 204) {
+				return setStatus(false);
+			}
+		});
 	}, []);
 
 	const onExitRoom = (id) => {
@@ -83,9 +78,7 @@ export const Chat = () => {
 						</Backenter>
 					</DialogBlock>
 				</MakeModal>
-			) : (
-				<IsLoading></IsLoading>
-			)}
+			) : null}
 		</>
 	);
 };
@@ -139,6 +132,12 @@ const CommentBtn = styled.div`
 			transition: 0.4s;
 		}
 	}
+
+	@media ${theme.mobileS} {
+		button {
+			width: 100px;
+		}
+	}
 `;
 
 const MakeModal = styled.div`
@@ -149,7 +148,6 @@ const MakeModal = styled.div`
 	height: 100%;
 	${flexCenter}
 	background: rgba(0, 0, 0, 0.6);
-	z-index: 1;
 `;
 
 const DialogBlock = styled.div`
@@ -160,6 +158,7 @@ const DialogBlock = styled.div`
 	background: white;
 	border-radius: 15px;
 	${flexColum}
+	z-index: 3;
 `;
 
 const Backenter = styled.div`
