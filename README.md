@@ -1,5 +1,5 @@
 # **City Runner**
-> 도심을 달리는 
+> 도심을 달리는 러닝크루 찾기
 
 ![메인페이지](https://user-images.githubusercontent.com/53087860/136703814-6d9727f3-04aa-41a6-986a-8fe1c7d3f6db.gif)
 배포 URL <http://cityrunner.site>
