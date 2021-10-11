@@ -6,7 +6,7 @@ async function PostImage({ image, description }) {
   formData.append("description", description);
 
   const result = await axios.post(
-    "https://api.cityrunner.site/images",
+    "https://api.cityrunner.site:4000/images",
     formData,
     {
       headers: { "Content-Type": "multipart/form-data" },

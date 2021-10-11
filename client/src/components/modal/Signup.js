@@ -122,7 +122,7 @@ export const Signup = ({
         alert("새 비밀번호를 확인해주세요.");
       } else {
         await axios
-          .post(`https://api.cityrunner.site/user/signup`, SignupInfo, {
+          .post(`https://api.cityrunner.site:4000/user/signup`, SignupInfo, {
             withCredentials: true,
           })
           .then((res) => {

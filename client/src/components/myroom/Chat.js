@@ -14,7 +14,7 @@ export const Chat = () => {
   const history = useHistory();
   const [status, setStatus] = useState(true);
 
-  const url = "https://api.cityrunner.site";
+  const url = "https://api.cityrunner.site:4000";
 
   const [myroomdata, setMyroomdata] = useState();
 

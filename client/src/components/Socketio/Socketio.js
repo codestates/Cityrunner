@@ -8,7 +8,7 @@ import { theme } from "../../themes/theme";
 import { useState } from "react";
 import { flexCenter } from "../../themes/flex";
 
-let socket = new WebSocket(`ws://api.cityrunner.site/chat`);
+let socket = new WebSocket(`wss://api.cityrunner.site:4000/chat`);
 
 export const Socketio = () => {
   const [userid, setUserid] = useState("");
@@ -21,7 +21,7 @@ export const Socketio = () => {
   //userid, roomid가 필요함
 
   useEffect(async () => {
-    const axiosGet = await axios.get(`https://api.cityrunner.site/chat/`, {
+    const axiosGet = await axios.get(`https://api.cityrunner.site:4000/chat/`, {
       withCredentials: true,
     });
     console.log(axiosGet);

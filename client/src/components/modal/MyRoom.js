@@ -16,7 +16,7 @@ export const MyRoom = ({ handleCloseModal }) => {
 
   const onEnterRoom = async () => {
     await axios
-      .put(`https://api.cityrunner.site/posts/join/${roomsinfo.id}`, "", {
+      .put(`https://api.cityrunner.site:4000/posts/join/${roomsinfo.id}`, "", {
         withCredentials: true,
       })
       .then(() => {
