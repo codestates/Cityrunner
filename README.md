@@ -3,7 +3,7 @@
 
 ![메인페이지](https://user-images.githubusercontent.com/53087860/136703814-6d9727f3-04aa-41a6-986a-8fe1c7d3f6db.gif)
 배포 URL <http://cityrunner.site>
-## **intro**
+## **ICON**
 
 ![](https://images.velog.io/images/jmean12/post/1f468a55-20b8-4554-a6ea-2a63458b8266/logo192%20%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB.png)
 
