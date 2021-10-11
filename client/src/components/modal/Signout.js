@@ -113,7 +113,7 @@ export const Signout = ({ MyRunDistance, handleSignoutModal }) => {
 
   const SignoutButton = () => {
     axios
-      .delete("http://api.cityrunner.site/user/signout", {
+      .delete("http://api.cityrunner.site:4000/user/signout", {
         withCredentials: true,
       })
       .then(() => {
