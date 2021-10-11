@@ -113,13 +113,13 @@ export const Signout = ({ MyRunDistance, handleSignoutModal }) => {
 
   const SignoutButton = () => {
     axios
-      .delete("http://api.cityrunner.site/user/signout", {
+      .delete("https://api.cityrunner.site/user/signout", {
         withCredentials: true,
       })
       .then(() => {
         handleSignoutModal();
         onLogout();
-        window.location.href = "http://cityrunner.site/";
+        window.location.href = "https://cityrunner.site/";
       });
   };
   return (

@@ -90,7 +90,7 @@ export const Fix = ({ handleFixModal, handleUpdate }) => {
         alert("새 비밀번호를 확인해주세요.");
       } else {
         axios
-          .patch(`http://api.cityrunner.site/mypage`, FixInfo, {
+          .patch(`https://api.cityrunner.site/mypage`, FixInfo, {
             withCredentials: true,
           })
           .then((res) => {
