@@ -8,7 +8,7 @@ import { theme } from "../../themes/theme";
 import { useState } from "react";
 import { flexCenter } from "../../themes/flex";
 
-let socket = new WebSocket(`wss://api.cityrunner.site/chat`);
+let socket = new WebSocket(`ws://api.cityrunner.site/chat`);
 
 export const Socketio = () => {
   const [userid, setUserid] = useState("");
