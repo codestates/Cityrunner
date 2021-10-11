@@ -53,13 +53,9 @@ export const exitRoom = async (roomId) => {
 };
 
 export const deleteRoom = async (roomId) => {
-	const room = await axios
-		.delete(`${url}/posts/${roomId}`, {
-			withCredentials: true,
-		})
-		.then(() => {
-			return (window.location.href = "http://api.cityrunner.site/Matching");
-		});
+	const room = await axios.delete(`${url}/posts/${roomId}`, {
+		withCredentials: true,
+	});
 	return {
 		type: DELETE_ROOM,
 		payload: room,
