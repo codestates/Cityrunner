@@ -47,5 +47,5 @@
 
 
 ## **프로젝트 소개**
-
+[More Information](https://https://github.com/codestates/Cityrunner/wiki, "wiki link")
 
