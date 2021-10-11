@@ -25,7 +25,7 @@ export const Main = () => {
       // Google Login
       const authorizationCode = url.hash.split("=")[1].split("&")[0];
       await axios
-        .post("https://api.cityrunner.site/user/oauth", {
+        .post("https://api.cityrunner.site:4000/user/oauth", {
           authorizationCode,
           category: "google",
         })
@@ -55,7 +55,7 @@ export const Main = () => {
         .then(async (res) => {
           const access_token = res.data.access_token;
           await axios
-            .post("https://api.cityrunner.site/user/oauth", {
+            .post("https://api.cityrunner.site:4000/user/oauth", {
               authorizationCode: access_token,
               category: "kakao",
             })

@@ -25,7 +25,7 @@ export const CreateRoom = ({ setIsModal }) => {
     setIsModal(false);
   };
 
-  const url = "httpss://api.cityrunner.site";
+  const url = "https://api.cityrunner.site:4000";
 
   const onRoompost = async () => {
     await axios
