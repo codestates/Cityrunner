@@ -10,7 +10,7 @@ export const PreviousChat = () => {
   const [userid, setUserid] = useState("");
 
   useEffect(async () => {
-    const axiosGet = await axios.get(`http://api.cityrunner.site/chat/`, {
+    const axiosGet = await axios.get(`https://api.cityrunner.site/chat/`, {
       withCredentials: true,
     });
 

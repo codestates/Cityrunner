@@ -21,7 +21,7 @@ export const Socketio = () => {
   //userid, roomid가 필요함
 
   useEffect(async () => {
-    const axiosGet = await axios.get(`http://api.cityrunner.site/chat/`, {
+    const axiosGet = await axios.get(`https://api.cityrunner.site/chat/`, {
       withCredentials: true,
     });
     console.log(axiosGet);
