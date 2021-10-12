@@ -54,7 +54,7 @@ export const LoginModal = () => {
       client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
       uri: "https://cityrunner.site",
       scope:
-        "httpss://www.googleapis.com/auth/userinfo.profile httpss://www.googleapis.com/auth/userinfo.email",
+        "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
     },
     kakao: {
       client_id: `${process.env.REACT_APP_KAKAO_CLIENT_ID}e`,
@@ -65,11 +65,11 @@ export const LoginModal = () => {
   const oauthHandler = (category) => {
     if (category === "google") {
       window.location
-        .assign(`httpss://accounts.google.com/o/oauth2/v2/auth?client_id=${oauth.google.client_id}&
+        .assign(`https://accounts.google.com/o/oauth2/v2/auth?client_id=${oauth.google.client_id}&
 response_type=token&redirect_uri=${oauth.google.uri}&scope=${oauth.google.scope}`); //! 줄 바꿈 수정하면 에러나요ㅠㅠ 들여쓰기 없이 딱 붙어있어야 정상작동!
     } else if (category === "kakao") {
       window.location
-        .assign(`httpss://kauth.kakao.com/oauth/authorize?client_id=${oauth.kakao.client_id}&
+        .assign(`https://kauth.kakao.com/oauth/authorize?client_id=${oauth.kakao.client_id}&
 redirect_uri=${oauth.kakao.uri}&response_type=code`);
     }
   };
